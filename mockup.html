@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="copyright" content="© 2026 IDCare s.r.o. Všetky práva vyhradené.">
+<meta name="author" content="IDCare s.r.o.">
+<title>IDCare — Profesionálna záchranná služba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0e14;
+    --bg-2: #0f141c;
+    --bg-3: #141a24;
+    --panel: #161d28;
+    --line: rgba(255,255,255,0.08);
+    --line-2: rgba(255,255,255,0.04);
+    --text: #e8ecf2;
+    --text-dim: #98a2b3;
+    --text-mute: #667085;
+    --red: #e11d2a;
+    --red-2: #ff3543;
+    --red-glow: rgba(225,29,42,0.35);
+    --green: #16a34a;
+    --radius: 14px;
+    --max: 1240px;
+    --t: cubic-bezier(.2,.7,.2,1);
+    --nav-h: 76px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:hidden}
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x:hidden;
+    padding-top: var(--nav-h);
+    position:relative;
+  }
+  section[id]{scroll-margin-top:90px}
+  h1,h2,h3,h4{font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:-0.02em;line-height:1.1;font-weight:700}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .container{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  /* ------------------ CURSOR GLOW (subtle background light following cursor) ------------------ */
+  .cursor-glow{
+    position:fixed;
+    width:600px;height:600px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(225,29,42,0.13) 0%, rgba(225,29,42,0.04) 35%, transparent 70%);
+    pointer-events:none;
+    z-index:1;
+    left:-9999px;top:-9999px;
+    transform: translate3d(-50%,-50%,0);
+    transition: opacity .4s var(--t);
+    mix-blend-mode: screen;
+    will-change: transform;
+    opacity:0;
+  }
+  body.glow-on .cursor-glow{opacity:1}
+
+  /* ------------------ FIXED NAV (always visible) ------------------ */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    background: rgba(8,11,16,0.78);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    backdrop-filter: blur(22px) saturate(160%);
+    border-bottom:1px solid var(--line);
+    height: var(--nav-h);
+    transition: background .3s var(--t), border-color .3s var(--t);
+  }
+  .nav.scrolled{
+    background: rgba(8,11,16,0.92);
+    border-color: rgba(225,29,42,0.18);
+    box-shadow: 0 6px 30px rgba(0,0,0,0.4);
+  }
+  .nav .row{display:flex;align-items:center;justify-content:space-between;height:100%}
+  .logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+  .logo-mark{
+    width:42px;height:42px;border-radius:11px;
+    background: linear-gradient(135deg,var(--red) 0%, #a8121d 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow: 0 6px 20px var(--red-glow);
+    position:relative;
+  }
+  .logo-mark svg{width:22px;height:22px;color:#fff}
+  .logo-text{display:flex;flex-direction:column;line-height:1}
+  .logo-text .name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em}
+  .logo-text .name span{color:var(--red-2)}
+  .logo-text .sub{font-size:9.5px;color:var(--text-mute);letter-spacing:0.18em;text-transform:uppercase;margin-top:3px;font-weight:600}
+  .menu{display:flex;gap:4px;align-items:center}
+  .menu a{
+    padding:9px 14px;color:var(--text-dim);font-weight:500;font-size:14.5px;
+    border-radius:8px;transition:all .15s var(--t);position:relative;
+  }
+  .menu a:hover{color:#fff;background:rgba(255,255,255,0.05)}
+  .menu a.active{color:#fff}
+  .menu a.active::after{
+    content:"";position:absolute;left:14px;right:14px;bottom:4px;height:2px;
+    background:var(--red-2);border-radius:2px;
+    box-shadow:0 0 12px var(--red-2);
+  }
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .lang{display:flex;gap:1px;background:rgba(255,255,255,0.04);border-radius:8px;padding:3px}
+  .lang button{
+    background:none;border:0;color:var(--text-dim);
+    padding:5px 10px;font-size:12px;font-weight:600;border-radius:6px;cursor:pointer;
+    font-family:inherit;letter-spacing:0.04em;transition:all .15s var(--t);
+  }
+  .lang button.active{background:var(--red);color:#fff;box-shadow:0 2px 10px var(--red-glow)}
+  .lang button:hover:not(.active){color:#fff}
+  .nav-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--red);color:#fff;padding:10px 18px;border-radius:8px;
+    font-weight:600;font-size:14px;
+    box-shadow:0 4px 14px var(--red-glow);
+    transition: all .2s var(--t);
+    position:relative;
+    isolation:isolate;
+  }
+  .nav-cta svg{width:14px;height:14px}
+  .nav-cta:hover{background:var(--red-2);transform:translateY(-1px);box-shadow:0 6px 22px var(--red-glow)}
+  .burger{display:none;background:none;border:0;color:#fff;cursor:pointer;padding:8px}
+  .burger svg{width:24px;height:24px}
+
+  /* ------------------ BUTTONS WITH PARTICLE GLOW HOVER ------------------ */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:14px 26px;border-radius:10px;font-weight:600;font-size:15px;
+    cursor:pointer;border:0;transition: all .25s var(--t);font-family:inherit;
+    position:relative;
+    isolation:isolate;
+  }
+  .btn svg{width:16px;height:16px}
+  .btn-primary{background:var(--red);color:#fff;box-shadow:0 6px 20px var(--red-glow)}
+  .btn-primary:hover{background:var(--red-2);transform:translateY(-2px);box-shadow:0 10px 28px var(--red-glow)}
+  .btn-ghost{background:rgba(255,255,255,0.05);color:#fff;border:1px solid var(--line);backdrop-filter:blur(6px)}
+  .btn-ghost:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);transform:translateY(-2px)}
+
+  /* particle orbs floating around buttons on hover */
+  .btn::before, .btn::after{
+    content:"";position:absolute;border-radius:50%;
+    pointer-events:none;z-index:-1;
+    opacity:0;transition:opacity .55s var(--t);
+    will-change: transform, opacity;
+  }
+  .btn-primary::before{
+    width:90px;height:90px;
+    background: radial-gradient(circle, #ff3543 0%, transparent 65%);
+    top:-28px;left:-22px;
+    filter: blur(8px);
+    animation: orbA 4.5s infinite ease-in-out;
+  }
+  .btn-primary::after{
+    width:75px;height:75px;
+    background: radial-gradient(circle, #e11d2a 0%, transparent 65%);
+    bottom:-20px;right:-22px;
+    filter: blur(10px);
+    animation: orbB 5.5s infinite ease-in-out 0.6s;
+  }
+  .btn-primary:hover::before{opacity:0.95}
+  .btn-primary:hover::after{opacity:1}
+
+  .btn-ghost::before{
+    width:80px;height:80px;
+    background: radial-gradient(circle, rgba(255,53,67,0.7) 0%, transparent 65%);
+    top:-22px;left:-18px;
+    filter: blur(10px);
+    animation: orbA 4.5s infinite ease-in-out;
+  }
+  .btn-ghost::after{
+    width:65px;height:65px;
+    background: radial-gradient(circle, rgba(102,112,133,0.7) 0%, transparent 65%);
+    bottom:-18px;right:-15px;
+    filter: blur(10px);
+    animation: orbB 5.5s infinite ease-in-out 0.6s;
+  }
+  .btn-ghost:hover::before{opacity:0.8}
+  .btn-ghost:hover::after{opacity:0.85}
+
+  .nav-cta::before, .nav-cta::after{
+    content:"";position:absolute;border-radius:50%;
+    pointer-events:none;z-index:-1;
+    opacity:0;transition:opacity .5s var(--t);
+  }
+  .nav-cta::before{
+    width:70px;height:70px;
+    background: radial-gradient(circle, #ff3543 0%, transparent 65%);
+    top:-22px;left:-18px;filter:blur(10px);
+    animation: orbA 4.5s infinite ease-in-out;
+  }
+  .nav-cta::after{
+    width:55px;height:55px;
+    background: radial-gradient(circle, #e11d2a 0%, transparent 65%);
+    bottom:-15px;right:-12px;filter:blur(10px);
+    animation: orbB 5.5s infinite ease-in-out 0.4s;
+  }
+  .nav-cta:hover::before{opacity:0.9}
+  .nav-cta:hover::after{opacity:1}
+
+  @keyframes orbA{
+    0%,100%{transform:translate(0,0) scale(1)}
+    33%{transform:translate(28px,18px) scale(1.2)}
+    66%{transform:translate(-12px,24px) scale(0.85)}
+  }
+  @keyframes orbB{
+    0%,100%{transform:translate(0,0) scale(1)}
+    33%{transform:translate(-22px,-16px) scale(1.18)}
+    66%{transform:translate(20px,-8px) scale(0.9)}
+  }
+
+  /* ------------------ HERO ------------------ */
+  .hero{
+    position:relative;overflow:hidden;
+    padding: 70px 0 110px;
+    background:
+      radial-gradient(1100px 500px at 80% -10%, rgba(225,29,42,0.18), transparent 60%),
+      radial-gradient(800px 400px at 10% 60%, rgba(225,29,42,0.08), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero .row{display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background: rgba(225,29,42,0.1);border:1px solid rgba(225,29,42,0.25);
+    color: #ffb4ba;padding:7px 14px;border-radius:100px;
+    font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
+    margin-bottom:24px;
+  }
+  .badge::before{content:"";width:7px;height:7px;background:var(--red-2);border-radius:50%;box-shadow:0 0 10px var(--red-2);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  .hero h1{
+    font-size: clamp(40px, 5.4vw, 68px);
+    margin-bottom: 22px;
+  }
+  .hero h1 .accent{
+    color:var(--red-2);
+    position:relative;
+  }
+  .hero p.lead{
+    font-size:18px;color:var(--text-dim);max-width:540px;margin-bottom:36px;
+  }
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-stats{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+    margin-top:48px;padding-top:32px;border-top:1px solid var(--line);
+    max-width:560px;
+  }
+  .stat .num{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;color:#fff;letter-spacing:-0.02em}
+  .stat .num span{color:var(--red-2)}
+  .stat .lbl{font-size:12px;color:var(--text-mute);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px;font-weight:600}
+
+  /* hero right - visual card */
+  .hero-visual{
+    position:relative;
+    aspect-ratio: 4/5;
+    border-radius:20px;overflow:hidden;
+    background:
+      linear-gradient(135deg, rgba(225,29,42,0.4) 0%, rgba(10,14,20,0.95) 60%),
+      linear-gradient(45deg, #1a1f2c, #0a0e14);
+    border:1px solid var(--line);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(225,29,42,0.08);
+  }
+  .hero-visual::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 30px, rgba(255,255,255,0.02) 30px 31px),
+      repeating-linear-gradient(90deg, transparent 0 30px, rgba(255,255,255,0.02) 30px 31px);
+  }
+  .hero-visual .cross{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:55%;
+    animation: floatY 6s ease-in-out infinite;
+  }
+  @keyframes floatY{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 12px))}}
+  .hero-visual .cross svg{width:100%;height:auto;filter:drop-shadow(0 20px 50px rgba(225,29,42,0.6))}
+  .hero-visual .placeholder-tag{
+    position:absolute;bottom:20px;left:20px;
+    padding:6px 12px;border-radius:6px;background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(8px);font-size:11px;color:var(--text-mute);
+    letter-spacing:0.1em;text-transform:uppercase;font-weight:600;
+    border:1px solid var(--line);
+  }
+  .hero-visual .float-card{
+    position:absolute;
+    background: rgba(15,20,28,0.92);
+    backdrop-filter:blur(14px);
+    border:1px solid var(--line);
+    border-radius:12px;padding:14px 16px;
+    display:flex;align-items:center;gap:12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  .float-card.top{top:24px;right:24px;animation: floatA 5s ease-in-out infinite}
+  .float-card.bottom{bottom:80px;right:24px;animation: floatB 6s ease-in-out infinite 0.5s}
+  @keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  @keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .float-icon{
+    width:38px;height:38px;border-radius:9px;
+    background:linear-gradient(135deg,var(--red),#7a0d15);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .float-icon svg{width:18px;height:18px;color:#fff}
+  .float-card .l1{font-size:13px;font-weight:600;color:#fff}
+  .float-card .l2{font-size:11px;color:var(--text-mute);margin-top:2px}
+
+  /* ------------------ SECTIONS ------------------ */
+  section{padding:120px 0;position:relative}
+  .sec-head{text-align:center;margin-bottom:60px}
+  .sec-head .eyebrow{
+    display:inline-block;color:var(--red-2);font-size:13px;
+    letter-spacing:0.2em;text-transform:uppercase;font-weight:700;
+    margin-bottom:14px;
+  }
+  .sec-head h2{font-size:clamp(30px,3.4vw,46px);margin-bottom:14px}
+  .sec-head p{color:var(--text-dim);max-width:600px;margin:0 auto;font-size:17px}
+
+  /* ============================================================
+     SCROLL-DRIVEN SECTION FLOW
+     Sections enter from right with 3D tilt, settle in center,
+     then leave back to the right with rotation.
+     Uses native CSS scroll-driven animations (no JS).
+     ============================================================ */
+  .scroll-flow{
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+  @keyframes section-flow{
+    0%   { transform: translateX(40%) scale(0.95); opacity: 0; }
+    25%, 75% { transform: translateX(0) scale(1); opacity: 1; }
+    100% { transform: translateX(-25%) scale(0.96); opacity: 0; }
+  }
+  @supports (animation-timeline: view()){
+    .scroll-flow{
+      animation: section-flow linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+  /* fallback: simple slide-in for browsers without scroll-driven anim */
+  @supports not (animation-timeline: view()){
+    .scroll-flow{
+      opacity:0;
+      transform: translateX(80px) scale(0.96);
+      transition: opacity .8s var(--t), transform .8s var(--t);
+    }
+    .scroll-flow.is-visible{
+      opacity:1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  /* inner reveal for items inside sections — slight stagger */
+  .stagger > *{
+    opacity:0;
+    transform: translateY(20px);
+    transition: opacity .7s var(--t), transform .7s var(--t);
+  }
+  .stagger.is-visible > *{opacity:1;transform:none}
+  .stagger.is-visible > *:nth-child(1){transition-delay:.05s}
+  .stagger.is-visible > *:nth-child(2){transition-delay:.15s}
+  .stagger.is-visible > *:nth-child(3){transition-delay:.25s}
+  .stagger.is-visible > *:nth-child(4){transition-delay:.35s}
+
+  /* ABOUT */
+  .about{background:var(--bg-2);position:relative;overflow:hidden}
+  .about .grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .about-img{
+    aspect-ratio:5/4;border-radius:18px;overflow:hidden;
+    background:
+      linear-gradient(135deg, rgba(225,29,42,0.25), rgba(0,0,0,0.6)),
+      linear-gradient(45deg, #1a1f2c, #0a0e14);
+    border:1px solid var(--line);
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .about-img .ph{
+    color:var(--text-mute);font-size:13px;letter-spacing:0.15em;
+    text-transform:uppercase;font-weight:600;text-align:center;
+  }
+  .about-img .ph svg{width:48px;height:48px;display:block;margin:0 auto 14px;color:var(--red-2);opacity:0.6}
+  .about h2{font-size:clamp(28px,3vw,42px);margin-bottom:22px}
+  .about p{color:var(--text-dim);margin-bottom:16px;font-size:16.5px}
+  .feature-list{margin-top:28px;display:flex;flex-direction:column;gap:14px}
+  .feature{display:flex;gap:14px;align-items:flex-start}
+  .feature .ico{
+    width:36px;height:36px;border-radius:9px;flex-shrink:0;
+    background:rgba(225,29,42,0.12);border:1px solid rgba(225,29,42,0.25);
+    display:flex;align-items:center;justify-content:center;color:var(--red-2);
+  }
+  .feature .ico svg{width:16px;height:16px}
+  .feature .t1{font-weight:600;color:#fff;font-size:15px}
+  .feature .t2{color:var(--text-dim);font-size:14px;margin-top:2px}
+
+  /* SERVICES */
+  .services{background:var(--bg);overflow:hidden}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .svc-card{
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-3) 100%);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding:32px 28px;
+    transition: all .25s var(--t);
+    position:relative;overflow:hidden;
+    isolation:isolate;
+  }
+  .svc-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--red),transparent);
+    opacity:0;transition:opacity .3s var(--t);
+  }
+  .svc-card::after{
+    content:"";position:absolute;width:280px;height:280px;border-radius:50%;
+    top:-100px;right:-100px;
+    background: radial-gradient(circle, rgba(225,29,42,0.35) 0%, transparent 65%);
+    filter: blur(40px);
+    opacity:0;transition:opacity .5s var(--t);z-index:-1;pointer-events:none;
+  }
+  .svc-card:hover{transform:translateY(-6px);border-color:rgba(225,29,42,0.3);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
+  .svc-card:hover::before{opacity:1}
+  .svc-card:hover::after{opacity:1}
+  .svc-icon{
+    width:54px;height:54px;border-radius:12px;
+    background:linear-gradient(135deg,var(--red),#7a0d15);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:22px;box-shadow:0 8px 22px var(--red-glow);
+    transition: transform .3s var(--t);
+  }
+  .svc-card:hover .svc-icon{transform:scale(1.08) rotate(-4deg)}
+  .svc-icon svg{width:26px;height:26px;color:#fff}
+  .svc-card h3{font-size:21px;margin-bottom:12px}
+  .svc-card p{color:var(--text-dim);font-size:15px;margin-bottom:20px}
+  .svc-link{color:var(--red-2);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;transition:gap .2s var(--t)}
+  .svc-link:hover{gap:10px}
+
+  /* EVENTS / AKCIE */
+  .events{background:var(--bg-2);overflow:hidden}
+  .year-tabs{
+    display:flex;justify-content:center;gap:8px;margin-bottom:50px;flex-wrap:wrap;
+  }
+  .year-tab{
+    background:rgba(255,255,255,0.04);border:1px solid var(--line);
+    color:var(--text-dim);padding:9px 20px;border-radius:100px;
+    font-weight:600;font-size:14px;cursor:pointer;transition:all .2s var(--t);font-family:inherit;
+    position:relative;isolation:isolate;
+  }
+  .year-tab:hover{color:#fff;border-color:rgba(255,255,255,0.18);transform:translateY(-1px)}
+  .year-tab.active{background:var(--red);color:#fff;border-color:var(--red);box-shadow:0 6px 20px var(--red-glow)}
+  .year-tab.active::after{
+    content:"";position:absolute;inset:-12px;
+    background: radial-gradient(circle, rgba(225,29,42,0.45), transparent 65%);
+    filter: blur(16px);z-index:-1;opacity:0.7;
+  }
+  .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .event-card{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;
+    transition:all .25s var(--t);cursor:pointer;
+    position:relative;isolation:isolate;
+  }
+  .event-card::after{
+    content:"";position:absolute;width:220px;height:220px;border-radius:50%;
+    bottom:-80px;left:-80px;
+    background: radial-gradient(circle, rgba(225,29,42,0.25) 0%, transparent 65%);
+    filter: blur(40px);opacity:0;transition:opacity .5s var(--t);z-index:-1;pointer-events:none;
+  }
+  .event-card:hover{transform:translateY(-5px);border-color:rgba(225,29,42,0.3);box-shadow:0 20px 40px rgba(0,0,0,0.4)}
+  .event-card:hover::after{opacity:1}
+  .event-img{
+    aspect-ratio:16/10;background:
+      linear-gradient(135deg, rgba(225,29,42,0.25), rgba(0,0,0,0.7)),
+      linear-gradient(45deg, #1a1f2c, #0a0e14);
+    position:relative;display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .event-img .ph-text{color:var(--text-mute);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;font-weight:600;opacity:0.6}
+  .event-date{
+    position:absolute;top:12px;left:12px;
+    background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);
+    padding:5px 10px;border-radius:6px;font-size:11px;font-weight:700;
+    color:#fff;letter-spacing:0.05em;
+  }
+  .event-tag{
+    position:absolute;top:12px;right:12px;
+    background:var(--red);padding:5px 10px;border-radius:6px;
+    font-size:10px;font-weight:700;color:#fff;
+    letter-spacing:0.1em;text-transform:uppercase;
+  }
+  .event-body{padding:22px 22px 24px}
+  .event-body h4{font-size:17px;margin-bottom:8px;color:#fff;font-family:'Inter',sans-serif;font-weight:700}
+  .event-body p{color:var(--text-dim);font-size:14px;line-height:1.55}
+  .event-meta{
+    margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;font-size:12px;color:var(--text-mute);
+  }
+  .event-meta span{display:flex;align-items:center;gap:5px}
+  .event-meta svg{width:13px;height:13px}
+
+  /* TEAM */
+  .team{background:var(--bg);overflow:hidden}
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .team-card{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;
+    transition:all .25s var(--t);
+    position:relative;isolation:isolate;
+  }
+  .team-card::after{
+    content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+    top:-100px;left:50%;transform:translateX(-50%);
+    background: radial-gradient(circle, rgba(225,29,42,0.25) 0%, transparent 65%);
+    filter:blur(40px);opacity:0;transition:opacity .5s var(--t);z-index:-1;pointer-events:none;
+  }
+  .team-card:hover{transform:translateY(-5px);border-color:rgba(225,29,42,0.3)}
+  .team-card:hover::after{opacity:1}
+  .avatar-box{
+    aspect-ratio:1/1;
+    background:linear-gradient(135deg, rgba(225,29,42,0.15), rgba(0,0,0,0.5));
+    display:flex;align-items:center;justify-content:center;
+    position:relative;border-bottom:1px solid var(--line);
+  }
+  .avatar{
+    width:110px;height:110px;border-radius:50%;
+    background:linear-gradient(135deg,var(--red),#7a0d15);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:38px;color:#fff;
+    box-shadow:0 12px 30px var(--red-glow);
+    border:3px solid var(--bg-2);
+    transition: transform .3s var(--t);
+  }
+  .team-card:hover .avatar{transform:scale(1.05)}
+  .team-body{padding:20px;text-align:center}
+  .team-body h4{font-size:17px;margin-bottom:4px;font-family:'Inter',sans-serif;font-weight:700}
+  .team-role{color:var(--red-2);font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:10px}
+  .team-body p{color:var(--text-dim);font-size:13.5px;line-height:1.5}
+
+  /* CTA STRIP */
+  .cta-strip{
+    background: linear-gradient(135deg, #1a0509 0%, #0a0e14 100%);
+    border-top:1px solid rgba(225,29,42,0.18);
+    border-bottom:1px solid rgba(225,29,42,0.18);
+    padding:70px 0;position:relative;overflow:hidden;
+  }
+  .cta-strip::before{
+    content:"";position:absolute;inset:0;
+    background: radial-gradient(circle at 20% 50%, rgba(225,29,42,0.18), transparent 50%);
+    animation: shimmer 8s ease-in-out infinite;
+  }
+  @keyframes shimmer{0%,100%{opacity:1;transform:translateX(0)}50%{opacity:0.6;transform:translateX(30px)}}
+  .cta-strip .row{display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;z-index:1;flex-wrap:wrap}
+  .cta-strip h3{font-size:clamp(24px,2.4vw,32px);max-width:600px}
+  .cta-strip h3 span{color:var(--red-2)}
+  .cta-strip .btn{padding:16px 32px;font-size:16px}
+
+  /* CONTACT */
+  .contact{background:var(--bg-2);overflow:hidden}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start}
+  .contact-info h3{font-size:24px;margin-bottom:24px}
+  .info-list{display:flex;flex-direction:column;gap:20px;margin-bottom:32px}
+  .info-item{display:flex;gap:16px;align-items:flex-start}
+  .info-item .ico{
+    width:44px;height:44px;border-radius:11px;flex-shrink:0;
+    background:rgba(225,29,42,0.1);border:1px solid rgba(225,29,42,0.2);
+    display:flex;align-items:center;justify-content:center;color:var(--red-2);
+    transition: all .2s var(--t);
+  }
+  .info-item:hover .ico{background:rgba(225,29,42,0.18);box-shadow:0 0 20px rgba(225,29,42,0.3);transform:scale(1.05)}
+  .info-item .ico svg{width:18px;height:18px}
+  .info-item .lbl{font-size:12px;color:var(--text-mute);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:4px}
+  .info-item .val{font-size:15.5px;color:#fff;font-weight:500}
+  .info-item .val a:hover{color:var(--red-2)}
+  .contact-form{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:36px;
+    position:relative;isolation:isolate;
+  }
+  .contact-form::before{
+    content:"";position:absolute;width:300px;height:300px;border-radius:50%;
+    top:-120px;right:-120px;
+    background: radial-gradient(circle, rgba(225,29,42,0.18) 0%, transparent 65%);
+    filter:blur(50px);z-index:-1;
+  }
+  .contact-form h3{font-size:22px;margin-bottom:8px}
+  .contact-form p.sub{color:var(--text-dim);font-size:14px;margin-bottom:24px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .form-input{
+    width:100%;background:var(--bg-3);border:1px solid var(--line);
+    color:#fff;padding:13px 16px;border-radius:10px;
+    font-size:14.5px;font-family:inherit;transition:all .15s var(--t);
+  }
+  .form-input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(225,29,42,0.15)}
+  .form-input::placeholder{color:var(--text-mute)}
+  textarea.form-input{resize:vertical;min-height:120px;margin-bottom:18px}
+  .form-submit{width:100%;justify-content:center;font-size:15px}
+
+  /* FOOTER */
+  footer{background:#060a0f;padding:60px 0 30px;border-top:1px solid var(--line)}
+  .ft-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px;margin-bottom:46px}
+  .ft-col h5{font-size:13px;text-transform:uppercase;letter-spacing:0.12em;color:#fff;margin-bottom:18px;font-family:'Inter',sans-serif;font-weight:700}
+  .ft-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .ft-col a{color:var(--text-dim);font-size:14px;transition:color .15s var(--t)}
+  .ft-col a:hover{color:var(--red-2)}
+  .ft-about p{color:var(--text-dim);font-size:14px;line-height:1.65;margin:16px 0 22px;max-width:340px}
+  .ft-social{display:flex;gap:10px;margin-top:18px}
+  .ft-social a{
+    width:36px;height:36px;border-radius:9px;
+    background:rgba(255,255,255,0.04);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;color:var(--text-dim);
+    transition: all .2s var(--t);
+  }
+  .ft-social a:hover{background:var(--red);border-color:var(--red);color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px var(--red-glow)}
+  .ft-social svg{width:16px;height:16px}
+  .ft-bottom{
+    border-top:1px solid var(--line);padding-top:24px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    color:var(--text-mute);font-size:13px;
+  }
+  .ft-legal{
+    margin-top:18px;padding-top:18px;
+    border-top:1px solid var(--line-2);
+    color:var(--text-mute);font-size:11.5px;line-height:1.55;
+    max-width:900px;
+    letter-spacing:0.01em;
+  }
+
+  /* responsive */
+  @media (max-width: 1100px){
+    .menu{gap:0}
+    .menu a{padding:8px 11px;font-size:13.5px}
+  }
+  @media (max-width: 980px){
+    body{perspective:none}
+    .scroll-flow{transform:none !important;opacity:1 !important;animation:none !important}
+    .hero .row{grid-template-columns:1fr;gap:50px}
+    .hero-visual{max-width:480px;margin:0 auto}
+    .about .grid{grid-template-columns:1fr;gap:40px}
+    .svc-grid{grid-template-columns:1fr}
+    .events-grid{grid-template-columns:1fr 1fr}
+    .team-grid{grid-template-columns:1fr 1fr}
+    .contact-grid{grid-template-columns:1fr;gap:40px}
+    .ft-grid{grid-template-columns:1fr 1fr;gap:30px}
+    .menu{display:none}
+    .menu.open{
+      display:flex;position:absolute;top:var(--nav-h);left:0;right:0;
+      background:rgba(8,11,16,0.98);backdrop-filter:blur(20px);
+      flex-direction:column;padding:18px 24px;
+      border-bottom:1px solid var(--line);
+    }
+    .menu.open a{padding:12px 8px}
+    .burger{display:flex}
+    .nav-right .lang{display:none}
+  }
+  @media (max-width:580px){
+    .events-grid,.team-grid{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
+    .hero-stats{grid-template-columns:1fr 1fr}
+    section{padding:80px 0}
+    .nav-cta span.label{display:none}
+    .nav-cta{padding:10px 12px}
+  }
+
+  /* ============================================================
+     EQUIPMENT SECTION — interactive scene with hotspots
+     ============================================================ */
+  .equipment{background:var(--bg);overflow:hidden;position:relative}
+  .equipment::before{
+    content:"";position:absolute;width:600px;height:600px;border-radius:50%;
+    top:30%;left:-200px;
+    background:radial-gradient(circle,rgba(225,29,42,0.08),transparent 65%);
+    filter:blur(60px);pointer-events:none;
+  }
+  .scene-toolbar{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:24px;gap:20px;flex-wrap:wrap;
+  }
+  .scene-toggle{
+    display:inline-flex;background:rgba(255,255,255,0.04);
+    border:1px solid var(--line);border-radius:100px;padding:4px;gap:2px;
+  }
+  .scene-btn{
+    background:none;border:0;color:var(--text-dim);
+    padding:9px 22px;border-radius:100px;font-weight:600;font-size:14px;
+    cursor:pointer;font-family:inherit;transition:all .2s var(--t);
+    position:relative;isolation:isolate;
+  }
+  .scene-btn:hover{color:#fff}
+  .scene-btn.active{background:var(--red);color:#fff;box-shadow:0 4px 16px var(--red-glow)}
+  .scene-btn.active::after{
+    content:"";position:absolute;inset:-8px;
+    background:radial-gradient(circle,rgba(225,29,42,0.4),transparent 70%);
+    filter:blur(14px);z-index:-1;
+  }
+  .scene-hint{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:13px;color:var(--text-dim);
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--line);
+    padding:8px 14px;border-radius:100px;
+  }
+  .scene-hint .dot-pulse{
+    width:8px;height:8px;border-radius:50%;background:var(--red-2);
+    box-shadow:0 0 10px var(--red-2);
+    animation:pulse 1.6s infinite;
+  }
+
+  .scene-stage{
+    position:relative;
+    border-radius:18px;overflow:hidden;
+    background: linear-gradient(180deg, #0e131d 0%, #161d28 100%);
+    border:1px solid var(--line);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+    aspect-ratio: 12/7;
+    perspective: 1500px;
+  }
+
+  .scene{
+    position:absolute;inset:0;
+    opacity:0;
+    transform: scale(0.96) translateX(40px);
+    transition: opacity .55s var(--t), transform .55s var(--t);
+    pointer-events:none;
+  }
+  .scene.scene-active{
+    opacity:1;
+    transform: scale(1) translateX(0);
+    pointer-events:auto;
+  }
+  .scene-svg{
+    width:100%;height:100%;display:block;
+    transform-style: preserve-3d;
+    transition: transform .15s linear;
+  }
+  .scene-stage:hover .scene-svg{
+    /* slight 3D tilt on mouse — set via JS variables */
+    transform: rotateY(var(--rx, 0deg)) rotateX(var(--ry, 0deg));
+  }
+  /* parallax layers */
+  .layer{transition: transform .15s linear}
+
+  /* HOTSPOT — pulsing red dot that user can click */
+  .hotspot{
+    position:absolute;
+    transform: translate(-50%,-50%);
+    background:none;border:0;cursor:pointer;
+    padding:0;display:flex;align-items:center;gap:10px;
+    isolation:isolate;
+  }
+  .hs-dot{
+    position:relative;
+    width:18px;height:18px;border-radius:50%;
+    background:var(--red);
+    box-shadow:0 0 0 6px rgba(225,29,42,0.18), 0 0 18px var(--red);
+    flex-shrink:0;
+    transition: transform .2s var(--t);
+  }
+  .hs-dot::before{
+    content:"";position:absolute;inset:-2px;border-radius:50%;
+    border:2px solid var(--red-2);
+    animation: hsPulse 2s infinite;
+  }
+  .hs-dot::after{
+    content:"";position:absolute;inset:3px;border-radius:50%;
+    background: radial-gradient(circle, #fff 0%, transparent 60%);
+    opacity:0.85;
+  }
+  @keyframes hsPulse{
+    0%{transform:scale(1);opacity:1}
+    100%{transform:scale(2.6);opacity:0}
+  }
+  .hs-label{
+    background:rgba(0,0,0,0.85);
+    backdrop-filter:blur(10px);
+    color:#fff;font-size:12px;font-weight:600;
+    padding:6px 12px;border-radius:8px;
+    border:1px solid rgba(225,29,42,0.3);
+    white-space:nowrap;
+    opacity:0;transform:translateX(-8px);
+    transition: opacity .2s var(--t), transform .2s var(--t);
+    pointer-events:none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  .hotspot:hover .hs-dot{transform:scale(1.25)}
+  .hotspot:hover .hs-label{opacity:1;transform:translateX(0)}
+  .hotspot:focus-visible{outline:2px solid var(--red-2);outline-offset:6px;border-radius:6px}
+
+  /* Special "ambulance" hotspot — wider tap area */
+  .hotspot[data-action="interior"] .hs-dot{
+    background: linear-gradient(135deg, var(--red), #7a0d15);
+    box-shadow:0 0 0 8px rgba(225,29,42,0.22), 0 0 24px var(--red);
+  }
+
+  /* Back to exterior button (inside interior scene) */
+  .back-to-ext{
+    position:absolute;top:18px;left:18px;
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(8,11,16,0.85);backdrop-filter:blur(10px);
+    border:1px solid var(--line);color:#fff;
+    padding:9px 16px;border-radius:100px;
+    font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
+    transition:all .2s var(--t);z-index:5;
+  }
+  .back-to-ext svg{width:14px;height:14px}
+  .back-to-ext:hover{background:var(--red);border-color:var(--red);box-shadow:0 6px 20px var(--red-glow)}
+
+  /* ===== Detail modal ===== */
+  .eq-modal{
+    position:fixed;inset:0;z-index:5000;
+    background: rgba(5,8,12,0.85);
+    backdrop-filter: blur(14px);
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+    opacity:0;pointer-events:none;
+    transition:opacity .3s var(--t);
+  }
+  .eq-modal.open{opacity:1;pointer-events:auto}
+  .eq-modal-card{
+    max-width:900px;width:100%;max-height:88vh;
+    background: linear-gradient(180deg, var(--panel), var(--bg-3));
+    border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    display:grid;grid-template-columns:1.2fr 1fr;
+    position:relative;
+    box-shadow:0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(225,29,42,0.1);
+    transform:translateY(20px) scale(0.97);
+    transition: transform .35s var(--t);
+  }
+  .eq-modal.open .eq-modal-card{transform:translateY(0) scale(1)}
+  .eq-modal-close{
+    position:absolute;top:14px;right:14px;z-index:2;
+    width:38px;height:38px;border-radius:50%;
+    background:rgba(0,0,0,0.5);border:1px solid var(--line);
+    color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .2s var(--t);
+  }
+  .eq-modal-close:hover{background:var(--red);border-color:var(--red);transform:rotate(90deg)}
+  .eq-modal-close svg{width:16px;height:16px}
+  .eq-modal-img{
+    background:
+      linear-gradient(135deg, rgba(225,29,42,0.15) 0%, rgba(0,0,0,0.7) 70%),
+      radial-gradient(circle at 30% 30%, rgba(225,29,42,0.1), transparent 60%),
+      #0e131d;
+    min-height:300px;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    border-right:1px solid var(--line);
+  }
+  .eq-modal-img::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 90% 70% at center, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at center, #000 30%, transparent 75%);
+  }
+  .eq-modal-ph{
+    text-align:center;color:var(--text-mute);
+    font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;
+    padding:24px;position:relative;z-index:1;
+  }
+  .eq-modal-ph svg{width:54px;height:54px;display:block;margin:0 auto 14px;color:var(--red-2);opacity:0.65}
+  .eq-modal-info{padding:38px 34px;display:flex;flex-direction:column;gap:14px;overflow-y:auto}
+  .eq-modal-tag{
+    color:var(--red-2);font-size:11px;letter-spacing:0.2em;
+    text-transform:uppercase;font-weight:700;
+  }
+  .eq-modal-info h3{font-size:26px;line-height:1.2}
+  .eq-modal-info p{color:var(--text-dim);font-size:15px;line-height:1.65}
+  .eq-modal-meta{
+    margin-top:8px;padding-top:18px;border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:10px;
+  }
+  .eq-modal-meta .chip{
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(225,29,42,0.08);border:1px solid rgba(225,29,42,0.18);
+    color:#ffb4ba;padding:5px 11px;border-radius:100px;
+    font-size:12px;font-weight:600;
+  }
+
+  @media (max-width:780px){
+    .eq-modal-card{grid-template-columns:1fr;max-height:92vh;overflow-y:auto}
+    .eq-modal-img{border-right:0;border-bottom:1px solid var(--line);min-height:220px}
+    .scene-stage{aspect-ratio: 4/3.2}
+    .hs-label{display:none}
+    .scene-toolbar{flex-direction:column;align-items:stretch}
+  }
+
+  /* Prefer reduced motion — kill heavy effects */
+  @media (prefers-reduced-motion: reduce){
+    .scroll-flow,.float-card.top,.float-card.bottom,.hero-visual .cross,
+    .cta-strip::before,.btn::before,.btn::after,.nav-cta::before,.nav-cta::after,
+    .hs-dot::before,.scene-hint .dot-pulse{
+      animation:none !important;transition:none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- cursor glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- FIXED NAV (always visible) -->
+<nav class="nav" id="nav">
+  <div class="container row">
+    <a href="#top" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6V2z"/></svg>
+      </div>
+      <div class="logo-text">
+        <div class="name">ID<span>Care</span></div>
+        <div class="sub">Záchranná služba</div>
+      </div>
+    </a>
+    <div class="menu" id="menu">
+      <a href="#about" class="menu-link" data-i18n="m_about">O nás</a>
+      <a href="#services" class="menu-link" data-i18n="m_services">Ponúkame</a>
+      <a href="#equipment" class="menu-link" data-i18n="m_equipment">Vybavenie</a>
+      <a href="#events" class="menu-link" data-i18n="m_events">Akcie</a>
+      <a href="#team" class="menu-link" data-i18n="m_team">Tím</a>
+      <a href="#contact" class="menu-link" data-i18n="m_contact">Kontakt</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang" id="langSwitch">
+        <button class="active" data-lang="sk">SK</button>
+        <button data-lang="cz">CZ</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="de">DE</button>
+      </div>
+      <a href="#contact" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.91.71 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.58 2.81.71A2 2 0 0 1 22 16.92z"/></svg>
+        <span class="label" data-i18n="m_cta">Nezáväzná ponuka</span>
+      </a>
+      <button class="burger" id="burger" onclick="document.getElementById('menu').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<a id="top"></a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container row">
+    <div>
+      <div class="badge" data-i18n="h_badge">24/7 PROFESIONÁLNA ZDRAVOTNÁ SLUŽBA</div>
+      <h1 data-i18n="h_title">Pripravení zachraňovať <span class="accent">každú sekundu.</span></h1>
+      <p class="lead" data-i18n="h_lead">Skúsený tím záchranárov a lekárov so špičkovým vybavením. Zdravotné zabezpečenie podujatí, kurzy prvej pomoci a asistenčné služby — bez kompromisov.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary" data-i18n="h_cta1">
+          Vyžiadať ponuku
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#services" class="btn btn-ghost" data-i18n="h_cta2">Naše služby</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">4500<span>+</span></div><div class="lbl" data-i18n="s1">Zabezpečených podujatí</div></div>
+        <div class="stat"><div class="num">2500<span>+</span></div><div class="lbl" data-i18n="s2">Vyškolených ľudí</div></div>
+        <div class="stat"><div class="num">24/7</div><div class="lbl" data-i18n="s3">Dostupnosť</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="cross">
+        <svg viewBox="0 0 100 100" fill="none">
+          <path d="M40 10 H60 V40 H90 V60 H60 V90 H40 V60 H10 V40 H40 Z" fill="#e11d2a"/>
+        </svg>
+      </div>
+      <div class="float-card top">
+        <div class="float-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <div class="l1" data-i18n="hv1">Akreditovaní</div>
+          <div class="l2" data-i18n="hv1s">MZ SR</div>
+        </div>
+      </div>
+      <div class="float-card bottom">
+        <div class="float-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="l1" data-i18n="hv2">Reakcia &lt; 60s</div>
+          <div class="l2" data-i18n="hv2s">Na mieste podujatia</div>
+        </div>
+      </div>
+      <div class="placeholder-tag">Foto sanitky / tímu</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about scroll-flow" id="about">
+  <div class="container">
+    <div class="grid">
+      <div class="about-img">
+        <div class="ph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Foto tímu / vybavenia
+        </div>
+      </div>
+      <div>
+        <div class="sec-head" style="text-align:left;margin-bottom:0">
+          <div class="eyebrow" data-i18n="a_eyebrow">O IDCare</div>
+          <h2 data-i18n="a_title">Záchranná služba, na ktorú sa môžete spoľahnúť</h2>
+        </div>
+        <p data-i18n="a_p1" style="margin-top:18px">IDCare je tím skúsených zdravotníckych záchranárov, lekárov a vyškolených zdravotníkov, ktorí poskytujú profesionálne zdravotnícke služby na podujatiach, kurzoch a v rámci asistenčnej činnosti.</p>
+        <p data-i18n="a_p2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+        <div class="feature-list">
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><div class="t1" data-i18n="f1t">Akreditácia MZ SR</div><div class="t2" data-i18n="f1d">Platná akreditácia kurzov prvej pomoci.</div></div>
+          </div>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><div class="t1" data-i18n="f2t">Špičkové vybavenie</div><div class="t2" data-i18n="f2d">Sanitky a technika spĺňajúca najprísnejšie normy.</div></div>
+          </div>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><div class="t1" data-i18n="f3t">Individuálny prístup</div><div class="t2" data-i18n="f3d">Riešenie šité na mieru každému klientovi.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES / PONUKAME -->
+<section class="services scroll-flow" id="services">
+  <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow" data-i18n="sv_eye">PONÚKAME</div>
+      <h2 data-i18n="sv_title">Naše služby</h2>
+      <p data-i18n="sv_lead">Komplexné zdravotnícke služby s dôrazom na profesionalitu, bezpečnosť a spoľahlivosť.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+        </div>
+        <h3 data-i18n="sc1t">Zdravotná služba na podujatiach</h3>
+        <p data-i18n="sc1d">Profesionálne zdravotnícke zabezpečenie športových, kultúrnych a spoločenských podujatí — od malých eventov po veľké koncerty a športové súťaže.</p>
+        <a href="#" class="svc-link">Zistiť viac
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3 data-i18n="sc2t">Kurzy prvej pomoci</h3>
+        <p data-i18n="sc2d">Akreditované kurzy a praktické školenia s dôrazom na reálne scenáre. Pre firmy, školy aj jednotlivcov.</p>
+        <a href="#" class="svc-link">Zistiť viac
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </div>
+        <h3 data-i18n="sc3t">Zdravotné asistenčné služby</h3>
+        <p data-i18n="sc3d">Asistenčná zdravotná podpora pre súkromné aj firemné subjekty. Spoľahlivá pomoc tam, kde ju potrebujete.</p>
+        <a href="#" class="svc-link">Zistiť viac
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPMENT — interactive scene -->
+<section class="equipment scroll-flow" id="equipment">
+  <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow" data-i18n="eq_eye">VYBAVENIE</div>
+      <h2 data-i18n="eq_title">Pozrite si naše vybavenie</h2>
+      <p data-i18n="eq_lead">Interaktívna prehliadka sanitky a výbavy záchranárov. Kliknite na ľubovoľný prvok pre detail. Po dodaní 3D skenu alebo fotiek nahradíme všetky placeholdery.</p>
+    </div>
+
+    <div class="scene-toolbar">
+      <div class="scene-toggle">
+        <button class="scene-btn active" data-scene="exterior" data-i18n="eq_ext">Exteriér</button>
+        <button class="scene-btn" data-scene="interior" data-i18n="eq_int">Interiér sanitky</button>
+      </div>
+      <div class="scene-hint" data-i18n="eq_hint">
+        <span class="dot-pulse"></span>
+        Kliknite na červené body pre detail
+      </div>
+    </div>
+
+    <div class="scene-stage" id="sceneStage">
+      <!-- EXTERIOR SCENE -->
+      <div class="scene scene-active" id="sceneExterior">
+        <svg class="scene-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <radialGradient id="floor" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stop-color="#1c2230"/>
+              <stop offset="100%" stop-color="#0a0e14"/>
+            </radialGradient>
+            <linearGradient id="amb-body" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1f2737"/>
+              <stop offset="100%" stop-color="#141a26"/>
+            </linearGradient>
+            <linearGradient id="amb-top" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ff3543"/>
+              <stop offset="100%" stop-color="#a8121d"/>
+            </linearGradient>
+            <linearGradient id="cab" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a2030"/>
+              <stop offset="100%" stop-color="#0e131d"/>
+            </linearGradient>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(225,29,42,0.35)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+          </defs>
+
+          <!-- floor / ground -->
+          <ellipse cx="600" cy="620" rx="560" ry="60" fill="url(#floor)" opacity="0.7"/>
+          <!-- ambient red glow under ambulance -->
+          <ellipse cx="850" cy="540" rx="240" ry="35" fill="url(#glow)" opacity="0.5"/>
+
+          <!-- AMBULANCE (side view, slightly 3/4) -->
+          <g class="layer layer-back" data-depth="0.4">
+            <!-- shadow -->
+            <ellipse cx="850" cy="555" rx="280" ry="14" fill="rgba(0,0,0,0.6)"/>
+          </g>
+
+          <g class="layer layer-mid" data-depth="0.7" transform="translate(560 230)">
+            <!-- main body -->
+            <rect x="0" y="20" width="560" height="270" rx="14" fill="url(#amb-body)" stroke="#2a3140" stroke-width="1.5"/>
+            <!-- red top strip -->
+            <rect x="0" y="20" width="560" height="50" rx="14" fill="url(#amb-top)"/>
+            <rect x="0" y="55" width="560" height="15" fill="url(#amb-top)"/>
+            <!-- light bar -->
+            <rect x="180" y="6" width="120" height="14" rx="2" fill="#ff3543"/>
+            <rect x="186" y="9" width="16" height="8" fill="#fff" opacity="0.7"/>
+            <rect x="276" y="9" width="16" height="8" fill="#fff" opacity="0.7"/>
+            <!-- cab front -->
+            <path d="M 0 90 Q 0 70 22 70 L 130 70 L 180 160 L 180 290 L 0 290 Z" fill="url(#cab)"/>
+            <!-- windshield -->
+            <path d="M 22 85 L 130 85 L 170 155 L 22 155 Z" fill="#0a0e14" opacity="0.95"/>
+            <line x1="60" y1="85" x2="60" y2="155" stroke="#22293a" stroke-width="1.5"/>
+            <!-- side window -->
+            <rect x="200" y="85" width="160" height="80" rx="3" fill="#0a0e14" opacity="0.95"/>
+            <line x1="280" y1="85" x2="280" y2="165" stroke="#22293a" stroke-width="1.5"/>
+            <!-- back doors -->
+            <rect x="380" y="85" width="170" height="180" rx="3" fill="#181f2c" stroke="#2a3140"/>
+            <line x1="465" y1="85" x2="465" y2="265" stroke="#2a3140" stroke-width="2"/>
+            <rect x="395" y="100" width="60" height="70" fill="#0a0e14" opacity="0.9" rx="2"/>
+            <rect x="475" y="100" width="60" height="70" fill="#0a0e14" opacity="0.9" rx="2"/>
+            <!-- handles -->
+            <rect x="455" y="180" width="5" height="40" rx="2" fill="#3a4150"/>
+            <rect x="470" y="180" width="5" height="40" rx="2" fill="#3a4150"/>
+            <!-- red cross emblem -->
+            <g transform="translate(290 200)">
+              <rect x="-30" y="-9" width="60" height="18" rx="2" fill="#ff3543"/>
+              <rect x="-9" y="-30" width="18" height="60" rx="2" fill="#ff3543"/>
+            </g>
+            <!-- side panel detail line -->
+            <line x1="180" y1="195" x2="380" y2="195" stroke="#2a3140" stroke-width="1.2"/>
+            <!-- "IDCARE" text -->
+            <text x="200" y="245" font-family="Space Grotesk, Inter, sans-serif" font-weight="800" font-size="22" fill="#fff" letter-spacing="2">IDCARE</text>
+            <text x="200" y="262" font-family="Inter, sans-serif" font-weight="600" font-size="9" fill="#98a2b3" letter-spacing="3">ZÁCHRANNÁ SLUŽBA</text>
+            <!-- wheels -->
+            <g>
+              <circle cx="100" cy="305" r="38" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/>
+              <circle cx="100" cy="305" r="22" fill="#1a2030"/>
+              <circle cx="100" cy="305" r="6" fill="#3a4150"/>
+            </g>
+            <g>
+              <circle cx="450" cy="305" r="38" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/>
+              <circle cx="450" cy="305" r="22" fill="#1a2030"/>
+              <circle cx="450" cy="305" r="6" fill="#3a4150"/>
+            </g>
+            <!-- headlight -->
+            <ellipse cx="8" cy="190" rx="6" ry="20" fill="#ffd76b" opacity="0.4"/>
+          </g>
+
+          <!-- PARAMEDIC 1 (left) -->
+          <g class="layer layer-front" data-depth="1.1" transform="translate(180 360)">
+            <!-- shadow -->
+            <ellipse cx="0" cy="200" rx="44" ry="8" fill="rgba(0,0,0,0.5)"/>
+            <!-- legs -->
+            <rect x="-22" y="110" width="18" height="92" rx="4" fill="#0e1420"/>
+            <rect x="4" y="110" width="18" height="92" rx="4" fill="#0e1420"/>
+            <!-- boots -->
+            <rect x="-26" y="195" width="22" height="10" rx="2" fill="#000"/>
+            <rect x="4" y="195" width="22" height="10" rx="2" fill="#000"/>
+            <!-- body / jacket -->
+            <path d="M -30 25 Q -30 18 -22 18 L 22 18 Q 30 18 30 25 L 32 115 L -32 115 Z" fill="#162540"/>
+            <!-- red shoulders / reflective -->
+            <rect x="-32" y="60" width="64" height="6" fill="#ff3543"/>
+            <rect x="-32" y="90" width="64" height="3" fill="rgba(255,255,255,0.3)"/>
+            <!-- red cross on chest -->
+            <g transform="translate(0 45)">
+              <rect x="-10" y="-3" width="20" height="6" fill="#ff3543"/>
+              <rect x="-3" y="-10" width="6" height="20" fill="#ff3543"/>
+            </g>
+            <!-- arms -->
+            <rect x="-40" y="20" width="14" height="65" rx="6" fill="#162540"/>
+            <rect x="26" y="20" width="14" height="65" rx="6" fill="#162540"/>
+            <!-- gloves / hands -->
+            <circle cx="-33" cy="92" r="9" fill="#1a2540"/>
+            <circle cx="33" cy="92" r="9" fill="#1a2540"/>
+            <!-- neck -->
+            <rect x="-7" y="6" width="14" height="14" fill="#2a3550"/>
+            <!-- head -->
+            <circle cx="0" cy="-8" r="20" fill="#2a3550"/>
+            <!-- helmet shine -->
+            <ellipse cx="-4" cy="-14" rx="10" ry="5" fill="rgba(255,255,255,0.08)"/>
+            <!-- ID badge -->
+            <rect x="10" y="35" width="14" height="18" rx="1" fill="#fff" opacity="0.85"/>
+            <line x1="12" y1="40" x2="22" y2="40" stroke="#162540" stroke-width="0.8"/>
+            <line x1="12" y1="44" x2="22" y2="44" stroke="#162540" stroke-width="0.8"/>
+          </g>
+
+          <!-- PARAMEDIC 2 (right of first) -->
+          <g class="layer layer-front" data-depth="1.0" transform="translate(310 380)">
+            <ellipse cx="0" cy="180" rx="44" ry="8" fill="rgba(0,0,0,0.5)"/>
+            <rect x="-22" y="100" width="18" height="82" rx="4" fill="#0e1420"/>
+            <rect x="4" y="100" width="18" height="82" rx="4" fill="#0e1420"/>
+            <rect x="-26" y="175" width="22" height="10" rx="2" fill="#000"/>
+            <rect x="4" y="175" width="22" height="10" rx="2" fill="#000"/>
+            <path d="M -30 25 Q -30 18 -22 18 L 22 18 Q 30 18 30 25 L 32 105 L -32 105 Z" fill="#1a2c4a"/>
+            <rect x="-32" y="55" width="64" height="6" fill="#ff3543"/>
+            <rect x="-32" y="80" width="64" height="3" fill="rgba(255,255,255,0.3)"/>
+            <g transform="translate(0 42)">
+              <rect x="-10" y="-3" width="20" height="6" fill="#ff3543"/>
+              <rect x="-3" y="-10" width="6" height="20" fill="#ff3543"/>
+            </g>
+            <rect x="-40" y="20" width="14" height="60" rx="6" fill="#1a2c4a"/>
+            <rect x="26" y="20" width="14" height="60" rx="6" fill="#1a2c4a"/>
+            <circle cx="-33" cy="86" r="9" fill="#1f2c4a"/>
+            <circle cx="33" cy="86" r="9" fill="#1f2c4a"/>
+            <rect x="-7" y="6" width="14" height="14" fill="#3a4565"/>
+            <circle cx="0" cy="-8" r="20" fill="#3a4565"/>
+            <ellipse cx="-4" cy="-14" rx="10" ry="5" fill="rgba(255,255,255,0.08)"/>
+          </g>
+
+          <!-- BACKPACK 1 (at paramedic 1's feet) -->
+          <g class="layer layer-front" data-depth="1.2" transform="translate(120 510)">
+            <ellipse cx="0" cy="60" rx="42" ry="7" fill="rgba(0,0,0,0.6)"/>
+            <rect x="-35" y="-30" width="70" height="80" rx="8" fill="#1a2540" stroke="#2a3550" stroke-width="1.5"/>
+            <rect x="-35" y="-30" width="70" height="20" rx="8" fill="#0e1420"/>
+            <!-- straps -->
+            <rect x="-30" y="-30" width="6" height="80" fill="#0a0f1a"/>
+            <rect x="24" y="-30" width="6" height="80" fill="#0a0f1a"/>
+            <!-- red cross -->
+            <g transform="translate(0 15)">
+              <rect x="-12" y="-4" width="24" height="8" fill="#ff3543"/>
+              <rect x="-4" y="-12" width="8" height="24" fill="#ff3543"/>
+            </g>
+            <!-- pocket lines -->
+            <line x1="-25" y1="35" x2="25" y2="35" stroke="#2a3550" stroke-width="1"/>
+          </g>
+
+          <!-- BACKPACK 2 (oxygen, between paramedics) -->
+          <g class="layer layer-front" data-depth="1.15" transform="translate(245 525)">
+            <ellipse cx="0" cy="50" rx="38" ry="6" fill="rgba(0,0,0,0.6)"/>
+            <rect x="-32" y="-26" width="64" height="70" rx="8" fill="#1f3148" stroke="#2a3550" stroke-width="1.5"/>
+            <rect x="-32" y="-26" width="64" height="18" rx="8" fill="#0e1420"/>
+            <!-- O2 label -->
+            <text x="0" y="20" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="800" font-size="20" fill="#fff">O₂</text>
+            <line x1="-22" y1="32" x2="22" y2="32" stroke="#2a3550" stroke-width="1"/>
+          </g>
+
+          <!-- DEFIBRILLATOR (AED) on ground right of paramedic 2 -->
+          <g class="layer layer-front" data-depth="1.1" transform="translate(440 510)">
+            <ellipse cx="0" cy="50" rx="38" ry="6" fill="rgba(0,0,0,0.6)"/>
+            <rect x="-30" y="-20" width="60" height="60" rx="6" fill="#e0c000" stroke="#a08800"/>
+            <rect x="-26" y="-16" width="52" height="22" rx="2" fill="#0a0e14"/>
+            <polyline points="-22,-5 -16,-5 -13,-12 -10,2 -7,-8 -4,-5 22,-5" stroke="#16a34a" stroke-width="1.5" fill="none"/>
+            <path d="M 0 16 C -3 10 -10 12 -10 18 C -10 24 0 30 0 30 C 0 30 10 24 10 18 C 10 12 3 10 0 16 Z" fill="#ff3543"/>
+            <text x="0" y="48" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="7" fill="#0a0e14" letter-spacing="0.5">AED</text>
+          </g>
+
+          <!-- O2 BOTTLE next to ambulance -->
+          <g class="layer layer-front" data-depth="1.0" transform="translate(510 480)">
+            <ellipse cx="0" cy="85" rx="20" ry="5" fill="rgba(0,0,0,0.6)"/>
+            <rect x="-12" y="-30" width="24" height="115" rx="12" fill="#2c5a8a" stroke="#1a3a5a"/>
+            <rect x="-10" y="-30" width="20" height="20" rx="6" fill="#1a3a5a"/>
+            <rect x="-3" y="-38" width="6" height="12" fill="#3a4150"/>
+            <text x="0" y="30" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="800" font-size="11" fill="#fff">O₂</text>
+          </g>
+
+          <!-- MONITOR -->
+          <g class="layer layer-front" data-depth="1.05" transform="translate(940 470)">
+            <ellipse cx="0" cy="85" rx="40" ry="6" fill="rgba(0,0,0,0.6)"/>
+            <rect x="-35" y="-20" width="70" height="100" rx="6" fill="#1a2030" stroke="#2a3140"/>
+            <rect x="-30" y="-14" width="60" height="38" rx="2" fill="#0a0e14"/>
+            <polyline points="-26,8 -20,8 -16,-2 -12,16 -8,2 -4,8 26,8" stroke="#16a34a" stroke-width="1.5" fill="none"/>
+            <text x="0" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" fill="#98a2b3">HR 78 · SpO₂ 98</text>
+            <rect x="-28" y="48" width="56" height="28" rx="2" fill="#0e131d"/>
+            <circle cx="-18" cy="62" r="3" fill="#ff3543"/>
+            <circle cx="-6" cy="62" r="3" fill="#16a34a"/>
+            <circle cx="6" cy="62" r="3" fill="#e0c000"/>
+            <circle cx="18" cy="62" r="3" fill="#3a4150"/>
+          </g>
+
+          <!-- IMMOBILIZATION BOARD leaning on ambulance -->
+          <g class="layer layer-front" data-depth="0.95" transform="translate(1080 380)">
+            <rect x="-12" y="0" width="24" height="170" rx="3" fill="#e0a020" transform="rotate(8 0 85)"/>
+          </g>
+        </svg>
+
+        <!-- Exterior hotspots -->
+        <button class="hotspot" style="left:71%;top:42%" data-key="ambulance" data-action="interior"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_ambulance">Sanitka — kliknite pre interiér</span></button>
+        <button class="hotspot" style="left:15%;top:55%" data-key="paramedic1"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_para1">Záchranár</span></button>
+        <button class="hotspot" style="left:26%;top:60%" data-key="paramedic2"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_para2">Kolega</span></button>
+        <button class="hotspot" style="left:10%;top:78%" data-key="backpack1"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_bag1">Záchranársky batoh</span></button>
+        <button class="hotspot" style="left:21%;top:80%" data-key="backpack2"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_bag2">Kyslíkový batoh</span></button>
+        <button class="hotspot" style="left:37%;top:78%" data-key="aed"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_aed">Defibrilátor (AED)</span></button>
+        <button class="hotspot" style="left:43%;top:75%" data-key="oxygen"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_o2">Kyslíková fľaša</span></button>
+        <button class="hotspot" style="left:79%;top:74%" data-key="monitor"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_monitor">Monitor vitálnych funkcií</span></button>
+        <button class="hotspot" style="left:90%;top:65%" data-key="board"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_board">Imobilizačná doska</span></button>
+      </div>
+
+      <!-- INTERIOR SCENE -->
+      <div class="scene" id="sceneInterior">
+        <svg class="scene-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1f2737"/><stop offset="100%" stop-color="#141a26"/></linearGradient>
+            <linearGradient id="floor-in" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a2030"/><stop offset="100%" stop-color="#0a0e14"/></linearGradient>
+            <linearGradient id="cabinet" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#26303f"/><stop offset="100%" stop-color="#161d28"/></linearGradient>
+          </defs>
+          <polygon points="200,80 1000,80 1100,560 100,560" fill="url(#wall)"/>
+          <polygon points="100,560 1100,560 1200,700 0,700" fill="url(#floor-in)"/>
+          <rect x="500" y="80" width="200" height="14" rx="3" fill="#fff" opacity="0.85"/>
+          <ellipse cx="600" cy="120" rx="180" ry="40" fill="rgba(225,29,42,0.18)" filter="url(#none)"/>
+
+          <!-- Left cabinet wall -->
+          <g class="layer">
+            <rect x="100" y="180" width="240" height="380" fill="url(#cabinet)" stroke="#2a3140"/>
+            <rect x="115" y="195" width="100" height="120" rx="3" fill="#1f2737" stroke="#3a4150"/>
+            <rect x="225" y="195" width="100" height="120" rx="3" fill="#1f2737" stroke="#3a4150"/>
+            <rect x="115" y="325" width="100" height="100" rx="3" fill="#1f2737" stroke="#3a4150"/>
+            <rect x="225" y="325" width="100" height="100" rx="3" fill="#1f2737" stroke="#3a4150"/>
+            <rect x="115" y="435" width="210" height="115" rx="3" fill="#1f2737" stroke="#3a4150"/>
+            <rect x="160" y="252" width="12" height="3" fill="#3a4150"/>
+            <rect x="270" y="252" width="12" height="3" fill="#3a4150"/>
+            <rect x="160" y="372" width="12" height="3" fill="#3a4150"/>
+            <rect x="270" y="372" width="12" height="3" fill="#3a4150"/>
+            <rect x="130" y="210" width="20" height="40" rx="3" fill="#0a0e14" opacity="0.6"/>
+            <rect x="155" y="210" width="20" height="40" rx="3" fill="#0a0e14" opacity="0.6"/>
+            <rect x="180" y="210" width="20" height="40" rx="3" fill="#0a0e14" opacity="0.6"/>
+            <g transform="translate(220 480)">
+              <rect x="-15" y="-5" width="30" height="10" fill="#ff3543"/>
+              <rect x="-5" y="-15" width="10" height="30" fill="#ff3543"/>
+            </g>
+          </g>
+
+          <!-- Right cabinet wall with monitor -->
+          <g class="layer">
+            <rect x="860" y="180" width="240" height="380" fill="url(#cabinet)" stroke="#2a3140"/>
+            <rect x="900" y="200" width="160" height="110" rx="4" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/>
+            <rect x="910" y="210" width="140" height="80" rx="2" fill="#0e131d"/>
+            <polyline points="915,260 935,260 945,235 955,280 965,250 975,260 1045,260" stroke="#16a34a" stroke-width="1.5" fill="none"/>
+            <text x="980" y="285" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#98a2b3">HR 78 · SpO₂ 98 · BP 120/80</text>
+            <rect x="875" y="320" width="210" height="80" fill="#1f2737" stroke="#3a4150"/>
+            <rect x="880" y="328" width="60" height="64" rx="3" fill="#e0a020"/>
+            <text x="910" y="365" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="8" fill="#0a0e14">FAST</text>
+            <rect x="945" y="328" width="60" height="64" rx="3" fill="#e0c000"/>
+            <path d="M 975 350 C 972 344 965 346 965 352 C 965 358 975 364 975 364 C 975 364 985 358 985 352 C 985 346 978 344 975 350 Z" fill="#ff3543"/>
+            <rect x="1010" y="328" width="60" height="64" rx="3" fill="#1f3148"/>
+            <text x="1040" y="365" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="800" font-size="13" fill="#fff">O₂</text>
+            <rect x="875" y="410" width="210" height="60" fill="#1f2737" stroke="#3a4150"/>
+            <rect x="875" y="475" width="210" height="60" fill="#1f2737" stroke="#3a4150"/>
+            <line x1="880" y1="440" x2="1080" y2="440" stroke="#3a4150"/>
+            <line x1="880" y1="505" x2="1080" y2="505" stroke="#3a4150"/>
+          </g>
+
+          <!-- stretcher in center -->
+          <g class="layer" transform="translate(600 460)">
+            <ellipse cx="0" cy="120" rx="240" ry="14" fill="rgba(0,0,0,0.6)"/>
+            <rect x="-220" y="40" width="440" height="20" rx="6" fill="#1a2030" stroke="#3a4150"/>
+            <rect x="-210" y="0" width="420" height="48" rx="10" fill="#22293a" stroke="#3a4150"/>
+            <rect x="-160" y="-2" width="14" height="52" fill="#ff3543" opacity="0.85"/>
+            <rect x="50" y="-2" width="14" height="52" fill="#ff3543" opacity="0.85"/>
+            <ellipse cx="-180" cy="14" rx="35" ry="12" fill="#3a4565"/>
+            <rect x="-200" y="60" width="6" height="60" fill="#2a3140"/>
+            <rect x="194" y="60" width="6" height="60" fill="#2a3140"/>
+            <circle cx="-197" cy="120" r="10" fill="#0a0e14" stroke="#3a4150" stroke-width="1.5"/>
+            <circle cx="197" cy="120" r="10" fill="#0a0e14" stroke="#3a4150" stroke-width="1.5"/>
+          </g>
+
+          <!-- ceiling rail with IV -->
+          <g class="layer">
+            <line x1="400" y1="90" x2="800" y2="90" stroke="#3a4150" stroke-width="3"/>
+            <line x1="500" y1="90" x2="500" y2="150" stroke="#3a4150" stroke-width="1.5"/>
+            <rect x="488" y="150" width="24" height="40" rx="3" fill="#1a2030" stroke="#3a4150"/>
+            <ellipse cx="500" cy="170" rx="6" ry="14" fill="#3a4565" opacity="0.5"/>
+          </g>
+
+          <!-- AED on side bench -->
+          <g class="layer" transform="translate(420 540)">
+            <ellipse cx="0" cy="40" rx="50" ry="6" fill="rgba(0,0,0,0.6)"/>
+            <rect x="-40" y="-30" width="80" height="70" rx="6" fill="#e0c000" stroke="#a08800"/>
+            <rect x="-34" y="-24" width="68" height="28" rx="2" fill="#0a0e14"/>
+            <polyline points="-28,-8 -20,-8 -16,-18 -10,4 -4,-10 0,-8 30,-8" stroke="#16a34a" stroke-width="1.5" fill="none"/>
+            <path d="M 0 14 C -4 7 -13 9 -13 17 C -13 24 0 32 0 32 C 0 32 13 24 13 17 C 13 9 4 7 0 14 Z" fill="#ff3543"/>
+          </g>
+
+          <!-- intubation kit -->
+          <g class="layer" transform="translate(770 555)">
+            <ellipse cx="0" cy="30" rx="40" ry="5" fill="rgba(0,0,0,0.6)"/>
+            <rect x="-36" y="-18" width="72" height="44" rx="4" fill="#1a2540" stroke="#2a3550"/>
+            <rect x="-36" y="-18" width="72" height="12" rx="4" fill="#0e1420"/>
+            <line x1="-28" y1="-1" x2="28" y2="-1" stroke="#2a3550"/>
+            <line x1="-28" y1="11" x2="28" y2="11" stroke="#2a3550"/>
+          </g>
+        </svg>
+
+        <!-- Interior hotspots -->
+        <button class="hotspot" style="left:50%;top:69%" data-key="stretcher"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_stretch">Profesionálne nosidlá</span></button>
+        <button class="hotspot" style="left:79%;top:38%" data-key="i_monitor"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_imonitor">Monitor / EKG</span></button>
+        <button class="hotspot" style="left:78%;top:53%" data-key="i_drugs"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_drugs">Liečivá &amp; FAST kufrík</span></button>
+        <button class="hotspot" style="left:35%;top:78%" data-key="i_aed"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_iaed">AED defibrilátor</span></button>
+        <button class="hotspot" style="left:64%;top:80%" data-key="i_intubation"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_intub">Intubačná súprava</span></button>
+        <button class="hotspot" style="left:42%;top:25%" data-key="i_iv"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_iv">IV stojan</span></button>
+        <button class="hotspot" style="left:18%;top:42%" data-key="i_cabinet"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_cabinet">Skrinky s materiálom</span></button>
+        <button class="hotspot" style="left:18%;top:80%" data-key="i_drawers"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_drawers">Zásuvky s vybavením</span></button>
+        <button class="back-to-ext" data-action="exterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          <span data-i18n="eq_back">Späť na exteriér</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail modal -->
+  <div class="eq-modal" id="eqModal" aria-hidden="true">
+    <div class="eq-modal-card">
+      <button class="eq-modal-close" id="eqModalClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="eq-modal-img">
+        <div class="eq-modal-ph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <span data-i18n="eq_ph">Foto / 360° pohľad — doplníme po dodaní</span>
+        </div>
+      </div>
+      <div class="eq-modal-info">
+        <div class="eq-modal-tag" data-i18n="eq_tag">DETAIL VYBAVENIA</div>
+        <h3 id="eqModalTitle">—</h3>
+        <p id="eqModalDesc">—</p>
+        <div class="eq-modal-meta" id="eqModalMeta"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events scroll-flow" id="events">
+  <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow" data-i18n="ev_eye">AKCIE</div>
+      <h2 data-i18n="ev_title">História akcií</h2>
+      <p data-i18n="ev_lead">Pozrite si, kde sme tento rok strávili čas v teréne — kompletný archív akcií podľa rokov.</p>
+    </div>
+    <div class="year-tabs">
+      <button class="year-tab active">2026</button>
+      <button class="year-tab">2025</button>
+      <button class="year-tab">2024</button>
+      <button class="year-tab">2023</button>
+      <button class="year-tab">2022</button>
+    </div>
+    <div class="events-grid">
+      <article class="event-card">
+        <div class="event-img">
+          <span class="event-date">12. 4. 2026</span>
+          <span class="event-tag" data-i18n="ev_t1">Šport</span>
+          <span class="ph-text">Foto z akcie</span>
+        </div>
+        <div class="event-body">
+          <h4 data-i18n="ev_c1t">Lorem ipsum maratón Bratislava</h4>
+          <p data-i18n="ev_c1d">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
+          <div class="event-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Bratislava</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>8 záchranárov</span>
+          </div>
+        </div>
+      </article>
+      <article class="event-card">
+        <div class="event-img">
+          <span class="event-date">28. 3. 2026</span>
+          <span class="event-tag" data-i18n="ev_t2">Kultúra</span>
+          <span class="ph-text">Foto z akcie</span>
+        </div>
+        <div class="event-body">
+          <h4 data-i18n="ev_c2t">Lorem ipsum koncert v Inchebe</h4>
+          <p data-i18n="ev_c2d">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua nostrud.</p>
+          <div class="event-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Incheba</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/></svg>12 záchranárov</span>
+          </div>
+        </div>
+      </article>
+      <article class="event-card">
+        <div class="event-img">
+          <span class="event-date">14. 2. 2026</span>
+          <span class="event-tag" data-i18n="ev_t3">Hokej</span>
+          <span class="ph-text">Foto z akcie</span>
+        </div>
+        <div class="event-body">
+          <h4 data-i18n="ev_c3t">Lorem ipsum Slovan vs Košice</h4>
+          <p data-i18n="ev_c3d">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+          <div class="event-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Tipos Aréna</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/></svg>6 záchranárov</span>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="#" class="btn btn-ghost" data-i18n="ev_more">Zobraziť všetky akcie 2026
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team scroll-flow" id="team">
+  <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow" data-i18n="tm_eye">NÁŠ TÍM</div>
+      <h2 data-i18n="tm_title">Ľudia, ktorí to ťahajú</h2>
+      <p data-i18n="tm_lead">Skúsení záchranári, lekári a inštruktori s rokmi praxe v teréne. Fotky doplníme po dodaní od klienta.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar-box"><div class="avatar">JN</div></div>
+        <div class="team-body">
+          <h4 data-i18n="t1n">Ján Novák</h4>
+          <div class="team-role" data-i18n="t1r">Konateľ / Záchranár</div>
+          <p data-i18n="t1b">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-box"><div class="avatar">MK</div></div>
+        <div class="team-body">
+          <h4 data-i18n="t2n">Mária Kováčová</h4>
+          <div class="team-role" data-i18n="t2r">Lekárka</div>
+          <p data-i18n="t2b">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-box"><div class="avatar">PH</div></div>
+        <div class="team-body">
+          <h4 data-i18n="t3n">Peter Horváth</h4>
+          <div class="team-role" data-i18n="t3r">Záchranár</div>
+          <p data-i18n="t3b">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-box"><div class="avatar">LB</div></div>
+        <div class="team-body">
+          <h4 data-i18n="t4n">Lucia Bartošová</h4>
+          <div class="team-role" data-i18n="t4r">Inštruktorka PP</div>
+          <p data-i18n="t4b">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <div class="container row">
+    <h3 data-i18n="cta_t">Organizujete podujatie? <span data-i18n="cta_s">Ozvite sa.</span></h3>
+    <a href="#contact" class="btn btn-primary" data-i18n="cta_b">
+      Kontaktovať tím
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact scroll-flow" id="contact">
+  <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow" data-i18n="c_eye">KONTAKT</div>
+      <h2 data-i18n="c_title">Spojme sa</h2>
+      <p data-i18n="c_lead">Pošlite nám správu alebo zavolajte. Odpovedáme rýchlo a bez záväzku.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="info-list">
+          <div class="info-item">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.91.71 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.58 2.81.71A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><div class="lbl" data-i18n="c_phone">Telefón</div><div class="val"><a href="tel:+421000000000">+421 000 000 000</a></div></div>
+          </div>
+          <div class="info-item">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="lbl">Email</div><div class="val"><a href="mailto:info@idcare.sk">info@idcare.sk</a></div></div>
+          </div>
+          <div class="info-item">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="lbl" data-i18n="c_addr">Adresa</div><div class="val">Mlynské luhy 46<br>821 05 Bratislava – Ružinov</div></div>
+          </div>
+          <div class="info-item">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div><div class="lbl">IČO / DIČ</div><div class="val">53 645 235 / 2121 53 21 93</div></div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="event.preventDefault();alert('Demo: správa odoslaná')">
+        <h3 data-i18n="cf_t">Napíšte nám</h3>
+        <p class="sub" data-i18n="cf_s">Vyplňte formulár a my sa vám ozveme čo najskôr.</p>
+        <div class="form-row">
+          <input class="form-input" type="text" placeholder="Meno a priezvisko" required>
+          <input class="form-input" type="email" placeholder="Email" required>
+        </div>
+        <div class="form-row">
+          <input class="form-input" type="tel" placeholder="Telefón">
+          <input class="form-input" type="text" placeholder="Typ podujatia">
+        </div>
+        <textarea class="form-input" placeholder="Popíšte, ako vám môžeme pomôcť..." required></textarea>
+        <button type="submit" class="btn btn-primary form-submit" data-i18n="cf_btn">
+          Odoslať správu
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div class="ft-col ft-about">
+        <a href="#top" class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6V2z"/></svg>
+          </div>
+          <div class="logo-text">
+            <div class="name">ID<span>Care</span></div>
+            <div class="sub">Záchranná služba</div>
+          </div>
+        </a>
+        <p data-i18n="ft_about">Profesionálna zdravotná služba a kurzy prvej pomoci. Vždy pripravení pomôcť.</p>
+        <div class="ft-social">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46H15.2c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h5 data-i18n="ft_links">Menu</h5>
+        <ul>
+          <li><a href="#about" data-i18n="m_about">O nás</a></li>
+          <li><a href="#services" data-i18n="m_services">Ponúkame</a></li>
+          <li><a href="#equipment" data-i18n="m_equipment">Vybavenie</a></li>
+          <li><a href="#events" data-i18n="m_events">Akcie</a></li>
+          <li><a href="#team" data-i18n="m_team">Tím</a></li>
+          <li><a href="#contact" data-i18n="m_contact">Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5 data-i18n="ft_svc">Služby</h5>
+        <ul>
+          <li><a href="#" data-i18n="sc1t">Zdravotná služba na podujatiach</a></li>
+          <li><a href="#" data-i18n="sc2t">Kurzy prvej pomoci</a></li>
+          <li><a href="#" data-i18n="sc3t">Asistenčné služby</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5 data-i18n="ft_contact">Kontakt</h5>
+        <ul>
+          <li><a href="tel:+421000000000">+421 000 000 000</a></li>
+          <li><a href="mailto:info@idcare.sk">info@idcare.sk</a></li>
+          <li>Mlynské luhy 46, BA</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <div>© 2026 IDCare s.r.o. <span data-i18n="ft_rights">Všetky práva vyhradené.</span></div>
+      <div><a href="#" data-i18n="ft_gdpr">GDPR</a> · <a href="#" data-i18n="ft_terms">Podmienky</a></div>
+    </div>
+    <div class="ft-legal" data-i18n="ft_legal">
+      Dizajn, štruktúra a obsah tejto stránky sú chránené autorským právom v zmysle zákona č. 185/2015 Z. z. a smernice EÚ 2001/29/ES. Reprodukcia, kopírovanie, šírenie alebo komerčné využitie akejkoľvek časti bez predchádzajúceho písomného súhlasu IDCare s.r.o. je zakázané. Porušenie môže viesť k občianskoprávnym a trestnoprávnym dôsledkom.
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- i18n
+const I18N = {
+  sk: {
+    m_about:"O nás", m_services:"Ponúkame", m_events:"Akcie", m_team:"Tím", m_contact:"Kontakt", m_cta:"Nezáväzná ponuka",
+    h_badge:"24/7 PROFESIONÁLNA ZDRAVOTNÁ SLUŽBA",
+    h_title:"Pripravení zachraňovať <span class=\"accent\">každú sekundu.</span>",
+    h_lead:"Skúsený tím záchranárov a lekárov so špičkovým vybavením. Zdravotné zabezpečenie podujatí, kurzy prvej pomoci a asistenčné služby — bez kompromisov.",
+    h_cta1:"Vyžiadať ponuku", h_cta2:"Naše služby",
+    s1:"Zabezpečených podujatí", s2:"Vyškolených ľudí", s3:"Dostupnosť",
+    hv1:"Akreditovaní", hv1s:"MZ SR", hv2:"Reakcia < 60s", hv2s:"Na mieste podujatia",
+    a_eyebrow:"O IDCare", a_title:"Záchranná služba, na ktorú sa môžete spoľahnúť",
+    a_p1:"IDCare je tím skúsených zdravotníckych záchranárov, lekárov a vyškolených zdravotníkov, ktorí poskytujú profesionálne zdravotnícke služby na podujatiach, kurzoch a v rámci asistenčnej činnosti.",
+    a_p2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+    f1t:"Akreditácia MZ SR", f1d:"Platná akreditácia kurzov prvej pomoci.",
+    f2t:"Špičkové vybavenie", f2d:"Sanitky a technika spĺňajúca najprísnejšie normy.",
+    f3t:"Individuálny prístup", f3d:"Riešenie šité na mieru každému klientovi.",
+    sv_eye:"PONÚKAME", sv_title:"Naše služby", sv_lead:"Komplexné zdravotnícke služby s dôrazom na profesionalitu, bezpečnosť a spoľahlivosť.",
+    sc1t:"Zdravotná služba na podujatiach", sc1d:"Profesionálne zdravotnícke zabezpečenie športových, kultúrnych a spoločenských podujatí — od malých eventov po veľké koncerty a športové súťaže.",
+    sc2t:"Kurzy prvej pomoci", sc2d:"Akreditované kurzy a praktické školenia s dôrazom na reálne scenáre. Pre firmy, školy aj jednotlivcov.",
+    sc3t:"Zdravotné asistenčné služby", sc3d:"Asistenčná zdravotná podpora pre súkromné aj firemné subjekty. Spoľahlivá pomoc tam, kde ju potrebujete.",
+    ev_eye:"AKCIE", ev_title:"História akcií", ev_lead:"Pozrite si, kde sme tento rok strávili čas v teréne — kompletný archív akcií podľa rokov.",
+    ev_t1:"Šport", ev_t2:"Kultúra", ev_t3:"Hokej",
+    ev_c1t:"Lorem ipsum maratón Bratislava", ev_c1d:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.",
+    ev_c2t:"Lorem ipsum koncert v Inchebe", ev_c2d:"Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua nostrud.",
+    ev_c3t:"Lorem ipsum Slovan vs Košice", ev_c3d:"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+    ev_more:"Zobraziť všetky akcie 2026",
+    tm_eye:"NÁŠ TÍM", tm_title:"Ľudia, ktorí to ťahajú", tm_lead:"Skúsení záchranári, lekári a inštruktori s rokmi praxe v teréne. Fotky doplníme po dodaní od klienta.",
+    t1n:"Ján Novák", t1r:"Konateľ / Záchranár", t1b:"Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.",
+    t2n:"Mária Kováčová", t2r:"Lekárka", t2b:"Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.",
+    t3n:"Peter Horváth", t3r:"Záchranár", t3b:"Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    t4n:"Lucia Bartošová", t4r:"Inštruktorka PP", t4b:"Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.",
+    cta_t:"Organizujete podujatie?", cta_s:"Ozvite sa.", cta_b:"Kontaktovať tím",
+    c_eye:"KONTAKT", c_title:"Spojme sa", c_lead:"Pošlite nám správu alebo zavolajte. Odpovedáme rýchlo a bez záväzku.",
+    c_phone:"Telefón", c_addr:"Adresa",
+    cf_t:"Napíšte nám", cf_s:"Vyplňte formulár a my sa vám ozveme čo najskôr.", cf_btn:"Odoslať správu",
+    ft_about:"Profesionálna zdravotná služba a kurzy prvej pomoci. Vždy pripravení pomôcť.",
+    ft_links:"Menu", ft_svc:"Služby", ft_contact:"Kontakt", ft_rights:"Všetky práva vyhradené.", ft_gdpr:"GDPR", ft_terms:"Podmienky",
+    ft_legal:"Dizajn, štruktúra a obsah tejto stránky sú chránené autorským právom v zmysle zákona č. 185/2015 Z. z. a smernice EÚ 2001/29/ES. Reprodukcia, kopírovanie, šírenie alebo komerčné využitie akejkoľvek časti bez predchádzajúceho písomného súhlasu IDCare s.r.o. je zakázané. Porušenie môže viesť k občianskoprávnym a trestnoprávnym dôsledkom."
+  },
+  cz: {
+    m_about:"O nás", m_services:"Nabízíme", m_events:"Akce", m_team:"Tým", m_contact:"Kontakt", m_cta:"Nezávazná nabídka",
+    h_badge:"24/7 PROFESIONÁLNÍ ZDRAVOTNÍ SLUŽBA",
+    h_title:"Připraveni zachraňovat <span class=\"accent\">každou vteřinu.</span>",
+    h_lead:"Zkušený tým záchranářů a lékařů se špičkovým vybavením. Zdravotní zajištění akcí, kurzy první pomoci a asistenční služby — bez kompromisů.",
+    h_cta1:"Vyžádat nabídku", h_cta2:"Naše služby",
+    s1:"Zajištěných akcí", s2:"Vyškolených lidí", s3:"Dostupnost",
+    hv1:"Akreditováni", hv1s:"MZ ČR/SR", hv2:"Reakce < 60s", hv2s:"Na místě akce",
+    a_eyebrow:"O IDCare", a_title:"Záchranná služba, na kterou se můžete spolehnout",
+    a_p1:"IDCare je tým zkušených zdravotnických záchranářů, lékařů a vyškolených zdravotníků, kteří poskytují profesionální zdravotnické služby na akcích, kurzech a v rámci asistenční činnosti.",
+    a_p2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    f1t:"Akreditace", f1d:"Platná akreditace kurzů první pomoci.",
+    f2t:"Špičkové vybavení", f2d:"Sanitky a technika splňující nejpřísnější normy.",
+    f3t:"Individuální přístup", f3d:"Řešení šité na míru každému klientovi.",
+    sv_eye:"NABÍZÍME", sv_title:"Naše služby", sv_lead:"Komplexní zdravotnické služby s důrazem na profesionalitu, bezpečnost a spolehlivost.",
+    sc1t:"Zdravotní služba na akcích", sc1d:"Profesionální zdravotnické zajištění sportovních, kulturních a společenských akcí.",
+    sc2t:"Kurzy první pomoci", sc2d:"Akreditované kurzy a praktická školení s důrazem na reálné scénáře.",
+    sc3t:"Zdravotní asistenční služby", sc3d:"Asistenční zdravotní podpora pro soukromé i firemní subjekty.",
+    ev_eye:"AKCE", ev_title:"Historie akcí", ev_lead:"Podívejte se, kde jsme strávili čas v terénu — kompletní archiv akcí podle let.",
+    ev_t1:"Sport", ev_t2:"Kultura", ev_t3:"Hokej",
+    ev_c1t:"Lorem ipsum maraton Bratislava", ev_c1d:"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    ev_c2t:"Lorem ipsum koncert v Inchebě", ev_c2d:"Sed do eiusmod tempor incididunt ut labore et dolore.",
+    ev_c3t:"Lorem ipsum Slovan vs Košice", ev_c3d:"Ut enim ad minim veniam quis nostrud exercitation.",
+    ev_more:"Zobrazit všechny akce 2026",
+    tm_eye:"NÁŠ TÝM", tm_title:"Lidé, kteří to táhnou", tm_lead:"Zkušení záchranáři, lékaři a instruktoři s lety praxe v terénu.",
+    t1n:"Jan Novák", t1r:"Jednatel / Záchranář", t1b:"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    t2n:"Marie Kovářová", t2r:"Lékařka", t2b:"Consectetur adipiscing elit sed do eiusmod tempor.",
+    t3n:"Petr Horváth", t3r:"Záchranář", t3b:"Sed do eiusmod tempor incididunt ut labore.",
+    t4n:"Lucie Bartošová", t4r:"Instruktorka PP", t4b:"Ut enim ad minim veniam quis nostrud exercitation.",
+    cta_t:"Organizujete akci?", cta_s:"Ozvěte se.", cta_b:"Kontaktovat tým",
+    c_eye:"KONTAKT", c_title:"Spojme se", c_lead:"Pošlete nám zprávu nebo zavolejte. Odpovídáme rychle a nezávazně.",
+    c_phone:"Telefon", c_addr:"Adresa",
+    cf_t:"Napište nám", cf_s:"Vyplňte formulář a my se vám ozveme co nejdříve.", cf_btn:"Odeslat zprávu",
+    ft_about:"Profesionální zdravotní služba a kurzy první pomoci. Vždy připraveni pomoci.",
+    ft_links:"Menu", ft_svc:"Služby", ft_contact:"Kontakt", ft_rights:"Všechna práva vyhrazena.", ft_gdpr:"GDPR", ft_terms:"Podmínky",
+    ft_legal:"Design, struktura a obsah této stránky jsou chráněny autorským právem dle směrnice EU 2001/29/ES a národních předpisů. Reprodukce, kopírování, šíření nebo komerční využití jakékoli části bez předchozího písemného souhlasu IDCare s.r.o. je zakázáno. Porušení může vést k občanskoprávním a trestněprávním důsledkům."
+  },
+  en: {
+    m_about:"About", m_services:"Services", m_events:"Events", m_team:"Team", m_contact:"Contact", m_cta:"Get a quote",
+    h_badge:"24/7 PROFESSIONAL MEDICAL SERVICE",
+    h_title:"Ready to save lives <span class=\"accent\">every second.</span>",
+    h_lead:"An experienced team of paramedics and doctors with top-tier equipment. Medical event coverage, first-aid courses, and assistance services — no compromises.",
+    h_cta1:"Request a quote", h_cta2:"Our services",
+    s1:"Events covered", s2:"People trained", s3:"Availability",
+    hv1:"Accredited", hv1s:"Ministry of Health", hv2:"Response < 60s", hv2s:"On-site at the event",
+    a_eyebrow:"ABOUT IDCare", a_title:"Emergency service you can rely on",
+    a_p1:"IDCare is a team of experienced paramedics, doctors and trained medical staff providing professional medical services at events, courses and as part of assistance activities.",
+    a_p2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    f1t:"Health Ministry accreditation", f1d:"Valid accreditation for first-aid courses.",
+    f2t:"Top-tier equipment", f2d:"Ambulances and gear that meet the strictest standards.",
+    f3t:"Individual approach", f3d:"Tailored solutions for every client.",
+    sv_eye:"WHAT WE OFFER", sv_title:"Our services", sv_lead:"Comprehensive medical services focused on professionalism, safety and reliability.",
+    sc1t:"Medical service at events", sc1d:"Professional medical coverage for sporting, cultural and social events — from small gatherings to large concerts and tournaments.",
+    sc2t:"First-aid courses", sc2d:"Accredited courses and hands-on training focused on real-world scenarios. For companies, schools and individuals.",
+    sc3t:"Medical assistance services", sc3d:"Medical support for private and corporate clients. Reliable help when you need it.",
+    ev_eye:"EVENTS", ev_title:"Event history", ev_lead:"See where we've been in the field — a complete archive of events by year.",
+    ev_t1:"Sport", ev_t2:"Culture", ev_t3:"Hockey",
+    ev_c1t:"Lorem ipsum Bratislava marathon", ev_c1d:"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    ev_c2t:"Lorem ipsum concert at Incheba", ev_c2d:"Sed do eiusmod tempor incididunt ut labore et dolore.",
+    ev_c3t:"Lorem ipsum Slovan vs Košice", ev_c3d:"Ut enim ad minim veniam quis nostrud exercitation.",
+    ev_more:"Show all 2026 events",
+    tm_eye:"OUR TEAM", tm_title:"The people behind it", tm_lead:"Experienced paramedics, doctors and instructors with years of field experience.",
+    t1n:"Ján Novák", t1r:"Director / Paramedic", t1b:"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    t2n:"Mária Kováčová", t2r:"Physician", t2b:"Consectetur adipiscing elit sed do eiusmod tempor.",
+    t3n:"Peter Horváth", t3r:"Paramedic", t3b:"Sed do eiusmod tempor incididunt ut labore.",
+    t4n:"Lucia Bartošová", t4r:"First-aid instructor", t4b:"Ut enim ad minim veniam quis nostrud exercitation.",
+    cta_t:"Organising an event?", cta_s:"Get in touch.", cta_b:"Contact the team",
+    c_eye:"CONTACT", c_title:"Let's talk", c_lead:"Send us a message or call. We reply quickly and with no obligation.",
+    c_phone:"Phone", c_addr:"Address",
+    cf_t:"Write to us", cf_s:"Fill in the form and we'll get back to you as soon as possible.", cf_btn:"Send message",
+    ft_about:"Professional medical service and first-aid courses. Always ready to help.",
+    ft_links:"Menu", ft_svc:"Services", ft_contact:"Contact", ft_rights:"All rights reserved.", ft_gdpr:"Privacy", ft_terms:"Terms",
+    ft_legal:"The design, structure, and content of this page are protected by copyright under EU Directive 2001/29/EC and applicable national laws. Reproduction, copying, distribution, or commercial use of any part without prior written consent of IDCare s.r.o. is prohibited. Violations may result in civil and criminal liability."
+  },
+  de: {
+    m_about:"Über uns", m_services:"Leistungen", m_events:"Einsätze", m_team:"Team", m_contact:"Kontakt", m_cta:"Angebot anfragen",
+    h_badge:"24/7 PROFESSIONELLER RETTUNGSDIENST",
+    h_title:"Bereit zu retten <span class=\"accent\">jede Sekunde.</span>",
+    h_lead:"Ein erfahrenes Team aus Rettungssanitätern und Ärzten mit Spitzenausrüstung. Medizinische Absicherung von Veranstaltungen, Erste-Hilfe-Kurse und Assistenzdienste — kompromisslos.",
+    h_cta1:"Angebot anfragen", h_cta2:"Unsere Leistungen",
+    s1:"Betreute Veranstaltungen", s2:"Geschulte Personen", s3:"Verfügbarkeit",
+    hv1:"Akkreditiert", hv1s:"Gesundheitsministerium", hv2:"Reaktion < 60s", hv2s:"Vor Ort beim Event",
+    a_eyebrow:"ÜBER IDCare", a_title:"Rettungsdienst, auf den Sie sich verlassen können",
+    a_p1:"IDCare ist ein Team aus erfahrenen Rettungssanitätern, Ärzten und ausgebildeten Sanitätern, das professionelle medizinische Dienste bei Veranstaltungen, Kursen und im Rahmen von Assistenzleistungen erbringt.",
+    a_p2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    f1t:"Akkreditierung", f1d:"Gültige Akkreditierung für Erste-Hilfe-Kurse.",
+    f2t:"Spitzenausrüstung", f2d:"Rettungswagen und Technik nach höchsten Standards.",
+    f3t:"Individuelle Betreuung", f3d:"Maßgeschneiderte Lösungen für jeden Kunden.",
+    sv_eye:"WIR BIETEN", sv_title:"Unsere Leistungen", sv_lead:"Umfassende medizinische Dienste mit Fokus auf Professionalität, Sicherheit und Zuverlässigkeit.",
+    sc1t:"Sanitätsdienst bei Veranstaltungen", sc1d:"Professionelle medizinische Absicherung sportlicher, kultureller und gesellschaftlicher Veranstaltungen.",
+    sc2t:"Erste-Hilfe-Kurse", sc2d:"Akkreditierte Kurse und praktische Schulungen mit Fokus auf reale Szenarien.",
+    sc3t:"Medizinische Assistenz", sc3d:"Medizinische Unterstützung für Privat- und Firmenkunden.",
+    ev_eye:"EINSÄTZE", ev_title:"Einsatzchronik", ev_lead:"Schauen Sie, wo wir im Einsatz waren — vollständiges Archiv nach Jahren.",
+    ev_t1:"Sport", ev_t2:"Kultur", ev_t3:"Eishockey",
+    ev_c1t:"Lorem ipsum Marathon Bratislava", ev_c1d:"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    ev_c2t:"Lorem ipsum Konzert in Incheba", ev_c2d:"Sed do eiusmod tempor incididunt ut labore et dolore.",
+    ev_c3t:"Lorem ipsum Slovan vs Košice", ev_c3d:"Ut enim ad minim veniam quis nostrud exercitation.",
+    ev_more:"Alle Einsätze 2026 anzeigen",
+    tm_eye:"UNSER TEAM", tm_title:"Die Menschen dahinter", tm_lead:"Erfahrene Sanitäter, Ärzte und Ausbilder mit langjähriger Praxis im Feld.",
+    t1n:"Ján Novák", t1r:"Geschäftsführer / Sanitäter", t1b:"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    t2n:"Mária Kováčová", t2r:"Ärztin", t2b:"Consectetur adipiscing elit sed do eiusmod tempor.",
+    t3n:"Peter Horváth", t3r:"Sanitäter", t3b:"Sed do eiusmod tempor incididunt ut labore.",
+    t4n:"Lucia Bartošová", t4r:"Erste-Hilfe-Trainerin", t4b:"Ut enim ad minim veniam quis nostrud exercitation.",
+    cta_t:"Sie organisieren ein Event?", cta_s:"Melden Sie sich.", cta_b:"Team kontaktieren",
+    c_eye:"KONTAKT", c_title:"Sprechen wir", c_lead:"Schreiben Sie uns oder rufen Sie an. Wir antworten schnell und unverbindlich.",
+    c_phone:"Telefon", c_addr:"Adresse",
+    cf_t:"Schreiben Sie uns", cf_s:"Formular ausfüllen und wir melden uns so schnell wie möglich.", cf_btn:"Nachricht senden",
+    ft_about:"Professioneller Rettungsdienst und Erste-Hilfe-Kurse. Immer bereit zu helfen.",
+    ft_links:"Menü", ft_svc:"Leistungen", ft_contact:"Kontakt", ft_rights:"Alle Rechte vorbehalten.", ft_gdpr:"Datenschutz", ft_terms:"AGB",
+    ft_legal:"Design, Struktur und Inhalt dieser Seite sind urheberrechtlich nach EU-Richtlinie 2001/29/EG und nationalem Recht geschützt. Vervielfältigung, Kopieren, Verbreitung oder kommerzielle Nutzung jeglicher Teile ohne vorherige schriftliche Zustimmung der IDCare s.r.o. ist untersagt. Verstöße können zivil- und strafrechtliche Folgen haben."
+  }
+};
+
+function setLang(lang){
+  const dict = I18N[lang]; if(!dict) return;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(dict[k] !== undefined){ el.innerHTML = dict[k]; }
+  });
+  document.querySelectorAll('#langSwitch button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+}
+document.querySelectorAll('#langSwitch button').forEach(b=>{
+  b.addEventListener('click',()=>setLang(b.dataset.lang));
+});
+
+// Year tabs (demo)
+document.querySelectorAll('.year-tab').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.year-tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+  });
+});
+
+// Nav shrink on scroll
+const nav = document.getElementById('nav');
+let lastY = 0;
+window.addEventListener('scroll',()=>{
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 30);
+  lastY = y;
+},{passive:true});
+
+// Active menu link based on section in view
+const sections = ['about','services','equipment','events','team','contact'].map(id=>document.getElementById(id));
+const menuLinks = document.querySelectorAll('.menu-link');
+const navObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id;
+      menuLinks.forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px', threshold:0});
+sections.forEach(s=>s && navObs.observe(s));
+
+// Fallback scroll-flow for browsers without scroll-driven animations
+if(!CSS.supports('animation-timeline','view()')){
+  const flowObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('is-visible'); }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('.scroll-flow').forEach(el=>flowObs.observe(el));
+}
+
+// Cursor-following soft glow
+const glow = document.getElementById('cursorGlow');
+let glowX = 0, glowY = 0, targetX = 0, targetY = 0;
+let rafId = null;
+function loop(){
+  glowX += (targetX - glowX) * 0.18;
+  glowY += (targetY - glowY) * 0.18;
+  glow.style.transform = `translate3d(${glowX - 300}px, ${glowY - 300}px, 0)`;
+  rafId = requestAnimationFrame(loop);
+}
+window.addEventListener('mousemove', e => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+  if(!document.body.classList.contains('glow-on')){
+    document.body.classList.add('glow-on');
+    glowX = targetX; glowY = targetY;
+    if(!rafId) loop();
+  }
+},{passive:true});
+window.addEventListener('mouseleave', () => {
+  document.body.classList.remove('glow-on');
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('.menu a').forEach(a=>{
+  a.addEventListener('click',()=>document.getElementById('menu').classList.remove('open'));
+});
+
+// =============================================================
+// EQUIPMENT — extend i18n, handle scene toggle, hotspots & modal
+// =============================================================
+const I18N_EQ = {
+  sk:{
+    m_equipment:"Vybavenie",
+    eq_eye:"VYBAVENIE", eq_title:"Pozrite si naše vybavenie",
+    eq_lead:"Interaktívna prehliadka sanitky a výbavy záchranárov. Kliknite na ľubovoľný prvok pre detail. Po dodaní 3D skenu alebo fotiek nahradíme všetky placeholdery.",
+    eq_ext:"Exteriér", eq_int:"Interiér sanitky",
+    eq_hint:"Kliknite na červené body pre detail",
+    eq_back:"Späť na exteriér",
+    eq_ph:"Foto / 360° pohľad — doplníme po dodaní",
+    eq_tag:"DETAIL VYBAVENIA",
+    eq_h_ambulance:"Sanitka — kliknite pre interiér",
+    eq_h_para1:"Záchranár", eq_h_para2:"Kolega",
+    eq_h_bag1:"Záchranársky batoh", eq_h_bag2:"Kyslíkový batoh",
+    eq_h_aed:"Defibrilátor (AED)", eq_h_o2:"Kyslíková fľaša",
+    eq_h_monitor:"Monitor vitálnych funkcií", eq_h_board:"Imobilizačná doska",
+    eq_h_stretch:"Profesionálne nosidlá", eq_h_imonitor:"Monitor / EKG",
+    eq_h_drugs:"Liečivá &amp; FAST kufrík", eq_h_iaed:"AED defibrilátor",
+    eq_h_intub:"Intubačná súprava", eq_h_iv:"IV stojan",
+    eq_h_cabinet:"Skrinky s materiálom", eq_h_drawers:"Zásuvky s vybavením"
+  },
+  cz:{
+    m_equipment:"Vybavení",
+    eq_eye:"VYBAVENÍ", eq_title:"Podívejte se na naše vybavení",
+    eq_lead:"Interaktivní prohlídka sanitky a výbavy záchranářů. Klikněte na jakýkoli prvek pro detail. Po dodání 3D skenu nebo fotek nahradíme placeholdery.",
+    eq_ext:"Exteriér", eq_int:"Interiér sanitky",
+    eq_hint:"Klikněte na červené body pro detail",
+    eq_back:"Zpět na exteriér",
+    eq_ph:"Foto / 360° pohled — doplníme po dodání",
+    eq_tag:"DETAIL VYBAVENÍ",
+    eq_h_ambulance:"Sanitka — klikněte pro interiér",
+    eq_h_para1:"Záchranář", eq_h_para2:"Kolega",
+    eq_h_bag1:"Záchranářský batoh", eq_h_bag2:"Kyslíkový batoh",
+    eq_h_aed:"Defibrilátor (AED)", eq_h_o2:"Kyslíková lahev",
+    eq_h_monitor:"Monitor vitálních funkcí", eq_h_board:"Imobilizační deska",
+    eq_h_stretch:"Profesionální nosítka", eq_h_imonitor:"Monitor / EKG",
+    eq_h_drugs:"Léčiva &amp; FAST kufřík", eq_h_iaed:"AED defibrilátor",
+    eq_h_intub:"Intubační souprava", eq_h_iv:"IV stojan",
+    eq_h_cabinet:"Skříňky s materiálem", eq_h_drawers:"Zásuvky s vybavením"
+  },
+  en:{
+    m_equipment:"Equipment",
+    eq_eye:"EQUIPMENT", eq_title:"Take a look at our gear",
+    eq_lead:"Interactive walkthrough of the ambulance and paramedic gear. Click any element for detail. Placeholders will be replaced once 3D scans or photos are delivered.",
+    eq_ext:"Exterior", eq_int:"Ambulance interior",
+    eq_hint:"Click the red dots for detail",
+    eq_back:"Back to exterior",
+    eq_ph:"Photo / 360° view — to be added",
+    eq_tag:"EQUIPMENT DETAIL",
+    eq_h_ambulance:"Ambulance — click for interior",
+    eq_h_para1:"Paramedic", eq_h_para2:"Colleague",
+    eq_h_bag1:"Rescue backpack", eq_h_bag2:"Oxygen backpack",
+    eq_h_aed:"Defibrillator (AED)", eq_h_o2:"Oxygen bottle",
+    eq_h_monitor:"Vitals monitor", eq_h_board:"Spine board",
+    eq_h_stretch:"Professional stretcher", eq_h_imonitor:"Monitor / ECG",
+    eq_h_drugs:"Medications &amp; FAST kit", eq_h_iaed:"AED defibrillator",
+    eq_h_intub:"Intubation kit", eq_h_iv:"IV stand",
+    eq_h_cabinet:"Supply cabinets", eq_h_drawers:"Equipment drawers"
+  },
+  de:{
+    m_equipment:"Ausrüstung",
+    eq_eye:"AUSRÜSTUNG", eq_title:"Schauen Sie sich unsere Ausrüstung an",
+    eq_lead:"Interaktiver Rundgang durch den Rettungswagen und die Ausrüstung der Sanitäter. Klicken Sie auf ein beliebiges Element für Details. Platzhalter werden nach Lieferung von 3D-Scans oder Fotos ersetzt.",
+    eq_ext:"Außenansicht", eq_int:"Innenraum Rettungswagen",
+    eq_hint:"Klicken Sie auf die roten Punkte für Details",
+    eq_back:"Zurück zur Außenansicht",
+    eq_ph:"Foto / 360° Ansicht — wird ergänzt",
+    eq_tag:"AUSRÜSTUNGSDETAIL",
+    eq_h_ambulance:"Rettungswagen — klicken Sie für Innenraum",
+    eq_h_para1:"Sanitäter", eq_h_para2:"Kollege",
+    eq_h_bag1:"Notfallrucksack", eq_h_bag2:"Sauerstoffrucksack",
+    eq_h_aed:"Defibrillator (AED)", eq_h_o2:"Sauerstoffflasche",
+    eq_h_monitor:"Vitalmonitor", eq_h_board:"Spineboard",
+    eq_h_stretch:"Profi-Trage", eq_h_imonitor:"Monitor / EKG",
+    eq_h_drugs:"Medikamente &amp; FAST-Koffer", eq_h_iaed:"AED-Defibrillator",
+    eq_h_intub:"Intubationsset", eq_h_iv:"Infusionsständer",
+    eq_h_cabinet:"Materialschränke", eq_h_drawers:"Ausrüstungsschubladen"
+  }
+};
+Object.keys(I18N_EQ).forEach(k=>Object.assign(I18N[k], I18N_EQ[k]));
+
+// Equipment detail content (per key). Description is the same across UI; titles use i18n via h_x keys.
+const EQ_DETAILS = {
+  ambulance:{ titleKey:"eq_h_ambulance", chips:["Mercedes Sprinter","plne vybavená","typ B"], desc:"Plne vybavená sanitka typu B s kompletným zázemím pre okamžitý zásah. Kliknite na 'Interiér sanitky' pre prehliadku vnútra." },
+  paramedic1:{ titleKey:"eq_h_para1", chips:["URGENTNÝ ZÁCHRANÁR","10+ rokov praxe"], desc:"Profesionálny záchranár s rozšírenou výbavou: imobilizačný materiál, krycí materiál, intravenózne vstupy, oxygenoterapia." },
+  paramedic2:{ titleKey:"eq_h_para2", chips:["ZÁCHRANÁR","ALS certifikovaný"], desc:"Druhý člen tímu — pripravený asistovať pri zásahu, podpora vitálnych funkcií, podávanie liekov pod dohľadom." },
+  backpack1:{ titleKey:"eq_h_bag1", chips:["URGENTNÝ BATOH","ALS"], desc:"Komplet pre akútne stavy — obväzový materiál, intravenózne sety, liečivá, ampulárium, glukomer, pulzný oxymeter." },
+  backpack2:{ titleKey:"eq_h_bag2", chips:["KYSLÍK","2 L bomba"], desc:"Prenosný kyslíkový set s redukčným ventilom, maskami pre dospelých aj deti, samorozpínacím vakom (AMBU)." },
+  aed:{ titleKey:"eq_h_aed", chips:["DEFIBRILÁTOR","poloautomat"], desc:"Poloautomatický externý defibrilátor s hlasovou navigáciou. Pripravený na okamžité použitie pri zástave obehu." },
+  oxygen:{ titleKey:"eq_h_o2", chips:["KYSLÍK","10 L"], desc:"Veľkokapacitná kyslíková fľaša s presným prietokomerom — pre dlhšie transporty a oxygenoterapiu na mieste." },
+  monitor:{ titleKey:"eq_h_monitor", chips:["MONITOR","12-zvodové EKG"], desc:"Profesionálny monitor vitálnych funkcií: EKG, SpO₂, NIBP, EtCO₂, telesná teplota — záznam aj prenos do KOS." },
+  board:{ titleKey:"eq_h_board", chips:["IMOBILIZÁCIA","rtg-priepustná"], desc:"Plná chrbtová doska na bezpečný transport pacienta s podozrením na poranenie chrbtice. Kompatibilná s upevňovacími pásmi." },
+  stretcher:{ titleKey:"eq_h_stretch", chips:["NOSIDLÁ","STRYKER"], desc:"Profesionálne nosidlá s elektrickým zdvihom, polohovaním sediac/ležiac a fixačnými pásmi. Nosnosť do 220 kg." },
+  i_monitor:{ titleKey:"eq_h_imonitor", chips:["MONITOR","fixne montovaný"], desc:"Centrálny monitor v sanitke s komplexným sledovaním vitálnych funkcií a možnosťou prenosu dát na cieľové pracovisko." },
+  i_drugs:{ titleKey:"eq_h_drugs", chips:["LIEČIVÁ","FAST kufrík"], desc:"Zabezpečený sklad liekov, ampulárium podľa štandardov pre prednemocničnú starostlivosť, kontrolované liečivá a antidotá." },
+  i_aed:{ titleKey:"eq_h_iaed", chips:["AED","záložný"], desc:"Druhý AED ako záloha s plne automatickou analýzou rytmu a okamžitou pripravenosťou." },
+  i_intubation:{ titleKey:"eq_h_intub", chips:["INTUBÁCIA","ALS"], desc:"Kompletná intubačná súprava: laryngoskop, ET kanyly, supraglotické pomôcky, fixácia, kapnograf." },
+  i_iv:{ titleKey:"eq_h_iv", chips:["IV STOJAN"], desc:"Pevný stropný IV stojan s háčikmi pre paralelné podávanie infúzií, pripravený aj počas jazdy." },
+  i_cabinet:{ titleKey:"eq_h_cabinet", chips:["SKLAD","obväzový materiál"], desc:"Skrinky so sterilným materiálom, krytmi rán, obväzmi, dlahami a špecifickým vybavením pre rôzne typy zásahov." },
+  i_drawers:{ titleKey:"eq_h_drawers", chips:["ZÁSUVKY","systematizované"], desc:"Logicky usporiadané zásuvky s prístrojmi, jednorazovým materiálom a osobnou ochranou — všetko po ruke." }
+};
+
+// Scene toggle
+const sceneExt = document.getElementById('sceneExterior');
+const sceneInt = document.getElementById('sceneInterior');
+const sceneStage = document.getElementById('sceneStage');
+function showScene(name){
+  const ext = name === 'exterior';
+  sceneExt.classList.toggle('scene-active', ext);
+  sceneInt.classList.toggle('scene-active', !ext);
+  document.querySelectorAll('.scene-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.scene === name);
+  });
+}
+document.querySelectorAll('.scene-btn').forEach(b=>{
+  b.addEventListener('click',()=>showScene(b.dataset.scene));
+});
+document.querySelector('.back-to-ext').addEventListener('click',()=>showScene('exterior'));
+
+// Hotspot clicks → either switch scene or open modal
+const modal = document.getElementById('eqModal');
+const modalTitle = document.getElementById('eqModalTitle');
+const modalDesc = document.getElementById('eqModalDesc');
+const modalMeta = document.getElementById('eqModalMeta');
+function openModal(key){
+  const data = EQ_DETAILS[key]; if(!data) return;
+  const dict = I18N[document.documentElement.lang] || I18N.sk;
+  modalTitle.textContent = (dict[data.titleKey] || data.titleKey).replace(/&amp;/g,'&').replace(/<[^>]+>/g,'');
+  modalDesc.textContent = data.desc;
+  modalMeta.innerHTML = data.chips.map(c=>`<span class="chip">${c}</span>`).join('');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.hotspot').forEach(h=>{
+  h.addEventListener('click',()=>{
+    if(h.dataset.action === 'interior'){ showScene('interior'); return; }
+    openModal(h.dataset.key);
+  });
+});
+document.getElementById('eqModalClose').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+// 3D parallax tilt for active scene based on mouse position
+sceneStage.addEventListener('mousemove', e=>{
+  const r = sceneStage.getBoundingClientRect();
+  const px = (e.clientX - r.left) / r.width - 0.5;
+  const py = (e.clientY - r.top) / r.height - 0.5;
+  const rx = px * 6;   // rotateY in deg
+  const ry = -py * 4;  // rotateX in deg
+  sceneStage.querySelectorAll('.scene.scene-active .scene-svg').forEach(svg=>{
+    svg.style.setProperty('--rx', rx + 'deg');
+    svg.style.setProperty('--ry', ry + 'deg');
+  });
+  // depth-based layer offset
+  sceneStage.querySelectorAll('.scene.scene-active .layer').forEach(layer=>{
+    const d = parseFloat(layer.dataset.depth || 0.5);
+    layer.style.transform = `translate(${px * d * 24}px, ${py * d * 14}px)`;
+  });
+});
+sceneStage.addEventListener('mouseleave', ()=>{
+  sceneStage.querySelectorAll('.scene-svg').forEach(svg=>{
+    svg.style.removeProperty('--rx'); svg.style.removeProperty('--ry');
+  });
+  sceneStage.querySelectorAll('.layer').forEach(layer=>{
+    layer.style.transform = '';
+  });
+});
+
+// Re-apply translations after extending dict
+setLang(document.documentElement.lang || 'sk');
+</script>
+</body>
+</html>
