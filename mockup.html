@@ -13,19 +13,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0a0e14;
-    --bg-2: #0f141c;
-    --bg-3: #141a24;
-    --panel: #161d28;
-    --line: rgba(255,255,255,0.08);
-    --line-2: rgba(255,255,255,0.04);
-    --text: #e8ecf2;
-    --text-dim: #98a2b3;
-    --text-mute: #667085;
-    --red: #e11d2a;
-    --red-2: #ff3543;
-    --red-glow: rgba(225,29,42,0.35);
+    --bg: #ffffff;
+    --bg-2: #f6f7fb;
+    --bg-3: #eef0f7;
+    --panel: #ffffff;
+    --line: rgba(0,0,55,0.12);
+    --line-2: rgba(0,0,55,0.06);
+    --text: #05052e;
+    --text-dim: #4a4a68;
+    --text-mute: #7c7c96;
+    --red: #ff2c06;
+    --red-2: #ff5a33;
+    --red-glow: rgba(255,44,6,0.28);
     --green: #16a34a;
+    --navy: #000037;
+    --navy-2: #1a1a5c;
+    --navy-glow: rgba(0,0,55,0.22);
     --radius: 14px;
     --max: 1240px;
     --t: cubic-bezier(.2,.7,.2,1);
@@ -55,7 +58,7 @@
     position:fixed;
     width:600px;height:600px;
     border-radius:50%;
-    background: radial-gradient(circle, rgba(225,29,42,0.13) 0%, rgba(225,29,42,0.04) 35%, transparent 70%);
+    background: radial-gradient(circle, rgba(0,0,55,0.10) 0%, rgba(0,0,55,0.03) 35%, transparent 70%);
     pointer-events:none;
     z-index:1;
     left:-9999px;top:-9999px;
@@ -70,7 +73,7 @@
   /* ------------------ FIXED NAV (always visible) ------------------ */
   .nav{
     position:fixed;top:0;left:0;right:0;z-index:1000;
-    background: rgba(8,11,16,0.78);
+    background: rgba(255,255,255,0.82);
     -webkit-backdrop-filter: blur(22px) saturate(160%);
     backdrop-filter: blur(22px) saturate(160%);
     border-bottom:1px solid var(--line);
@@ -78,57 +81,51 @@
     transition: background .3s var(--t), border-color .3s var(--t);
   }
   .nav.scrolled{
-    background: rgba(8,11,16,0.92);
-    border-color: rgba(225,29,42,0.18);
-    box-shadow: 0 6px 30px rgba(0,0,0,0.4);
+    background: rgba(255,255,255,0.94);
+    border-color: rgba(0,0,55,0.14);
+    box-shadow: 0 6px 30px rgba(0,0,55,0.08);
   }
   .nav .row{display:flex;align-items:center;justify-content:space-between;height:100%}
   .logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
-  .logo-mark{
-    width:42px;height:42px;border-radius:11px;
-    background: linear-gradient(135deg,var(--red) 0%, #a8121d 100%);
-    display:flex;align-items:center;justify-content:center;
-    box-shadow: 0 6px 20px var(--red-glow);
-    position:relative;
+.logo-img{height:36px;width:auto;display:block}
+  .logo-sub{
+    font-size:9.5px;color:var(--text-mute);letter-spacing:0.18em;text-transform:uppercase;
+    font-weight:600;padding-left:12px;margin-left:2px;border-left:1px solid var(--line);
+    align-self:center;line-height:1.3;max-width:90px;
   }
-  .logo-mark svg{width:22px;height:22px;color:#fff}
-  .logo-text{display:flex;flex-direction:column;line-height:1}
-  .logo-text .name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em}
-  .logo-text .name span{color:var(--red-2)}
-  .logo-text .sub{font-size:9.5px;color:var(--text-mute);letter-spacing:0.18em;text-transform:uppercase;margin-top:3px;font-weight:600}
   .menu{display:flex;gap:4px;align-items:center}
   .menu a{
     padding:9px 14px;color:var(--text-dim);font-weight:500;font-size:14.5px;
     border-radius:8px;transition:all .15s var(--t);position:relative;
   }
-  .menu a:hover{color:#fff;background:rgba(255,255,255,0.05)}
-  .menu a.active{color:#fff}
+  .menu a:hover{color:var(--navy);background:rgba(0,0,55,0.05)}
+  .menu a.active{color:var(--navy)}
   .menu a.active::after{
     content:"";position:absolute;left:14px;right:14px;bottom:4px;height:2px;
     background:var(--red-2);border-radius:2px;
     box-shadow:0 0 12px var(--red-2);
   }
   .nav-right{display:flex;align-items:center;gap:14px}
-  .lang{display:flex;gap:1px;background:rgba(255,255,255,0.04);border-radius:8px;padding:3px}
+  .lang{display:flex;gap:1px;background:rgba(0,0,55,0.05);border-radius:8px;padding:3px}
   .lang button{
     background:none;border:0;color:var(--text-dim);
     padding:5px 10px;font-size:12px;font-weight:600;border-radius:6px;cursor:pointer;
     font-family:inherit;letter-spacing:0.04em;transition:all .15s var(--t);
   }
-  .lang button.active{background:var(--red);color:#fff;box-shadow:0 2px 10px var(--red-glow)}
-  .lang button:hover:not(.active){color:#fff}
+  .lang button.active{background:var(--navy);color:#fff;box-shadow:0 2px 10px var(--navy-glow)}
+  .lang button:hover:not(.active){color:var(--navy)}
   .nav-cta{
     display:inline-flex;align-items:center;gap:8px;
-    background:var(--red);color:#fff;padding:10px 18px;border-radius:8px;
+    background:var(--navy);color:#fff;padding:10px 18px;border-radius:8px;
     font-weight:600;font-size:14px;
-    box-shadow:0 4px 14px var(--red-glow);
+    box-shadow:0 4px 14px var(--navy-glow);
     transition: all .2s var(--t);
     position:relative;
     isolation:isolate;
   }
   .nav-cta svg{width:14px;height:14px}
-  .nav-cta:hover{background:var(--red-2);transform:translateY(-1px);box-shadow:0 6px 22px var(--red-glow)}
-  .burger{display:none;background:none;border:0;color:#fff;cursor:pointer;padding:8px}
+  .nav-cta:hover{background:var(--navy-2);transform:translateY(-1px);box-shadow:0 6px 22px var(--navy-glow)}
+  .burger{display:none;background:none;border:0;color:var(--navy);cursor:pointer;padding:8px}
   .burger svg{width:24px;height:24px}
 
   /* ------------------ BUTTONS WITH PARTICLE GLOW HOVER ------------------ */
@@ -140,10 +137,10 @@
     isolation:isolate;
   }
   .btn svg{width:16px;height:16px}
-  .btn-primary{background:var(--red);color:#fff;box-shadow:0 6px 20px var(--red-glow)}
-  .btn-primary:hover{background:var(--red-2);transform:translateY(-2px);box-shadow:0 10px 28px var(--red-glow)}
-  .btn-ghost{background:rgba(255,255,255,0.05);color:#fff;border:1px solid var(--line);backdrop-filter:blur(6px)}
-  .btn-ghost:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);transform:translateY(-2px)}
+  .btn-primary{background:var(--navy);color:#fff;box-shadow:0 6px 20px var(--navy-glow)}
+  .btn-primary:hover{background:var(--navy-2);transform:translateY(-2px);box-shadow:0 10px 28px var(--navy-glow)}
+  .btn-ghost{background:rgba(0,0,55,0.04);color:var(--text);border:1px solid var(--line);backdrop-filter:blur(6px)}
+  .btn-ghost:hover{background:rgba(0,0,55,0.07);border-color:rgba(0,0,55,0.22);transform:translateY(-2px)}
 
   /* particle orbs floating around buttons on hover */
   .btn::before, .btn::after{
@@ -154,14 +151,14 @@
   }
   .btn-primary::before{
     width:90px;height:90px;
-    background: radial-gradient(circle, #ff3543 0%, transparent 65%);
+    background: radial-gradient(circle, #ff5a33 0%, transparent 65%);
     top:-28px;left:-22px;
     filter: blur(8px);
     animation: orbA 4.5s infinite ease-in-out;
   }
   .btn-primary::after{
     width:75px;height:75px;
-    background: radial-gradient(circle, #e11d2a 0%, transparent 65%);
+    background: radial-gradient(circle, #ff2c06 0%, transparent 65%);
     bottom:-20px;right:-22px;
     filter: blur(10px);
     animation: orbB 5.5s infinite ease-in-out 0.6s;
@@ -193,13 +190,13 @@
   }
   .nav-cta::before{
     width:70px;height:70px;
-    background: radial-gradient(circle, #ff3543 0%, transparent 65%);
+    background: radial-gradient(circle, #ff5a33 0%, transparent 65%);
     top:-22px;left:-18px;filter:blur(10px);
     animation: orbA 4.5s infinite ease-in-out;
   }
   .nav-cta::after{
     width:55px;height:55px;
-    background: radial-gradient(circle, #e11d2a 0%, transparent 65%);
+    background: radial-gradient(circle, #ff2c06 0%, transparent 65%);
     bottom:-15px;right:-12px;filter:blur(10px);
     animation: orbB 5.5s infinite ease-in-out 0.4s;
   }
@@ -222,15 +219,15 @@
     position:relative;overflow:hidden;
     padding: 70px 0 110px;
     background:
-      radial-gradient(1100px 500px at 80% -10%, rgba(225,29,42,0.18), transparent 60%),
-      radial-gradient(800px 400px at 10% 60%, rgba(225,29,42,0.08), transparent 60%),
+      radial-gradient(1100px 500px at 80% -10%, rgba(255,44,6,0.09), transparent 60%),
+      radial-gradient(800px 400px at 10% 60%, rgba(0,0,55,0.05), transparent 60%),
       linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
   }
   .hero::before{
     content:"";position:absolute;inset:0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      linear-gradient(rgba(0,0,55,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,55,0.035) 1px, transparent 1px);
     background-size:60px 60px;
     mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 70%);
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 70%);
@@ -239,8 +236,8 @@
   .hero .row{display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
   .badge{
     display:inline-flex;align-items:center;gap:8px;
-    background: rgba(225,29,42,0.1);border:1px solid rgba(225,29,42,0.25);
-    color: #ffb4ba;padding:7px 14px;border-radius:100px;
+    background: rgba(255,44,6,0.08);border:1px solid rgba(255,44,6,0.25);
+    color: #c22400;padding:7px 14px;border-radius:100px;
     font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
     margin-bottom:24px;
   }
@@ -263,7 +260,7 @@
     margin-top:48px;padding-top:32px;border-top:1px solid var(--line);
     max-width:560px;
   }
-  .stat .num{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;color:#fff;letter-spacing:-0.02em}
+  .stat .num{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;color:var(--navy);letter-spacing:-0.02em}
   .stat .num span{color:var(--red-2)}
   .stat .lbl{font-size:12px;color:var(--text-mute);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px;font-weight:600}
 
@@ -273,10 +270,11 @@
     aspect-ratio: 4/5;
     border-radius:20px;overflow:hidden;
     background:
-      linear-gradient(135deg, rgba(225,29,42,0.4) 0%, rgba(10,14,20,0.95) 60%),
-      linear-gradient(45deg, #1a1f2c, #0a0e14);
+      linear-gradient(135deg, rgba(255,44,6,0.5) 0%, rgba(0,0,55,0.94) 62%),
+      linear-gradient(45deg, #0d0d45, #000037);
     border:1px solid var(--line);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(225,29,42,0.08);
+    box-shadow: 0 30px 80px rgba(0,0,55,0.18), 0 0 0 1px rgba(255,44,6,0.1);
+    --text-mute: rgba(255,255,255,0.6);
   }
   .hero-visual::before{
     content:"";position:absolute;inset:0;
@@ -290,7 +288,7 @@
     animation: floatY 6s ease-in-out infinite;
   }
   @keyframes floatY{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 12px))}}
-  .hero-visual .cross svg{width:100%;height:auto;filter:drop-shadow(0 20px 50px rgba(225,29,42,0.6))}
+  .hero-visual .cross svg{width:100%;height:auto;filter:drop-shadow(0 20px 50px rgba(255,44,6,0.5))}
   .hero-visual .placeholder-tag{
     position:absolute;bottom:20px;left:20px;
     padding:6px 12px;border-radius:6px;background:rgba(0,0,0,0.6);
@@ -313,7 +311,7 @@
   @keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
   .float-icon{
     width:38px;height:38px;border-radius:9px;
-    background:linear-gradient(135deg,var(--red),#7a0d15);
+    background:linear-gradient(135deg,var(--red),#7a1400);
     display:flex;align-items:center;justify-content:center;
   }
   .float-icon svg{width:18px;height:18px;color:#fff}
@@ -384,12 +382,12 @@
   .about-img{
     aspect-ratio:5/4;border-radius:18px;overflow:hidden;
     background:
-      linear-gradient(135deg, rgba(225,29,42,0.25), rgba(0,0,0,0.6)),
-      linear-gradient(45deg, #1a1f2c, #0a0e14);
+      linear-gradient(135deg, rgba(255,44,6,0.06), rgba(0,0,55,0.04)),
+      var(--bg-3);
     border:1px solid var(--line);
     position:relative;
     display:flex;align-items:center;justify-content:center;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    box-shadow: 0 20px 60px rgba(0,0,55,0.08);
   }
   .about-img .ph{
     color:var(--text-mute);font-size:13px;letter-spacing:0.15em;
@@ -406,7 +404,7 @@
     display:flex;align-items:center;justify-content:center;color:var(--red-2);
   }
   .feature .ico svg{width:16px;height:16px}
-  .feature .t1{font-weight:600;color:#fff;font-size:15px}
+  .feature .t1{font-weight:600;color:var(--text);font-size:15px}
   .feature .t2{color:var(--text-dim);font-size:14px;margin-top:2px}
 
   /* SERVICES */
@@ -429,16 +427,16 @@
   .svc-card::after{
     content:"";position:absolute;width:280px;height:280px;border-radius:50%;
     top:-100px;right:-100px;
-    background: radial-gradient(circle, rgba(225,29,42,0.35) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(255,44,6,0.18) 0%, transparent 65%);
     filter: blur(40px);
     opacity:0;transition:opacity .5s var(--t);z-index:-1;pointer-events:none;
   }
-  .svc-card:hover{transform:translateY(-6px);border-color:rgba(225,29,42,0.3);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
+  .svc-card:hover{transform:translateY(-6px);border-color:rgba(0,0,55,0.3);box-shadow:0 20px 50px rgba(0,0,55,0.12)}
   .svc-card:hover::before{opacity:1}
   .svc-card:hover::after{opacity:1}
   .svc-icon{
     width:54px;height:54px;border-radius:12px;
-    background:linear-gradient(135deg,var(--red),#7a0d15);
+    background:linear-gradient(135deg,var(--red),#7a1400);
     display:flex;align-items:center;justify-content:center;
     margin-bottom:22px;box-shadow:0 8px 22px var(--red-glow);
     transition: transform .3s var(--t);
@@ -456,16 +454,16 @@
     display:flex;justify-content:center;gap:8px;margin-bottom:50px;flex-wrap:wrap;
   }
   .year-tab{
-    background:rgba(255,255,255,0.04);border:1px solid var(--line);
+    background:rgba(0,0,55,0.04);border:1px solid var(--line);
     color:var(--text-dim);padding:9px 20px;border-radius:100px;
     font-weight:600;font-size:14px;cursor:pointer;transition:all .2s var(--t);font-family:inherit;
     position:relative;isolation:isolate;
   }
-  .year-tab:hover{color:#fff;border-color:rgba(255,255,255,0.18);transform:translateY(-1px)}
-  .year-tab.active{background:var(--red);color:#fff;border-color:var(--red);box-shadow:0 6px 20px var(--red-glow)}
+  .year-tab:hover{color:var(--navy);border-color:rgba(0,0,55,0.25);transform:translateY(-1px)}
+  .year-tab.active{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:0 6px 20px var(--navy-glow)}
   .year-tab.active::after{
     content:"";position:absolute;inset:-12px;
-    background: radial-gradient(circle, rgba(225,29,42,0.45), transparent 65%);
+    background: radial-gradient(circle, rgba(0,0,55,0.35), transparent 65%);
     filter: blur(16px);z-index:-1;opacity:0.7;
   }
   .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -478,15 +476,15 @@
   .event-card::after{
     content:"";position:absolute;width:220px;height:220px;border-radius:50%;
     bottom:-80px;left:-80px;
-    background: radial-gradient(circle, rgba(225,29,42,0.25) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(255,44,6,0.16) 0%, transparent 65%);
     filter: blur(40px);opacity:0;transition:opacity .5s var(--t);z-index:-1;pointer-events:none;
   }
-  .event-card:hover{transform:translateY(-5px);border-color:rgba(225,29,42,0.3);box-shadow:0 20px 40px rgba(0,0,0,0.4)}
+  .event-card:hover{transform:translateY(-5px);border-color:rgba(0,0,55,0.3);box-shadow:0 20px 40px rgba(0,0,55,0.1)}
   .event-card:hover::after{opacity:1}
   .event-img{
     aspect-ratio:16/10;background:
-      linear-gradient(135deg, rgba(225,29,42,0.25), rgba(0,0,0,0.7)),
-      linear-gradient(45deg, #1a1f2c, #0a0e14);
+      linear-gradient(135deg, rgba(255,44,6,0.07), rgba(0,0,55,0.05)),
+      var(--bg-3);
     position:relative;display:flex;align-items:center;justify-content:center;
     overflow:hidden;
   }
@@ -504,7 +502,7 @@
     letter-spacing:0.1em;text-transform:uppercase;
   }
   .event-body{padding:22px 22px 24px}
-  .event-body h4{font-size:17px;margin-bottom:8px;color:#fff;font-family:'Inter',sans-serif;font-weight:700}
+  .event-body h4{font-size:17px;margin-bottom:8px;color:var(--text);font-family:'Inter',sans-serif;font-weight:700}
   .event-body p{color:var(--text-dim);font-size:14px;line-height:1.55}
   .event-meta{
     margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
@@ -525,20 +523,20 @@
   .team-card::after{
     content:"";position:absolute;width:260px;height:260px;border-radius:50%;
     top:-100px;left:50%;transform:translateX(-50%);
-    background: radial-gradient(circle, rgba(225,29,42,0.25) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(255,44,6,0.16) 0%, transparent 65%);
     filter:blur(40px);opacity:0;transition:opacity .5s var(--t);z-index:-1;pointer-events:none;
   }
-  .team-card:hover{transform:translateY(-5px);border-color:rgba(225,29,42,0.3)}
+  .team-card:hover{transform:translateY(-5px);border-color:rgba(0,0,55,0.3)}
   .team-card:hover::after{opacity:1}
   .avatar-box{
     aspect-ratio:1/1;
-    background:linear-gradient(135deg, rgba(225,29,42,0.15), rgba(0,0,0,0.5));
+    background:linear-gradient(135deg, rgba(255,44,6,0.08), rgba(0,0,55,0.05));
     display:flex;align-items:center;justify-content:center;
     position:relative;border-bottom:1px solid var(--line);
   }
   .avatar{
     width:110px;height:110px;border-radius:50%;
-    background:linear-gradient(135deg,var(--red),#7a0d15);
+    background:linear-gradient(135deg,var(--red),#7a1400);
     display:flex;align-items:center;justify-content:center;
     font-family:'Space Grotesk',sans-serif;
     font-weight:700;font-size:38px;color:#fff;
@@ -554,14 +552,14 @@
 
   /* CTA STRIP */
   .cta-strip{
-    background: linear-gradient(135deg, #1a0509 0%, #0a0e14 100%);
-    border-top:1px solid rgba(225,29,42,0.18);
-    border-bottom:1px solid rgba(225,29,42,0.18);
+    background: linear-gradient(135deg, rgba(0,0,55,0.05) 0%, rgba(255,44,6,0.05) 100%), var(--bg-2);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
     padding:70px 0;position:relative;overflow:hidden;
   }
   .cta-strip::before{
     content:"";position:absolute;inset:0;
-    background: radial-gradient(circle at 20% 50%, rgba(225,29,42,0.18), transparent 50%);
+    background: radial-gradient(circle at 20% 50%, rgba(255,44,6,0.08), transparent 50%);
     animation: shimmer 8s ease-in-out infinite;
   }
   @keyframes shimmer{0%,100%{opacity:1;transform:translateX(0)}50%{opacity:0.6;transform:translateX(30px)}}
@@ -578,14 +576,14 @@
   .info-item{display:flex;gap:16px;align-items:flex-start}
   .info-item .ico{
     width:44px;height:44px;border-radius:11px;flex-shrink:0;
-    background:rgba(225,29,42,0.1);border:1px solid rgba(225,29,42,0.2);
+    background:rgba(255,44,6,0.08);border:1px solid rgba(255,44,6,0.2);
     display:flex;align-items:center;justify-content:center;color:var(--red-2);
     transition: all .2s var(--t);
   }
-  .info-item:hover .ico{background:rgba(225,29,42,0.18);box-shadow:0 0 20px rgba(225,29,42,0.3);transform:scale(1.05)}
+  .info-item:hover .ico{background:rgba(255,44,6,0.15);box-shadow:0 0 20px rgba(255,44,6,0.25);transform:scale(1.05)}
   .info-item .ico svg{width:18px;height:18px}
   .info-item .lbl{font-size:12px;color:var(--text-mute);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:4px}
-  .info-item .val{font-size:15.5px;color:#fff;font-weight:500}
+  .info-item .val{font-size:15.5px;color:var(--text);font-weight:500}
   .info-item .val a:hover{color:var(--red-2)}
   .contact-form{
     background:var(--panel);border:1px solid var(--line);
@@ -595,7 +593,7 @@
   .contact-form::before{
     content:"";position:absolute;width:300px;height:300px;border-radius:50%;
     top:-120px;right:-120px;
-    background: radial-gradient(circle, rgba(225,29,42,0.18) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(255,44,6,0.10) 0%, transparent 65%);
     filter:blur(50px);z-index:-1;
   }
   .contact-form h3{font-size:22px;margin-bottom:8px}
@@ -603,18 +601,18 @@
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
   .form-input{
     width:100%;background:var(--bg-3);border:1px solid var(--line);
-    color:#fff;padding:13px 16px;border-radius:10px;
+    color:var(--text);padding:13px 16px;border-radius:10px;
     font-size:14.5px;font-family:inherit;transition:all .15s var(--t);
   }
-  .form-input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(225,29,42,0.15)}
+  .form-input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,0,55,0.12)}
   .form-input::placeholder{color:var(--text-mute)}
   textarea.form-input{resize:vertical;min-height:120px;margin-bottom:18px}
   .form-submit{width:100%;justify-content:center;font-size:15px}
 
   /* FOOTER */
-  footer{background:#060a0f;padding:60px 0 30px;border-top:1px solid var(--line)}
+  footer{background:var(--bg-2);padding:60px 0 30px;border-top:1px solid var(--line)}
   .ft-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px;margin-bottom:46px}
-  .ft-col h5{font-size:13px;text-transform:uppercase;letter-spacing:0.12em;color:#fff;margin-bottom:18px;font-family:'Inter',sans-serif;font-weight:700}
+  .ft-col h5{font-size:13px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text);margin-bottom:18px;font-family:'Inter',sans-serif;font-weight:700}
   .ft-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
   .ft-col a{color:var(--text-dim);font-size:14px;transition:color .15s var(--t)}
   .ft-col a:hover{color:var(--red-2)}
@@ -622,11 +620,11 @@
   .ft-social{display:flex;gap:10px;margin-top:18px}
   .ft-social a{
     width:36px;height:36px;border-radius:9px;
-    background:rgba(255,255,255,0.04);border:1px solid var(--line);
+    background:rgba(0,0,55,0.05);border:1px solid var(--line);
     display:flex;align-items:center;justify-content:center;color:var(--text-dim);
     transition: all .2s var(--t);
   }
-  .ft-social a:hover{background:var(--red);border-color:var(--red);color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px var(--red-glow)}
+  .ft-social a:hover{background:var(--navy);border-color:var(--navy);color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px var(--navy-glow)}
   .ft-social svg{width:16px;height:16px}
   .ft-bottom{
     border-top:1px solid var(--line);padding-top:24px;
@@ -660,7 +658,7 @@
     .menu{display:none}
     .menu.open{
       display:flex;position:absolute;top:var(--nav-h);left:0;right:0;
-      background:rgba(8,11,16,0.98);backdrop-filter:blur(20px);
+      background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);
       flex-direction:column;padding:18px 24px;
       border-bottom:1px solid var(--line);
     }
@@ -684,7 +682,7 @@
   .equipment::before{
     content:"";position:absolute;width:600px;height:600px;border-radius:50%;
     top:30%;left:-200px;
-    background:radial-gradient(circle,rgba(225,29,42,0.08),transparent 65%);
+    background:radial-gradient(circle,rgba(255,44,6,0.05),transparent 65%);
     filter:blur(60px);pointer-events:none;
   }
   .scene-toolbar{
@@ -692,7 +690,7 @@
     margin-bottom:24px;gap:20px;flex-wrap:wrap;
   }
   .scene-toggle{
-    display:inline-flex;background:rgba(255,255,255,0.04);
+    display:inline-flex;background:rgba(0,0,55,0.05);
     border:1px solid var(--line);border-radius:100px;padding:4px;gap:2px;
   }
   .scene-btn{
@@ -701,17 +699,17 @@
     cursor:pointer;font-family:inherit;transition:all .2s var(--t);
     position:relative;isolation:isolate;
   }
-  .scene-btn:hover{color:#fff}
-  .scene-btn.active{background:var(--red);color:#fff;box-shadow:0 4px 16px var(--red-glow)}
+  .scene-btn:hover{color:var(--navy)}
+  .scene-btn.active{background:var(--navy);color:#fff;box-shadow:0 4px 16px var(--navy-glow)}
   .scene-btn.active::after{
     content:"";position:absolute;inset:-8px;
-    background:radial-gradient(circle,rgba(225,29,42,0.4),transparent 70%);
+    background:radial-gradient(circle,rgba(0,0,55,0.35),transparent 70%);
     filter:blur(14px);z-index:-1;
   }
   .scene-hint{
     display:inline-flex;align-items:center;gap:10px;
     font-size:13px;color:var(--text-dim);
-    background:rgba(255,255,255,0.03);
+    background:rgba(0,0,55,0.04);
     border:1px solid var(--line);
     padding:8px 14px;border-radius:100px;
   }
@@ -724,36 +722,29 @@
   .scene-stage{
     position:relative;
     border-radius:18px;overflow:hidden;
-    background: linear-gradient(180deg, #0e131d 0%, #161d28 100%);
+    background: linear-gradient(135deg, rgba(255,44,6,0.05), rgba(0,0,55,0.04)), var(--bg-3);
     border:1px solid var(--line);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+    box-shadow: 0 30px 80px rgba(0,0,55,0.10), inset 0 1px 0 rgba(255,255,255,0.4);
     aspect-ratio: 12/7;
-    perspective: 1500px;
   }
 
   .scene{
     position:absolute;inset:0;
     opacity:0;
-    transform: scale(0.96) translateX(40px);
-    transition: opacity .55s var(--t), transform .55s var(--t);
+    transition: opacity .4s var(--t);
     pointer-events:none;
   }
   .scene.scene-active{
     opacity:1;
-    transform: scale(1) translateX(0);
     pointer-events:auto;
   }
-  .scene-svg{
-    width:100%;height:100%;display:block;
-    transform-style: preserve-3d;
-    transition: transform .15s linear;
+  .scene-photo{
+    width:100%;height:100%;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:10px;
+    color:var(--text-mute);font-size:13px;letter-spacing:0.1em;
+    text-transform:uppercase;font-weight:600;text-align:center;
   }
-  .scene-stage:hover .scene-svg{
-    /* slight 3D tilt on mouse — set via JS variables */
-    transform: rotateY(var(--rx, 0deg)) rotateX(var(--ry, 0deg));
-  }
-  /* parallax layers */
-  .layer{transition: transform .15s linear}
+  .scene-photo svg{width:44px;height:44px;color:var(--red-2);opacity:0.6}
 
   /* HOTSPOT — pulsing red dot that user can click */
   .hotspot{
@@ -767,7 +758,7 @@
     position:relative;
     width:18px;height:18px;border-radius:50%;
     background:var(--red);
-    box-shadow:0 0 0 6px rgba(225,29,42,0.18), 0 0 18px var(--red);
+    box-shadow:0 0 0 6px rgba(255,44,6,0.18), 0 0 18px var(--red);
     flex-shrink:0;
     transition: transform .2s var(--t);
   }
@@ -786,11 +777,11 @@
     100%{transform:scale(2.6);opacity:0}
   }
   .hs-label{
-    background:rgba(0,0,0,0.85);
+    background:rgba(0,0,55,0.9);
     backdrop-filter:blur(10px);
     color:#fff;font-size:12px;font-weight:600;
     padding:6px 12px;border-radius:8px;
-    border:1px solid rgba(225,29,42,0.3);
+    border:1px solid rgba(255,44,6,0.3);
     white-space:nowrap;
     opacity:0;transform:translateX(-8px);
     transition: opacity .2s var(--t), transform .2s var(--t);
@@ -804,28 +795,28 @@
 
   /* Special "ambulance" hotspot — wider tap area */
   .hotspot[data-action="interior"] .hs-dot{
-    background: linear-gradient(135deg, var(--red), #7a0d15);
-    box-shadow:0 0 0 8px rgba(225,29,42,0.22), 0 0 24px var(--red);
+    background: linear-gradient(135deg, var(--red), #7a1400);
+    box-shadow:0 0 0 8px rgba(255,44,6,0.2), 0 0 24px var(--red);
   }
 
   /* Preview panel — shows on hover over hotspot */
   .scene-preview{
     position:absolute;top:18px;right:18px;
     width:280px;z-index:8;
-    background:rgba(8,11,16,0.94);
+    background:rgba(255,255,255,0.97);
     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-    border:1px solid rgba(225,29,42,0.28);
+    border:1px solid var(--line);
     border-radius:14px;padding:14px;
     pointer-events:none;
     opacity:0;transform:translateX(14px) scale(0.97);
     transition:opacity .3s var(--t),transform .3s var(--t);
-    box-shadow:0 20px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(0,0,0,0.4);
+    box-shadow:0 20px 50px rgba(0,0,55,0.18);
   }
   .scene-preview.visible{opacity:1;transform:translateX(0) scale(1)}
   .scene-preview .pv-img{
     width:100%;aspect-ratio:4/3;
-    background:linear-gradient(135deg,rgba(225,29,42,0.18) 0%,rgba(0,0,0,0.7) 65%),#0e131d;
-    border-radius:10px;border:1px solid rgba(255,255,255,0.06);
+    background:linear-gradient(135deg,rgba(255,44,6,0.06) 0%,rgba(0,0,55,0.05) 65%),var(--bg-3);
+    border-radius:10px;border:1px solid var(--line);
     margin-bottom:14px;
     display:flex;align-items:center;justify-content:center;
     overflow:hidden;position:relative;
@@ -833,19 +824,19 @@
   .scene-preview .pv-img::before{
     content:"";position:absolute;inset:0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+      linear-gradient(rgba(0,0,55,0.03) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,0,55,0.03) 1px,transparent 1px);
     background-size:20px 20px;
     mask-image:radial-gradient(circle at center,#000 30%,transparent 80%);
     -webkit-mask-image:radial-gradient(circle at center,#000 30%,transparent 80%);
   }
   .scene-preview .pv-img svg{
     width:90%;height:90%;position:relative;z-index:1;
-    filter:drop-shadow(0 12px 30px rgba(0,0,0,0.7));
+    filter:drop-shadow(0 12px 30px rgba(0,0,55,0.25));
   }
   .scene-preview .pv-name{
     font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;
-    color:#fff;margin-bottom:5px;letter-spacing:-0.01em;
+    color:var(--text);margin-bottom:5px;letter-spacing:-0.01em;
   }
   .scene-preview .pv-desc{
     font-size:12.5px;color:var(--text-dim);line-height:1.5;
@@ -868,19 +859,19 @@
   .back-to-ext{
     position:absolute;top:18px;left:18px;
     display:inline-flex;align-items:center;gap:8px;
-    background:rgba(8,11,16,0.85);backdrop-filter:blur(10px);
-    border:1px solid var(--line);color:#fff;
+    background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);
+    border:1px solid var(--line);color:var(--text);
     padding:9px 16px;border-radius:100px;
     font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
     transition:all .2s var(--t);z-index:5;
   }
   .back-to-ext svg{width:14px;height:14px}
-  .back-to-ext:hover{background:var(--red);border-color:var(--red);box-shadow:0 6px 20px var(--red-glow)}
+  .back-to-ext:hover{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:0 6px 20px var(--navy-glow)}
 
   /* ===== Detail modal ===== */
   .eq-modal{
     position:fixed;inset:0;z-index:5000;
-    background: rgba(5,8,12,0.85);
+    background: rgba(0,0,20,0.55);
     backdrop-filter: blur(14px);
     display:flex;align-items:center;justify-content:center;
     padding:24px;
@@ -890,11 +881,11 @@
   .eq-modal.open{opacity:1;pointer-events:auto}
   .eq-modal-card{
     max-width:900px;width:100%;max-height:88vh;
-    background: linear-gradient(180deg, var(--panel), var(--bg-3));
+    background: var(--panel);
     border:1px solid var(--line);border-radius:18px;overflow:hidden;
     display:grid;grid-template-columns:1.2fr 1fr;
     position:relative;
-    box-shadow:0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(225,29,42,0.1);
+    box-shadow:0 40px 100px rgba(0,0,55,0.25);
     transform:translateY(20px) scale(0.97);
     transition: transform .35s var(--t);
   }
@@ -902,18 +893,17 @@
   .eq-modal-close{
     position:absolute;top:14px;right:14px;z-index:2;
     width:38px;height:38px;border-radius:50%;
-    background:rgba(0,0,0,0.5);border:1px solid var(--line);
-    color:#fff;cursor:pointer;
+    background:rgba(255,255,255,0.85);border:1px solid var(--line);
+    color:var(--text);cursor:pointer;
     display:flex;align-items:center;justify-content:center;
     transition:all .2s var(--t);
   }
-  .eq-modal-close:hover{background:var(--red);border-color:var(--red);transform:rotate(90deg)}
+  .eq-modal-close:hover{background:var(--navy);border-color:var(--navy);color:#fff;transform:rotate(90deg)}
   .eq-modal-close svg{width:16px;height:16px}
   .eq-modal-img{
     background:
-      linear-gradient(135deg, rgba(225,29,42,0.15) 0%, rgba(0,0,0,0.7) 70%),
-      radial-gradient(circle at 30% 30%, rgba(225,29,42,0.1), transparent 60%),
-      #0e131d;
+      linear-gradient(135deg, rgba(255,44,6,0.06) 0%, rgba(0,0,55,0.05) 70%),
+      var(--bg-3);
     min-height:300px;
     display:flex;align-items:center;justify-content:center;
     position:relative;
@@ -922,8 +912,8 @@
   .eq-modal-img::before{
     content:"";position:absolute;inset:0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(0,0,55,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,55,0.03) 1px, transparent 1px);
     background-size: 28px 28px;
     mask-image: radial-gradient(ellipse 90% 70% at center, #000 30%, transparent 75%);
     -webkit-mask-image: radial-gradient(ellipse 90% 70% at center, #000 30%, transparent 75%);
@@ -947,8 +937,8 @@
   }
   .eq-modal-meta .chip{
     display:inline-flex;align-items:center;gap:6px;
-    background:rgba(225,29,42,0.08);border:1px solid rgba(225,29,42,0.18);
-    color:#ffb4ba;padding:5px 11px;border-radius:100px;
+    background:rgba(255,44,6,0.07);border:1px solid rgba(255,44,6,0.18);
+    color:#c22400;padding:5px 11px;border-radius:100px;
     font-size:12px;font-weight:600;
   }
 
@@ -979,13 +969,8 @@
 <nav class="nav" id="nav">
   <div class="container row">
     <a href="#top" class="logo">
-      <div class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6V2z"/></svg>
-      </div>
-      <div class="logo-text">
-        <div class="name">ID<span>Care</span></div>
-        <div class="sub">Záchranná služba</div>
-      </div>
+      <img src="logo.png" alt="IDCare" class="logo-img">
+      <span class="logo-sub">Záchranná<br>služba</span>
     </a>
     <div class="menu" id="menu">
       <a href="#about" class="menu-link" data-i18n="m_about">O nás</a>
@@ -1038,7 +1023,7 @@
     <div class="hero-visual">
       <div class="cross">
         <svg viewBox="0 0 100 100" fill="none">
-          <path d="M40 10 H60 V40 H90 V60 H60 V90 H40 V60 H10 V40 H40 Z" fill="#e11d2a"/>
+          <path d="M40 10 H60 V40 H90 V60 H60 V90 H40 V60 H10 V40 H40 Z" fill="#ff2c06"/>
         </svg>
       </div>
       <div class="float-card top">
@@ -1174,218 +1159,10 @@
 
       <!-- EXTERIOR SCENE -->
       <div class="scene scene-active" id="sceneExterior">
-        <svg class="scene-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <defs>
-            <radialGradient id="floor" cx="50%" cy="50%" r="60%">
-              <stop offset="0%" stop-color="#1c2230"/>
-              <stop offset="100%" stop-color="#0a0e14"/>
-            </radialGradient>
-            <linearGradient id="amb-body" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1f2737"/>
-              <stop offset="100%" stop-color="#141a26"/>
-            </linearGradient>
-            <linearGradient id="amb-top" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#ff3543"/>
-              <stop offset="100%" stop-color="#a8121d"/>
-            </linearGradient>
-            <linearGradient id="cab" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1a2030"/>
-              <stop offset="100%" stop-color="#0e131d"/>
-            </linearGradient>
-            <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="rgba(225,29,42,0.35)"/>
-              <stop offset="100%" stop-color="transparent"/>
-            </radialGradient>
-          </defs>
-
-          <!-- floor / ground -->
-          <ellipse cx="600" cy="620" rx="560" ry="60" fill="url(#floor)" opacity="0.7"/>
-          <!-- ambient red glow under ambulance -->
-          <ellipse cx="850" cy="540" rx="240" ry="35" fill="url(#glow)" opacity="0.5"/>
-
-          <!-- AMBULANCE (side view, slightly 3/4) -->
-          <g class="layer layer-back" data-depth="0.4">
-            <!-- shadow -->
-            <ellipse cx="850" cy="555" rx="280" ry="14" fill="rgba(0,0,0,0.6)"/>
-          </g>
-
-          <g class="layer layer-mid" data-depth="0.7" transform="translate(560 230)">
-            <!-- main body -->
-            <rect x="0" y="20" width="560" height="270" rx="14" fill="url(#amb-body)" stroke="#2a3140" stroke-width="1.5"/>
-            <!-- red top strip -->
-            <rect x="0" y="20" width="560" height="50" rx="14" fill="url(#amb-top)"/>
-            <rect x="0" y="55" width="560" height="15" fill="url(#amb-top)"/>
-            <!-- light bar -->
-            <rect x="180" y="6" width="120" height="14" rx="2" fill="#ff3543"/>
-            <rect x="186" y="9" width="16" height="8" fill="#fff" opacity="0.7"/>
-            <rect x="276" y="9" width="16" height="8" fill="#fff" opacity="0.7"/>
-            <!-- cab front -->
-            <path d="M 0 90 Q 0 70 22 70 L 130 70 L 180 160 L 180 290 L 0 290 Z" fill="url(#cab)"/>
-            <!-- windshield -->
-            <path d="M 22 85 L 130 85 L 170 155 L 22 155 Z" fill="#0a0e14" opacity="0.95"/>
-            <line x1="60" y1="85" x2="60" y2="155" stroke="#22293a" stroke-width="1.5"/>
-            <!-- side window -->
-            <rect x="200" y="85" width="160" height="80" rx="3" fill="#0a0e14" opacity="0.95"/>
-            <line x1="280" y1="85" x2="280" y2="165" stroke="#22293a" stroke-width="1.5"/>
-            <!-- back doors -->
-            <rect x="380" y="85" width="170" height="180" rx="3" fill="#181f2c" stroke="#2a3140"/>
-            <line x1="465" y1="85" x2="465" y2="265" stroke="#2a3140" stroke-width="2"/>
-            <rect x="395" y="100" width="60" height="70" fill="#0a0e14" opacity="0.9" rx="2"/>
-            <rect x="475" y="100" width="60" height="70" fill="#0a0e14" opacity="0.9" rx="2"/>
-            <!-- handles -->
-            <rect x="455" y="180" width="5" height="40" rx="2" fill="#3a4150"/>
-            <rect x="470" y="180" width="5" height="40" rx="2" fill="#3a4150"/>
-            <!-- red cross emblem -->
-            <g transform="translate(290 200)">
-              <rect x="-30" y="-9" width="60" height="18" rx="2" fill="#ff3543"/>
-              <rect x="-9" y="-30" width="18" height="60" rx="2" fill="#ff3543"/>
-            </g>
-            <!-- side panel detail line -->
-            <line x1="180" y1="195" x2="380" y2="195" stroke="#2a3140" stroke-width="1.2"/>
-            <!-- "IDCARE" text -->
-            <text x="200" y="245" font-family="Space Grotesk, Inter, sans-serif" font-weight="800" font-size="22" fill="#fff" letter-spacing="2">IDCARE</text>
-            <text x="200" y="262" font-family="Inter, sans-serif" font-weight="600" font-size="9" fill="#98a2b3" letter-spacing="3">ZÁCHRANNÁ SLUŽBA</text>
-            <!-- wheels -->
-            <g>
-              <circle cx="100" cy="305" r="38" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/>
-              <circle cx="100" cy="305" r="22" fill="#1a2030"/>
-              <circle cx="100" cy="305" r="6" fill="#3a4150"/>
-            </g>
-            <g>
-              <circle cx="450" cy="305" r="38" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/>
-              <circle cx="450" cy="305" r="22" fill="#1a2030"/>
-              <circle cx="450" cy="305" r="6" fill="#3a4150"/>
-            </g>
-            <!-- headlight -->
-            <ellipse cx="8" cy="190" rx="6" ry="20" fill="#ffd76b" opacity="0.4"/>
-          </g>
-
-          <!-- PARAMEDIC 1 (left) -->
-          <g class="layer layer-front" data-depth="1.1" transform="translate(180 360)">
-            <!-- shadow -->
-            <ellipse cx="0" cy="200" rx="44" ry="8" fill="rgba(0,0,0,0.5)"/>
-            <!-- legs -->
-            <rect x="-22" y="110" width="18" height="92" rx="4" fill="#0e1420"/>
-            <rect x="4" y="110" width="18" height="92" rx="4" fill="#0e1420"/>
-            <!-- boots -->
-            <rect x="-26" y="195" width="22" height="10" rx="2" fill="#000"/>
-            <rect x="4" y="195" width="22" height="10" rx="2" fill="#000"/>
-            <!-- body / jacket -->
-            <path d="M -30 25 Q -30 18 -22 18 L 22 18 Q 30 18 30 25 L 32 115 L -32 115 Z" fill="#162540"/>
-            <!-- red shoulders / reflective -->
-            <rect x="-32" y="60" width="64" height="6" fill="#ff3543"/>
-            <rect x="-32" y="90" width="64" height="3" fill="rgba(255,255,255,0.3)"/>
-            <!-- red cross on chest -->
-            <g transform="translate(0 45)">
-              <rect x="-10" y="-3" width="20" height="6" fill="#ff3543"/>
-              <rect x="-3" y="-10" width="6" height="20" fill="#ff3543"/>
-            </g>
-            <!-- arms -->
-            <rect x="-40" y="20" width="14" height="65" rx="6" fill="#162540"/>
-            <rect x="26" y="20" width="14" height="65" rx="6" fill="#162540"/>
-            <!-- gloves / hands -->
-            <circle cx="-33" cy="92" r="9" fill="#1a2540"/>
-            <circle cx="33" cy="92" r="9" fill="#1a2540"/>
-            <!-- neck -->
-            <rect x="-7" y="6" width="14" height="14" fill="#2a3550"/>
-            <!-- head -->
-            <circle cx="0" cy="-8" r="20" fill="#2a3550"/>
-            <!-- helmet shine -->
-            <ellipse cx="-4" cy="-14" rx="10" ry="5" fill="rgba(255,255,255,0.08)"/>
-            <!-- ID badge -->
-            <rect x="10" y="35" width="14" height="18" rx="1" fill="#fff" opacity="0.85"/>
-            <line x1="12" y1="40" x2="22" y2="40" stroke="#162540" stroke-width="0.8"/>
-            <line x1="12" y1="44" x2="22" y2="44" stroke="#162540" stroke-width="0.8"/>
-          </g>
-
-          <!-- PARAMEDIC 2 (right of first) -->
-          <g class="layer layer-front" data-depth="1.0" transform="translate(310 380)">
-            <ellipse cx="0" cy="180" rx="44" ry="8" fill="rgba(0,0,0,0.5)"/>
-            <rect x="-22" y="100" width="18" height="82" rx="4" fill="#0e1420"/>
-            <rect x="4" y="100" width="18" height="82" rx="4" fill="#0e1420"/>
-            <rect x="-26" y="175" width="22" height="10" rx="2" fill="#000"/>
-            <rect x="4" y="175" width="22" height="10" rx="2" fill="#000"/>
-            <path d="M -30 25 Q -30 18 -22 18 L 22 18 Q 30 18 30 25 L 32 105 L -32 105 Z" fill="#1a2c4a"/>
-            <rect x="-32" y="55" width="64" height="6" fill="#ff3543"/>
-            <rect x="-32" y="80" width="64" height="3" fill="rgba(255,255,255,0.3)"/>
-            <g transform="translate(0 42)">
-              <rect x="-10" y="-3" width="20" height="6" fill="#ff3543"/>
-              <rect x="-3" y="-10" width="6" height="20" fill="#ff3543"/>
-            </g>
-            <rect x="-40" y="20" width="14" height="60" rx="6" fill="#1a2c4a"/>
-            <rect x="26" y="20" width="14" height="60" rx="6" fill="#1a2c4a"/>
-            <circle cx="-33" cy="86" r="9" fill="#1f2c4a"/>
-            <circle cx="33" cy="86" r="9" fill="#1f2c4a"/>
-            <rect x="-7" y="6" width="14" height="14" fill="#3a4565"/>
-            <circle cx="0" cy="-8" r="20" fill="#3a4565"/>
-            <ellipse cx="-4" cy="-14" rx="10" ry="5" fill="rgba(255,255,255,0.08)"/>
-          </g>
-
-          <!-- BACKPACK 1 (at paramedic 1's feet) -->
-          <g class="layer layer-front" data-depth="1.2" transform="translate(120 510)">
-            <ellipse cx="0" cy="60" rx="42" ry="7" fill="rgba(0,0,0,0.6)"/>
-            <rect x="-35" y="-30" width="70" height="80" rx="8" fill="#1a2540" stroke="#2a3550" stroke-width="1.5"/>
-            <rect x="-35" y="-30" width="70" height="20" rx="8" fill="#0e1420"/>
-            <!-- straps -->
-            <rect x="-30" y="-30" width="6" height="80" fill="#0a0f1a"/>
-            <rect x="24" y="-30" width="6" height="80" fill="#0a0f1a"/>
-            <!-- red cross -->
-            <g transform="translate(0 15)">
-              <rect x="-12" y="-4" width="24" height="8" fill="#ff3543"/>
-              <rect x="-4" y="-12" width="8" height="24" fill="#ff3543"/>
-            </g>
-            <!-- pocket lines -->
-            <line x1="-25" y1="35" x2="25" y2="35" stroke="#2a3550" stroke-width="1"/>
-          </g>
-
-          <!-- BACKPACK 2 (oxygen, between paramedics) -->
-          <g class="layer layer-front" data-depth="1.15" transform="translate(245 525)">
-            <ellipse cx="0" cy="50" rx="38" ry="6" fill="rgba(0,0,0,0.6)"/>
-            <rect x="-32" y="-26" width="64" height="70" rx="8" fill="#1f3148" stroke="#2a3550" stroke-width="1.5"/>
-            <rect x="-32" y="-26" width="64" height="18" rx="8" fill="#0e1420"/>
-            <!-- O2 label -->
-            <text x="0" y="20" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="800" font-size="20" fill="#fff">O₂</text>
-            <line x1="-22" y1="32" x2="22" y2="32" stroke="#2a3550" stroke-width="1"/>
-          </g>
-
-          <!-- DEFIBRILLATOR (AED) on ground right of paramedic 2 -->
-          <g class="layer layer-front" data-depth="1.1" transform="translate(440 510)">
-            <ellipse cx="0" cy="50" rx="38" ry="6" fill="rgba(0,0,0,0.6)"/>
-            <rect x="-30" y="-20" width="60" height="60" rx="6" fill="#e0c000" stroke="#a08800"/>
-            <rect x="-26" y="-16" width="52" height="22" rx="2" fill="#0a0e14"/>
-            <polyline points="-22,-5 -16,-5 -13,-12 -10,2 -7,-8 -4,-5 22,-5" stroke="#16a34a" stroke-width="1.5" fill="none"/>
-            <path d="M 0 16 C -3 10 -10 12 -10 18 C -10 24 0 30 0 30 C 0 30 10 24 10 18 C 10 12 3 10 0 16 Z" fill="#ff3543"/>
-            <text x="0" y="48" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="7" fill="#0a0e14" letter-spacing="0.5">AED</text>
-          </g>
-
-          <!-- O2 BOTTLE next to ambulance -->
-          <g class="layer layer-front" data-depth="1.0" transform="translate(510 480)">
-            <ellipse cx="0" cy="85" rx="20" ry="5" fill="rgba(0,0,0,0.6)"/>
-            <rect x="-12" y="-30" width="24" height="115" rx="12" fill="#2c5a8a" stroke="#1a3a5a"/>
-            <rect x="-10" y="-30" width="20" height="20" rx="6" fill="#1a3a5a"/>
-            <rect x="-3" y="-38" width="6" height="12" fill="#3a4150"/>
-            <text x="0" y="30" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="800" font-size="11" fill="#fff">O₂</text>
-          </g>
-
-          <!-- MONITOR -->
-          <g class="layer layer-front" data-depth="1.05" transform="translate(940 470)">
-            <ellipse cx="0" cy="85" rx="40" ry="6" fill="rgba(0,0,0,0.6)"/>
-            <rect x="-35" y="-20" width="70" height="100" rx="6" fill="#1a2030" stroke="#2a3140"/>
-            <rect x="-30" y="-14" width="60" height="38" rx="2" fill="#0a0e14"/>
-            <polyline points="-26,8 -20,8 -16,-2 -12,16 -8,2 -4,8 26,8" stroke="#16a34a" stroke-width="1.5" fill="none"/>
-            <text x="0" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" fill="#98a2b3">HR 78 · SpO₂ 98</text>
-            <rect x="-28" y="48" width="56" height="28" rx="2" fill="#0e131d"/>
-            <circle cx="-18" cy="62" r="3" fill="#ff3543"/>
-            <circle cx="-6" cy="62" r="3" fill="#16a34a"/>
-            <circle cx="6" cy="62" r="3" fill="#e0c000"/>
-            <circle cx="18" cy="62" r="3" fill="#3a4150"/>
-          </g>
-
-          <!-- IMMOBILIZATION BOARD leaning on ambulance -->
-          <g class="layer layer-front" data-depth="0.95" transform="translate(1080 380)">
-            <rect x="-12" y="0" width="24" height="170" rx="3" fill="#e0a020" transform="rotate(8 0 85)"/>
-          </g>
-        </svg>
+        <div class="scene-photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Foto sanitky a tímu — exteriér
+        </div>
 
         <!-- Exterior hotspots -->
         <button class="hotspot" style="left:71%;top:42%" data-key="ambulance" data-action="interior"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_ambulance">Sanitka — kliknite pre interiér</span></button>
@@ -1401,98 +1178,10 @@
 
       <!-- INTERIOR SCENE -->
       <div class="scene" id="sceneInterior">
-        <svg class="scene-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <defs>
-            <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1f2737"/><stop offset="100%" stop-color="#141a26"/></linearGradient>
-            <linearGradient id="floor-in" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a2030"/><stop offset="100%" stop-color="#0a0e14"/></linearGradient>
-            <linearGradient id="cabinet" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#26303f"/><stop offset="100%" stop-color="#161d28"/></linearGradient>
-          </defs>
-          <polygon points="200,80 1000,80 1100,560 100,560" fill="url(#wall)"/>
-          <polygon points="100,560 1100,560 1200,700 0,700" fill="url(#floor-in)"/>
-          <rect x="500" y="80" width="200" height="14" rx="3" fill="#fff" opacity="0.85"/>
-          <ellipse cx="600" cy="120" rx="180" ry="40" fill="rgba(225,29,42,0.18)" filter="url(#none)"/>
-
-          <!-- Left cabinet wall -->
-          <g class="layer">
-            <rect x="100" y="180" width="240" height="380" fill="url(#cabinet)" stroke="#2a3140"/>
-            <rect x="115" y="195" width="100" height="120" rx="3" fill="#1f2737" stroke="#3a4150"/>
-            <rect x="225" y="195" width="100" height="120" rx="3" fill="#1f2737" stroke="#3a4150"/>
-            <rect x="115" y="325" width="100" height="100" rx="3" fill="#1f2737" stroke="#3a4150"/>
-            <rect x="225" y="325" width="100" height="100" rx="3" fill="#1f2737" stroke="#3a4150"/>
-            <rect x="115" y="435" width="210" height="115" rx="3" fill="#1f2737" stroke="#3a4150"/>
-            <rect x="160" y="252" width="12" height="3" fill="#3a4150"/>
-            <rect x="270" y="252" width="12" height="3" fill="#3a4150"/>
-            <rect x="160" y="372" width="12" height="3" fill="#3a4150"/>
-            <rect x="270" y="372" width="12" height="3" fill="#3a4150"/>
-            <rect x="130" y="210" width="20" height="40" rx="3" fill="#0a0e14" opacity="0.6"/>
-            <rect x="155" y="210" width="20" height="40" rx="3" fill="#0a0e14" opacity="0.6"/>
-            <rect x="180" y="210" width="20" height="40" rx="3" fill="#0a0e14" opacity="0.6"/>
-            <g transform="translate(220 480)">
-              <rect x="-15" y="-5" width="30" height="10" fill="#ff3543"/>
-              <rect x="-5" y="-15" width="10" height="30" fill="#ff3543"/>
-            </g>
-          </g>
-
-          <!-- Right cabinet wall with monitor -->
-          <g class="layer">
-            <rect x="860" y="180" width="240" height="380" fill="url(#cabinet)" stroke="#2a3140"/>
-            <rect x="900" y="200" width="160" height="110" rx="4" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/>
-            <rect x="910" y="210" width="140" height="80" rx="2" fill="#0e131d"/>
-            <polyline points="915,260 935,260 945,235 955,280 965,250 975,260 1045,260" stroke="#16a34a" stroke-width="1.5" fill="none"/>
-            <text x="980" y="285" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#98a2b3">HR 78 · SpO₂ 98 · BP 120/80</text>
-            <rect x="875" y="320" width="210" height="80" fill="#1f2737" stroke="#3a4150"/>
-            <rect x="880" y="328" width="60" height="64" rx="3" fill="#e0a020"/>
-            <text x="910" y="365" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="8" fill="#0a0e14">FAST</text>
-            <rect x="945" y="328" width="60" height="64" rx="3" fill="#e0c000"/>
-            <path d="M 975 350 C 972 344 965 346 965 352 C 965 358 975 364 975 364 C 975 364 985 358 985 352 C 985 346 978 344 975 350 Z" fill="#ff3543"/>
-            <rect x="1010" y="328" width="60" height="64" rx="3" fill="#1f3148"/>
-            <text x="1040" y="365" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="800" font-size="13" fill="#fff">O₂</text>
-            <rect x="875" y="410" width="210" height="60" fill="#1f2737" stroke="#3a4150"/>
-            <rect x="875" y="475" width="210" height="60" fill="#1f2737" stroke="#3a4150"/>
-            <line x1="880" y1="440" x2="1080" y2="440" stroke="#3a4150"/>
-            <line x1="880" y1="505" x2="1080" y2="505" stroke="#3a4150"/>
-          </g>
-
-          <!-- stretcher in center -->
-          <g class="layer" transform="translate(600 460)">
-            <ellipse cx="0" cy="120" rx="240" ry="14" fill="rgba(0,0,0,0.6)"/>
-            <rect x="-220" y="40" width="440" height="20" rx="6" fill="#1a2030" stroke="#3a4150"/>
-            <rect x="-210" y="0" width="420" height="48" rx="10" fill="#22293a" stroke="#3a4150"/>
-            <rect x="-160" y="-2" width="14" height="52" fill="#ff3543" opacity="0.85"/>
-            <rect x="50" y="-2" width="14" height="52" fill="#ff3543" opacity="0.85"/>
-            <ellipse cx="-180" cy="14" rx="35" ry="12" fill="#3a4565"/>
-            <rect x="-200" y="60" width="6" height="60" fill="#2a3140"/>
-            <rect x="194" y="60" width="6" height="60" fill="#2a3140"/>
-            <circle cx="-197" cy="120" r="10" fill="#0a0e14" stroke="#3a4150" stroke-width="1.5"/>
-            <circle cx="197" cy="120" r="10" fill="#0a0e14" stroke="#3a4150" stroke-width="1.5"/>
-          </g>
-
-          <!-- ceiling rail with IV -->
-          <g class="layer">
-            <line x1="400" y1="90" x2="800" y2="90" stroke="#3a4150" stroke-width="3"/>
-            <line x1="500" y1="90" x2="500" y2="150" stroke="#3a4150" stroke-width="1.5"/>
-            <rect x="488" y="150" width="24" height="40" rx="3" fill="#1a2030" stroke="#3a4150"/>
-            <ellipse cx="500" cy="170" rx="6" ry="14" fill="#3a4565" opacity="0.5"/>
-          </g>
-
-          <!-- AED on side bench -->
-          <g class="layer" transform="translate(420 540)">
-            <ellipse cx="0" cy="40" rx="50" ry="6" fill="rgba(0,0,0,0.6)"/>
-            <rect x="-40" y="-30" width="80" height="70" rx="6" fill="#e0c000" stroke="#a08800"/>
-            <rect x="-34" y="-24" width="68" height="28" rx="2" fill="#0a0e14"/>
-            <polyline points="-28,-8 -20,-8 -16,-18 -10,4 -4,-10 0,-8 30,-8" stroke="#16a34a" stroke-width="1.5" fill="none"/>
-            <path d="M 0 14 C -4 7 -13 9 -13 17 C -13 24 0 32 0 32 C 0 32 13 24 13 17 C 13 9 4 7 0 14 Z" fill="#ff3543"/>
-          </g>
-
-          <!-- intubation kit -->
-          <g class="layer" transform="translate(770 555)">
-            <ellipse cx="0" cy="30" rx="40" ry="5" fill="rgba(0,0,0,0.6)"/>
-            <rect x="-36" y="-18" width="72" height="44" rx="4" fill="#1a2540" stroke="#2a3550"/>
-            <rect x="-36" y="-18" width="72" height="12" rx="4" fill="#0e1420"/>
-            <line x1="-28" y1="-1" x2="28" y2="-1" stroke="#2a3550"/>
-            <line x1="-28" y1="11" x2="28" y2="11" stroke="#2a3550"/>
-          </g>
-        </svg>
+        <div class="scene-photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Foto interiéru sanitky
+        </div>
 
         <!-- Interior hotspots -->
         <button class="hotspot" style="left:50%;top:69%" data-key="stretcher"><span class="hs-dot"></span><span class="hs-label" data-i18n="eq_h_stretch">Profesionálne nosidlá</span></button>
@@ -1715,13 +1404,8 @@
     <div class="ft-grid">
       <div class="ft-col ft-about">
         <a href="#top" class="logo">
-          <div class="logo-mark">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6V2z"/></svg>
-          </div>
-          <div class="logo-text">
-            <div class="name">ID<span>Care</span></div>
-            <div class="sub">Záchranná služba</div>
-          </div>
+          <img src="logo.png" alt="IDCare" class="logo-img">
+          <span class="logo-sub">Záchranná<br>služba</span>
         </a>
         <p data-i18n="ft_about">Profesionálna zdravotná služba a kurzy prvej pomoci. Vždy pripravení pomôcť.</p>
         <div class="ft-social">
@@ -2119,19 +1803,19 @@ const EQ_DETAILS = {
 // Detailed vector illustrations of each piece of equipment
 // =============================================================
 const EQ_PREVIEWS = {
-  ambulance:`<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="abp" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1f2737"/><stop offset="100%" stop-color="#141a26"/></linearGradient></defs><ellipse cx="200" cy="240" rx="170" ry="10" fill="rgba(0,0,0,0.55)"/><g transform="translate(40 60)"><rect x="100" y="6" width="80" height="14" rx="2" fill="#ff3543"/><rect x="106" y="9" width="14" height="8" fill="#fff" opacity="0.8"/><rect x="160" y="9" width="14" height="8" fill="#fff" opacity="0.8"/><rect x="0" y="22" width="320" height="148" rx="10" fill="url(#abp)" stroke="#2a3140"/><rect x="0" y="22" width="320" height="34" rx="10" fill="#ff3543"/><rect x="0" y="42" width="320" height="14" fill="#ff3543"/><path d="M 0 60 Q 0 46 14 46 L 90 46 L 120 100 L 120 170 L 0 170 Z" fill="#0e131d"/><path d="M 14 60 L 90 60 L 110 96 L 14 96 Z" fill="#0a0e14"/><rect x="135" y="64" width="100" height="50" rx="2" fill="#0a0e14"/><rect x="240" y="64" width="80" height="106" rx="2" fill="#161b2a" stroke="#2a3140"/><line x1="280" y1="64" x2="280" y2="170" stroke="#2a3140"/><rect x="250" y="78" width="24" height="32" rx="1" fill="#0a0e14"/><rect x="286" y="78" width="24" height="32" rx="1" fill="#0a0e14"/><g transform="translate(180 130)"><rect x="-22" y="-7" width="44" height="14" fill="#ff3543"/><rect x="-7" y="-22" width="14" height="44" fill="#ff3543"/></g><text x="135" y="150" font-family="Space Grotesk" font-weight="800" font-size="14" fill="#fff" letter-spacing="1">IDCARE</text><text x="135" y="162" font-family="Inter" font-weight="600" font-size="7" fill="#98a2b3" letter-spacing="2">ZÁCHRANNÁ SLUŽBA</text><circle cx="55" cy="180" r="22" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/><circle cx="55" cy="180" r="12" fill="#1a2030"/><circle cx="55" cy="180" r="3" fill="#3a4150"/><circle cx="260" cy="180" r="22" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/><circle cx="260" cy="180" r="12" fill="#1a2030"/><circle cx="260" cy="180" r="3" fill="#3a4150"/><ellipse cx="3" cy="125" rx="4" ry="14" fill="#ffd76b" opacity="0.5"/></g></svg>`,
-  paramedic1:`<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="100" cy="262" rx="55" ry="8" fill="rgba(0,0,0,0.55)"/><rect x="80" y="170" width="18" height="86" rx="3" fill="#0e1420"/><rect x="102" y="170" width="18" height="86" rx="3" fill="#0e1420"/><rect x="74" y="251" width="24" height="11" rx="2" fill="#000"/><rect x="102" y="251" width="24" height="11" rx="2" fill="#000"/><path d="M 70 78 Q 70 66 82 66 L 118 66 Q 130 66 130 78 L 132 175 L 68 175 Z" fill="#162540"/><rect x="68" y="112" width="64" height="6" fill="#ff3543"/><rect x="68" y="140" width="64" height="3" fill="rgba(255,255,255,0.35)"/><g transform="translate(100 95)"><rect x="-13" y="-4" width="26" height="8" fill="#ff3543"/><rect x="-4" y="-13" width="8" height="26" fill="#ff3543"/></g><rect x="58" y="70" width="14" height="65" rx="6" fill="#162540"/><rect x="128" y="70" width="14" height="65" rx="6" fill="#162540"/><circle cx="65" cy="140" r="10" fill="#1a2540"/><circle cx="135" cy="140" r="10" fill="#1a2540"/><rect x="93" y="54" width="14" height="14" fill="#2a3550"/><circle cx="100" cy="38" r="22" fill="#2a3550"/><ellipse cx="95" cy="32" rx="11" ry="5" fill="rgba(255,255,255,0.1)"/><rect x="105" y="90" width="16" height="20" rx="1" fill="#fff" opacity="0.9"/><line x1="108" y1="96" x2="118" y2="96" stroke="#162540" stroke-width="0.6"/><line x1="108" y1="100" x2="118" y2="100" stroke="#162540" stroke-width="0.6"/><line x1="108" y1="104" x2="115" y2="104" stroke="#162540" stroke-width="0.6"/></svg>`,
-  backpack1:`<svg viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bp1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a2540"/><stop offset="100%" stop-color="#0e1420"/></linearGradient></defs><ellipse cx="120" cy="245" rx="80" ry="9" fill="rgba(0,0,0,0.55)"/><rect x="50" y="55" width="140" height="180" rx="14" fill="url(#bp1g)" stroke="#2a3550" stroke-width="2"/><rect x="50" y="55" width="140" height="36" rx="14" fill="#0a0f1a"/><rect x="56" y="55" width="14" height="180" fill="#0a0f1a"/><rect x="170" y="55" width="14" height="180" fill="#0a0f1a"/><g transform="translate(120 138)"><rect x="-30" y="-9" width="60" height="18" fill="#ff3543"/><rect x="-9" y="-30" width="18" height="60" fill="#ff3543"/></g><line x1="60" y1="195" x2="180" y2="195" stroke="#2a3550" stroke-width="1.5"/><rect x="80" y="205" width="80" height="22" rx="3" fill="#0e1420" stroke="#2a3550"/><circle cx="110" cy="216" r="3" fill="#3a4150"/><circle cx="130" cy="216" r="3" fill="#3a4150"/><rect x="64" y="75" width="112" height="8" rx="4" fill="#3a4150"/><circle cx="75" cy="79" r="2.5" fill="#fff"/><rect x="60" y="105" width="120" height="2" fill="#2a3550"/><rect x="60" y="170" width="120" height="2" fill="#2a3550"/></svg>`,
+  ambulance:`<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="abp" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1f2737"/><stop offset="100%" stop-color="#141a26"/></linearGradient></defs><ellipse cx="200" cy="240" rx="170" ry="10" fill="rgba(0,0,0,0.55)"/><g transform="translate(40 60)"><rect x="100" y="6" width="80" height="14" rx="2" fill="#ff5a33"/><rect x="106" y="9" width="14" height="8" fill="#fff" opacity="0.8"/><rect x="160" y="9" width="14" height="8" fill="#fff" opacity="0.8"/><rect x="0" y="22" width="320" height="148" rx="10" fill="url(#abp)" stroke="#2a3140"/><rect x="0" y="22" width="320" height="34" rx="10" fill="#ff5a33"/><rect x="0" y="42" width="320" height="14" fill="#ff5a33"/><path d="M 0 60 Q 0 46 14 46 L 90 46 L 120 100 L 120 170 L 0 170 Z" fill="#0e131d"/><path d="M 14 60 L 90 60 L 110 96 L 14 96 Z" fill="#0a0e14"/><rect x="135" y="64" width="100" height="50" rx="2" fill="#0a0e14"/><rect x="240" y="64" width="80" height="106" rx="2" fill="#161b2a" stroke="#2a3140"/><line x1="280" y1="64" x2="280" y2="170" stroke="#2a3140"/><rect x="250" y="78" width="24" height="32" rx="1" fill="#0a0e14"/><rect x="286" y="78" width="24" height="32" rx="1" fill="#0a0e14"/><g transform="translate(180 130)"><rect x="-22" y="-7" width="44" height="14" fill="#ff5a33"/><rect x="-7" y="-22" width="14" height="44" fill="#ff5a33"/></g><text x="135" y="150" font-family="Space Grotesk" font-weight="800" font-size="14" fill="#fff" letter-spacing="1">IDCARE</text><text x="135" y="162" font-family="Inter" font-weight="600" font-size="7" fill="#98a2b3" letter-spacing="2">ZÁCHRANNÁ SLUŽBA</text><circle cx="55" cy="180" r="22" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/><circle cx="55" cy="180" r="12" fill="#1a2030"/><circle cx="55" cy="180" r="3" fill="#3a4150"/><circle cx="260" cy="180" r="22" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/><circle cx="260" cy="180" r="12" fill="#1a2030"/><circle cx="260" cy="180" r="3" fill="#3a4150"/><ellipse cx="3" cy="125" rx="4" ry="14" fill="#ffd76b" opacity="0.5"/></g></svg>`,
+  paramedic1:`<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="100" cy="262" rx="55" ry="8" fill="rgba(0,0,0,0.55)"/><rect x="80" y="170" width="18" height="86" rx="3" fill="#0e1420"/><rect x="102" y="170" width="18" height="86" rx="3" fill="#0e1420"/><rect x="74" y="251" width="24" height="11" rx="2" fill="#000"/><rect x="102" y="251" width="24" height="11" rx="2" fill="#000"/><path d="M 70 78 Q 70 66 82 66 L 118 66 Q 130 66 130 78 L 132 175 L 68 175 Z" fill="#162540"/><rect x="68" y="112" width="64" height="6" fill="#ff5a33"/><rect x="68" y="140" width="64" height="3" fill="rgba(255,255,255,0.35)"/><g transform="translate(100 95)"><rect x="-13" y="-4" width="26" height="8" fill="#ff5a33"/><rect x="-4" y="-13" width="8" height="26" fill="#ff5a33"/></g><rect x="58" y="70" width="14" height="65" rx="6" fill="#162540"/><rect x="128" y="70" width="14" height="65" rx="6" fill="#162540"/><circle cx="65" cy="140" r="10" fill="#1a2540"/><circle cx="135" cy="140" r="10" fill="#1a2540"/><rect x="93" y="54" width="14" height="14" fill="#2a3550"/><circle cx="100" cy="38" r="22" fill="#2a3550"/><ellipse cx="95" cy="32" rx="11" ry="5" fill="rgba(255,255,255,0.1)"/><rect x="105" y="90" width="16" height="20" rx="1" fill="#fff" opacity="0.9"/><line x1="108" y1="96" x2="118" y2="96" stroke="#162540" stroke-width="0.6"/><line x1="108" y1="100" x2="118" y2="100" stroke="#162540" stroke-width="0.6"/><line x1="108" y1="104" x2="115" y2="104" stroke="#162540" stroke-width="0.6"/></svg>`,
+  backpack1:`<svg viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bp1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a2540"/><stop offset="100%" stop-color="#0e1420"/></linearGradient></defs><ellipse cx="120" cy="245" rx="80" ry="9" fill="rgba(0,0,0,0.55)"/><rect x="50" y="55" width="140" height="180" rx="14" fill="url(#bp1g)" stroke="#2a3550" stroke-width="2"/><rect x="50" y="55" width="140" height="36" rx="14" fill="#0a0f1a"/><rect x="56" y="55" width="14" height="180" fill="#0a0f1a"/><rect x="170" y="55" width="14" height="180" fill="#0a0f1a"/><g transform="translate(120 138)"><rect x="-30" y="-9" width="60" height="18" fill="#ff5a33"/><rect x="-9" y="-30" width="18" height="60" fill="#ff5a33"/></g><line x1="60" y1="195" x2="180" y2="195" stroke="#2a3550" stroke-width="1.5"/><rect x="80" y="205" width="80" height="22" rx="3" fill="#0e1420" stroke="#2a3550"/><circle cx="110" cy="216" r="3" fill="#3a4150"/><circle cx="130" cy="216" r="3" fill="#3a4150"/><rect x="64" y="75" width="112" height="8" rx="4" fill="#3a4150"/><circle cx="75" cy="79" r="2.5" fill="#fff"/><rect x="60" y="105" width="120" height="2" fill="#2a3550"/><rect x="60" y="170" width="120" height="2" fill="#2a3550"/></svg>`,
   backpack2:`<svg viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bp2g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1f3148"/><stop offset="100%" stop-color="#0e1420"/></linearGradient></defs><ellipse cx="120" cy="245" rx="80" ry="9" fill="rgba(0,0,0,0.55)"/><rect x="50" y="55" width="140" height="180" rx="14" fill="url(#bp2g)" stroke="#2a3550" stroke-width="2"/><rect x="50" y="55" width="140" height="36" rx="14" fill="#0a0f1a"/><rect x="56" y="55" width="14" height="180" fill="#0a0f1a"/><rect x="170" y="55" width="14" height="180" fill="#0a0f1a"/><text x="120" y="160" text-anchor="middle" font-family="Space Grotesk" font-weight="800" font-size="48" fill="#fff">O₂</text><text x="120" y="178" text-anchor="middle" font-family="Inter" font-weight="600" font-size="9" fill="rgba(255,255,255,0.5)" letter-spacing="2">PORTABLE</text><line x1="60" y1="200" x2="180" y2="200" stroke="#2a3550"/><circle cx="100" cy="218" r="6" fill="#1a3a5a" stroke="#3a4150"/><circle cx="120" cy="218" r="6" fill="#3a4150"/><circle cx="140" cy="218" r="6" fill="#1a3a5a" stroke="#3a4150"/></svg>`,
-  aed:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="aedg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f0d020"/><stop offset="100%" stop-color="#c0a000"/></linearGradient></defs><ellipse cx="200" cy="270" rx="140" ry="10" fill="rgba(0,0,0,0.55)"/><g transform="translate(80 50)"><rect width="240" height="210" rx="14" fill="url(#aedg)" stroke="#8a7800" stroke-width="2"/><rect x="20" y="20" width="200" height="80" rx="4" fill="#0a0e14"/><polyline points="30,72 60,72 70,52 85,92 100,42 115,72 210,72" stroke="#16a34a" stroke-width="2" fill="none"/><text x="35" y="38" fill="#16a34a" font-family="monospace" font-size="10">HR 78</text><text x="155" y="38" fill="#16a34a" font-family="monospace" font-size="10">SpO₂ 98</text><circle cx="60" cy="135" r="16" fill="#ff3543" stroke="#a8121d" stroke-width="2"/><text x="60" y="139" text-anchor="middle" fill="#fff" font-size="9" font-weight="800">ON</text><circle cx="120" cy="135" r="16" fill="#1a2030" stroke="#3a4150" stroke-width="2"/><path d="M 113 130 L 120 142 L 127 130 L 121 130 L 121 124 L 119 124 L 119 130 Z" fill="#ff3543"/><circle cx="180" cy="135" r="16" fill="#1a2030" stroke="#3a4150" stroke-width="2"/><text x="180" y="141" text-anchor="middle" fill="#98a2b3" font-size="15" font-weight="700">i</text><rect x="20" y="160" width="200" height="22" rx="3" fill="#0a0e14"/><g fill="#605000"><circle cx="40" cy="171" r="2"/><circle cx="55" cy="171" r="2"/><circle cx="70" cy="171" r="2"/><circle cx="85" cy="171" r="2"/><circle cx="100" cy="171" r="2"/><circle cx="115" cy="171" r="2"/><circle cx="130" cy="171" r="2"/><circle cx="145" cy="171" r="2"/></g><text x="120" y="200" text-anchor="middle" font-family="Space Grotesk" font-weight="800" font-size="14" fill="#0a0e14" letter-spacing="2">AED</text></g><g transform="translate(60 270)"><rect width="50" height="22" rx="6" fill="#fff" stroke="#3a4150"/><text x="25" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#0a0e14">+</text></g><g transform="translate(290 270)"><rect width="50" height="22" rx="6" fill="#fff" stroke="#3a4150"/><text x="25" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#0a0e14">−</text></g><path d="M 110 265 Q 130 270 150 275" stroke="#fff" stroke-width="2.5" fill="none"/><path d="M 290 265 Q 270 270 250 275" stroke="#fff" stroke-width="2.5" fill="none"/></svg>`,
+  aed:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="aedg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f0d020"/><stop offset="100%" stop-color="#c0a000"/></linearGradient></defs><ellipse cx="200" cy="270" rx="140" ry="10" fill="rgba(0,0,0,0.55)"/><g transform="translate(80 50)"><rect width="240" height="210" rx="14" fill="url(#aedg)" stroke="#8a7800" stroke-width="2"/><rect x="20" y="20" width="200" height="80" rx="4" fill="#0a0e14"/><polyline points="30,72 60,72 70,52 85,92 100,42 115,72 210,72" stroke="#16a34a" stroke-width="2" fill="none"/><text x="35" y="38" fill="#16a34a" font-family="monospace" font-size="10">HR 78</text><text x="155" y="38" fill="#16a34a" font-family="monospace" font-size="10">SpO₂ 98</text><circle cx="60" cy="135" r="16" fill="#ff5a33" stroke="#b32000" stroke-width="2"/><text x="60" y="139" text-anchor="middle" fill="#fff" font-size="9" font-weight="800">ON</text><circle cx="120" cy="135" r="16" fill="#1a2030" stroke="#3a4150" stroke-width="2"/><path d="M 113 130 L 120 142 L 127 130 L 121 130 L 121 124 L 119 124 L 119 130 Z" fill="#ff5a33"/><circle cx="180" cy="135" r="16" fill="#1a2030" stroke="#3a4150" stroke-width="2"/><text x="180" y="141" text-anchor="middle" fill="#98a2b3" font-size="15" font-weight="700">i</text><rect x="20" y="160" width="200" height="22" rx="3" fill="#0a0e14"/><g fill="#605000"><circle cx="40" cy="171" r="2"/><circle cx="55" cy="171" r="2"/><circle cx="70" cy="171" r="2"/><circle cx="85" cy="171" r="2"/><circle cx="100" cy="171" r="2"/><circle cx="115" cy="171" r="2"/><circle cx="130" cy="171" r="2"/><circle cx="145" cy="171" r="2"/></g><text x="120" y="200" text-anchor="middle" font-family="Space Grotesk" font-weight="800" font-size="14" fill="#0a0e14" letter-spacing="2">AED</text></g><g transform="translate(60 270)"><rect width="50" height="22" rx="6" fill="#fff" stroke="#3a4150"/><text x="25" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#0a0e14">+</text></g><g transform="translate(290 270)"><rect width="50" height="22" rx="6" fill="#fff" stroke="#3a4150"/><text x="25" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#0a0e14">−</text></g><path d="M 110 265 Q 130 270 150 275" stroke="#fff" stroke-width="2.5" fill="none"/><path d="M 290 265 Q 270 270 250 275" stroke="#fff" stroke-width="2.5" fill="none"/></svg>`,
   oxygen:`<svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="oxg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3a6a9a"/><stop offset="40%" stop-color="#2c5a8a"/><stop offset="100%" stop-color="#1a3a5a"/></linearGradient></defs><ellipse cx="100" cy="295" rx="50" ry="9" fill="rgba(0,0,0,0.55)"/><rect x="65" y="62" width="70" height="222" rx="32" fill="url(#oxg)" stroke="#0e1420" stroke-width="2"/><rect x="65" y="62" width="70" height="38" rx="32" fill="#0e1420"/><rect x="80" y="32" width="40" height="34" rx="6" fill="#3a4150"/><circle cx="100" cy="48" r="9" fill="#0a0e14"/><circle cx="100" cy="48" r="4" fill="#3a4150"/><rect x="92" y="20" width="16" height="14" fill="#3a4150"/><rect x="60" y="22" width="6" height="20" rx="2" fill="#3a4150"/><circle cx="55" cy="32" r="9" fill="#1a2030" stroke="#3a4150"/><text x="55" y="36" text-anchor="middle" font-size="9" font-weight="700" fill="#16a34a" font-family="monospace">15</text><text x="100" y="200" text-anchor="middle" font-family="Space Grotesk" font-weight="800" font-size="32" fill="#fff">O₂</text><text x="100" y="222" text-anchor="middle" font-family="Inter" font-size="10" fill="rgba(255,255,255,0.6)" letter-spacing="2">10 L · 200 bar</text><line x1="75" y1="240" x2="125" y2="240" stroke="rgba(255,255,255,0.15)"/><line x1="75" y1="252" x2="125" y2="252" stroke="rgba(255,255,255,0.15)"/></svg>`,
-  monitor:`<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="200" cy="262" rx="130" ry="10" fill="rgba(0,0,0,0.55)"/><rect x="80" y="40" width="240" height="200" rx="8" fill="#1a2030" stroke="#2a3140" stroke-width="2"/><rect x="100" y="60" width="200" height="100" rx="4" fill="#0a0e14" stroke="#3a4150"/><polyline points="105,110 130,110 140,82 155,138 170,90 185,110 295,110" stroke="#16a34a" stroke-width="2" fill="none"/><polyline points="105,135 295,135" stroke="#e0c000" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/><text x="115" y="78" fill="#16a34a" font-family="monospace" font-size="10" font-weight="700">HR 78</text><text x="175" y="78" fill="#e0c000" font-family="monospace" font-size="10" font-weight="700">SpO₂ 98%</text><text x="245" y="78" fill="#ff3543" font-family="monospace" font-size="10" font-weight="700">BP 120/80</text><text x="115" y="155" fill="#98a2b3" font-family="monospace" font-size="8">II · 25 mm/s</text><rect x="100" y="170" width="200" height="58" rx="3" fill="#0e131d"/><circle cx="118" cy="190" r="5" fill="#ff3543"/><text x="130" y="194" fill="#fff" font-family="Inter" font-size="9" font-weight="600">ALARM</text><circle cx="118" cy="210" r="5" fill="#16a34a"/><text x="130" y="214" fill="#fff" font-family="Inter" font-size="9" font-weight="600">REC</text><rect x="200" y="180" width="40" height="20" rx="3" fill="#1a2030" stroke="#3a4150"/><text x="220" y="194" text-anchor="middle" fill="#98a2b3" font-size="9" font-weight="600">MENU</text><rect x="245" y="180" width="40" height="20" rx="3" fill="#1a2030" stroke="#3a4150"/><text x="265" y="194" text-anchor="middle" fill="#98a2b3" font-size="9" font-weight="600">SET</text><rect x="200" y="205" width="85" height="20" rx="3" fill="#1a2030" stroke="#3a4150"/><text x="242" y="219" text-anchor="middle" fill="#98a2b3" font-size="9" font-weight="600">PRINT</text></svg>`,
+  monitor:`<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="200" cy="262" rx="130" ry="10" fill="rgba(0,0,0,0.55)"/><rect x="80" y="40" width="240" height="200" rx="8" fill="#1a2030" stroke="#2a3140" stroke-width="2"/><rect x="100" y="60" width="200" height="100" rx="4" fill="#0a0e14" stroke="#3a4150"/><polyline points="105,110 130,110 140,82 155,138 170,90 185,110 295,110" stroke="#16a34a" stroke-width="2" fill="none"/><polyline points="105,135 295,135" stroke="#e0c000" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/><text x="115" y="78" fill="#16a34a" font-family="monospace" font-size="10" font-weight="700">HR 78</text><text x="175" y="78" fill="#e0c000" font-family="monospace" font-size="10" font-weight="700">SpO₂ 98%</text><text x="245" y="78" fill="#ff5a33" font-family="monospace" font-size="10" font-weight="700">BP 120/80</text><text x="115" y="155" fill="#98a2b3" font-family="monospace" font-size="8">II · 25 mm/s</text><rect x="100" y="170" width="200" height="58" rx="3" fill="#0e131d"/><circle cx="118" cy="190" r="5" fill="#ff5a33"/><text x="130" y="194" fill="#fff" font-family="Inter" font-size="9" font-weight="600">ALARM</text><circle cx="118" cy="210" r="5" fill="#16a34a"/><text x="130" y="214" fill="#fff" font-family="Inter" font-size="9" font-weight="600">REC</text><rect x="200" y="180" width="40" height="20" rx="3" fill="#1a2030" stroke="#3a4150"/><text x="220" y="194" text-anchor="middle" fill="#98a2b3" font-size="9" font-weight="600">MENU</text><rect x="245" y="180" width="40" height="20" rx="3" fill="#1a2030" stroke="#3a4150"/><text x="265" y="194" text-anchor="middle" fill="#98a2b3" font-size="9" font-weight="600">SET</text><rect x="200" y="205" width="85" height="20" rx="3" fill="#1a2030" stroke="#3a4150"/><text x="242" y="219" text-anchor="middle" fill="#98a2b3" font-size="9" font-weight="600">PRINT</text></svg>`,
   board:`<svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="255" rx="100" ry="9" fill="rgba(0,0,0,0.55)"/><g transform="translate(150 140) rotate(-10)"><rect x="-52" y="-114" width="104" height="228" rx="10" fill="#e0a020" stroke="#a08000" stroke-width="2"/><rect x="-46" y="-104" width="92" height="208" rx="6" fill="none" stroke="#a08000" stroke-width="1" stroke-dasharray="4,3"/><line x1="-50" y1="-70" x2="50" y2="-70" stroke="#0a0e14" stroke-width="2.5"/><line x1="-50" y1="-30" x2="50" y2="-30" stroke="#0a0e14" stroke-width="2.5"/><line x1="-50" y1="10" x2="50" y2="10" stroke="#0a0e14" stroke-width="2.5"/><line x1="-50" y1="50" x2="50" y2="50" stroke="#0a0e14" stroke-width="2.5"/><line x1="-50" y1="90" x2="50" y2="90" stroke="#0a0e14" stroke-width="2.5"/><circle cx="-42" cy="-104" r="5" fill="#0a0e14"/><circle cx="42" cy="-104" r="5" fill="#0a0e14"/><circle cx="-42" cy="104" r="5" fill="#0a0e14"/><circle cx="42" cy="104" r="5" fill="#0a0e14"/><circle cx="-42" cy="0" r="5" fill="#0a0e14"/><circle cx="42" cy="0" r="5" fill="#0a0e14"/></g></svg>`,
-  stretcher:`<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="200" cy="262" rx="160" ry="10" fill="rgba(0,0,0,0.55)"/><g transform="translate(200 160)"><rect x="-170" y="20" width="340" height="20" rx="6" fill="#1a2030" stroke="#3a4150" stroke-width="2"/><rect x="-160" y="-20" width="320" height="42" rx="10" fill="#22293a" stroke="#3a4150"/><rect x="-130" y="-22" width="14" height="46" fill="#ff3543"/><rect x="36" y="-22" width="14" height="46" fill="#ff3543"/><ellipse cx="-140" cy="-5" rx="28" ry="10" fill="#3a4565"/><rect x="-150" y="40" width="6" height="50" fill="#2a3140"/><rect x="144" y="40" width="6" height="50" fill="#2a3140"/><line x1="-150" y1="60" x2="150" y2="60" stroke="#3a4150" stroke-width="2"/><rect x="-100" y="65" width="40" height="14" rx="2" fill="#3a4150"/><circle cx="-147" cy="95" r="13" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/><circle cx="-147" cy="95" r="5" fill="#3a4150"/><circle cx="147" cy="95" r="13" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/><circle cx="147" cy="95" r="5" fill="#3a4150"/></g></svg>`,
-  i_drugs:`<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="200" cy="248" rx="140" ry="10" fill="rgba(0,0,0,0.55)"/><g transform="translate(60 50)"><rect width="280" height="180" rx="10" fill="#e0a020" stroke="#a08000" stroke-width="2"/><rect width="280" height="40" rx="10" fill="#c08000"/><text x="140" y="28" text-anchor="middle" font-family="Space Grotesk" font-weight="800" font-size="16" fill="#0a0e14" letter-spacing="2">FAST KIT</text><g transform="translate(140 95)"><rect x="-22" y="-7" width="44" height="14" fill="#ff3543"/><rect x="-7" y="-22" width="14" height="44" fill="#ff3543"/></g><rect x="20" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><rect x="65" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><rect x="110" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><rect x="155" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><rect x="200" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><text x="40" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">ADR</text><text x="85" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">ATR</text><text x="130" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">AMI</text><text x="175" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">FUR</text><text x="220" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">DIA</text><line x1="40" y1="156" x2="50" y2="160" stroke="#0a0e14" stroke-width="1.5"/><line x1="85" y1="156" x2="95" y2="160" stroke="#0a0e14" stroke-width="1.5"/><line x1="130" y1="156" x2="140" y2="160" stroke="#0a0e14" stroke-width="1.5"/><line x1="175" y1="156" x2="185" y2="160" stroke="#0a0e14" stroke-width="1.5"/></g></svg>`,
+  stretcher:`<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="200" cy="262" rx="160" ry="10" fill="rgba(0,0,0,0.55)"/><g transform="translate(200 160)"><rect x="-170" y="20" width="340" height="20" rx="6" fill="#1a2030" stroke="#3a4150" stroke-width="2"/><rect x="-160" y="-20" width="320" height="42" rx="10" fill="#22293a" stroke="#3a4150"/><rect x="-130" y="-22" width="14" height="46" fill="#ff5a33"/><rect x="36" y="-22" width="14" height="46" fill="#ff5a33"/><ellipse cx="-140" cy="-5" rx="28" ry="10" fill="#3a4565"/><rect x="-150" y="40" width="6" height="50" fill="#2a3140"/><rect x="144" y="40" width="6" height="50" fill="#2a3140"/><line x1="-150" y1="60" x2="150" y2="60" stroke="#3a4150" stroke-width="2"/><rect x="-100" y="65" width="40" height="14" rx="2" fill="#3a4150"/><circle cx="-147" cy="95" r="13" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/><circle cx="-147" cy="95" r="5" fill="#3a4150"/><circle cx="147" cy="95" r="13" fill="#0a0e14" stroke="#3a4150" stroke-width="2"/><circle cx="147" cy="95" r="5" fill="#3a4150"/></g></svg>`,
+  i_drugs:`<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="200" cy="248" rx="140" ry="10" fill="rgba(0,0,0,0.55)"/><g transform="translate(60 50)"><rect width="280" height="180" rx="10" fill="#e0a020" stroke="#a08000" stroke-width="2"/><rect width="280" height="40" rx="10" fill="#c08000"/><text x="140" y="28" text-anchor="middle" font-family="Space Grotesk" font-weight="800" font-size="16" fill="#0a0e14" letter-spacing="2">FAST KIT</text><g transform="translate(140 95)"><rect x="-22" y="-7" width="44" height="14" fill="#ff5a33"/><rect x="-7" y="-22" width="14" height="44" fill="#ff5a33"/></g><rect x="20" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><rect x="65" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><rect x="110" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><rect x="155" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><rect x="200" y="135" width="40" height="32" rx="2" fill="#fff" opacity="0.95"/><text x="40" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">ADR</text><text x="85" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">ATR</text><text x="130" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">AMI</text><text x="175" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">FUR</text><text x="220" y="149" text-anchor="middle" font-size="8" font-weight="700" fill="#0a0e14">DIA</text><line x1="40" y1="156" x2="50" y2="160" stroke="#0a0e14" stroke-width="1.5"/><line x1="85" y1="156" x2="95" y2="160" stroke="#0a0e14" stroke-width="1.5"/><line x1="130" y1="156" x2="140" y2="160" stroke="#0a0e14" stroke-width="1.5"/><line x1="175" y1="156" x2="185" y2="160" stroke="#0a0e14" stroke-width="1.5"/></g></svg>`,
   i_intubation:`<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><ellipse cx="200" cy="248" rx="140" ry="10" fill="rgba(0,0,0,0.55)"/><g transform="translate(50 50)"><rect width="300" height="180" rx="8" fill="#1a2540" stroke="#3a4565" stroke-width="2"/><rect width="300" height="36" rx="8" fill="#0e1420"/><text x="150" y="24" text-anchor="middle" font-family="Inter" font-weight="700" font-size="11" fill="#98a2b3" letter-spacing="2">INTUBATION KIT</text><rect x="20" y="55" width="14" height="80" rx="3" fill="#3a4150"/><path d="M 27 135 L 27 158 L 65 158 L 65 148" stroke="#3a4150" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="34" cy="55" r="6" fill="#e0c000"/><circle cx="34" cy="55" r="2" fill="#fff"/><path d="M 80 70 Q 80 65 86 65 L 178 65 Q 184 65 184 70 Q 184 75 178 75 L 86 75 L 86 130 L 168 130 L 168 75" fill="rgba(255,255,255,0.85)" stroke="#3a4150"/><circle cx="172" cy="130" r="6" fill="rgba(255,255,255,0.85)" stroke="#3a4150"/><path d="M 100 80 L 165 80 L 165 122 L 100 122 Z" fill="rgba(255,255,255,0.5)"/><rect x="200" y="80" width="80" height="14" fill="#fff" stroke="#3a4150"/><rect x="276" y="83" width="14" height="8" fill="#3a4150"/><line x1="220" y1="80" x2="220" y2="94" stroke="#3a4150" stroke-width="0.5"/><line x1="240" y1="80" x2="240" y2="94" stroke="#3a4150" stroke-width="0.5"/><line x1="260" y1="80" x2="260" y2="94" stroke="#3a4150" stroke-width="0.5"/><circle cx="190" cy="87" r="3" fill="#3a4150"/><path d="M 200 110 Q 240 125 280 138" stroke="#605060" stroke-width="3" fill="none"/></g></svg>`,
   i_iv:`<svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg"><ellipse cx="100" cy="305" rx="40" ry="7" fill="rgba(0,0,0,0.55)"/><rect x="40" y="282" width="120" height="14" rx="3" fill="#2a3140"/><circle cx="55" cy="289" r="6" fill="#1a2030" stroke="#3a4150"/><circle cx="145" cy="289" r="6" fill="#1a2030" stroke="#3a4150"/><rect x="93" y="80" width="14" height="202" fill="#3a4150"/><rect x="60" y="20" width="80" height="18" rx="4" fill="#3a4150"/><line x1="80" y1="38" x2="80" y2="80" stroke="#3a4150" stroke-width="2.5"/><line x1="120" y1="38" x2="120" y2="80" stroke="#3a4150" stroke-width="2.5"/><path d="M 60 90 L 140 90 L 130 168 L 70 168 Z" fill="rgba(180,200,220,0.85)" stroke="#3a4565" stroke-width="2"/><rect x="95" y="80" width="10" height="14" fill="#3a4150"/><text x="100" y="120" text-anchor="middle" font-family="Inter" font-weight="700" font-size="11" fill="#0a0e14">NaCl 0.9%</text><text x="100" y="140" text-anchor="middle" font-family="Inter" font-size="9" fill="#0a0e14">500 ml</text><line x1="74" y1="155" x2="86" y2="155" stroke="#0a0e14"/><line x1="74" y1="160" x2="86" y2="160" stroke="#0a0e14"/><path d="M 100 168 Q 100 200 130 240" stroke="#fff" stroke-width="2.5" fill="none"/><rect x="123" y="195" width="14" height="14" rx="2" fill="#3a4150"/><circle cx="130" cy="240" r="3" fill="#3a4150"/></svg>`,
-  i_cabinet:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="20" width="360" height="260" rx="6" fill="#26303f" stroke="#3a4150" stroke-width="2"/><rect x="35" y="35" width="160" height="100" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="205" y="35" width="160" height="100" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="35" y="145" width="80" height="80" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="125" y="145" width="80" height="80" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="215" y="145" width="80" height="80" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="305" y="145" width="60" height="80" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="35" y="235" width="330" height="30" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="55" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="75" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="95" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="115" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="135" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="155" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="220" y="55" width="40" height="30" rx="3" fill="#fff" opacity="0.85"/><rect x="265" y="55" width="40" height="30" rx="3" fill="#fff" opacity="0.85"/><rect x="220" y="90" width="40" height="30" rx="3" fill="#fff" opacity="0.85"/><rect x="265" y="90" width="40" height="30" rx="3" fill="#fff" opacity="0.85"/><g transform="translate(340 85)"><rect x="-12" y="-4" width="24" height="8" fill="#ff3543"/><rect x="-4" y="-12" width="8" height="24" fill="#ff3543"/></g><rect x="115" y="83" width="10" height="3" fill="#3a4150"/><rect x="285" y="83" width="10" height="3" fill="#3a4150"/><rect x="85" y="180" width="10" height="3" fill="#3a4150"/><rect x="175" y="180" width="10" height="3" fill="#3a4150"/><rect x="265" y="180" width="10" height="3" fill="#3a4150"/><rect x="335" y="180" width="10" height="3" fill="#3a4150"/></svg>`,
+  i_cabinet:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="20" width="360" height="260" rx="6" fill="#26303f" stroke="#3a4150" stroke-width="2"/><rect x="35" y="35" width="160" height="100" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="205" y="35" width="160" height="100" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="35" y="145" width="80" height="80" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="125" y="145" width="80" height="80" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="215" y="145" width="80" height="80" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="305" y="145" width="60" height="80" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="35" y="235" width="330" height="30" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="55" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="75" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="95" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="115" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="135" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="155" y="55" width="14" height="60" rx="2" fill="#0a0e14"/><rect x="220" y="55" width="40" height="30" rx="3" fill="#fff" opacity="0.85"/><rect x="265" y="55" width="40" height="30" rx="3" fill="#fff" opacity="0.85"/><rect x="220" y="90" width="40" height="30" rx="3" fill="#fff" opacity="0.85"/><rect x="265" y="90" width="40" height="30" rx="3" fill="#fff" opacity="0.85"/><g transform="translate(340 85)"><rect x="-12" y="-4" width="24" height="8" fill="#ff5a33"/><rect x="-4" y="-12" width="8" height="24" fill="#ff5a33"/></g><rect x="115" y="83" width="10" height="3" fill="#3a4150"/><rect x="285" y="83" width="10" height="3" fill="#3a4150"/><rect x="85" y="180" width="10" height="3" fill="#3a4150"/><rect x="175" y="180" width="10" height="3" fill="#3a4150"/><rect x="265" y="180" width="10" height="3" fill="#3a4150"/><rect x="335" y="180" width="10" height="3" fill="#3a4150"/></svg>`,
   i_drawers:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="20" width="360" height="260" rx="6" fill="#26303f" stroke="#3a4150" stroke-width="2"/><rect x="35" y="35" width="330" height="46" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="35" y="86" width="330" height="46" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="35" y="137" width="330" height="46" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="35" y="188" width="330" height="46" rx="3" fill="#1f2737" stroke="#3a4150"/><rect x="35" y="239" width="330" height="26" rx="3" fill="#1f2737" stroke="#3a4150"/><line x1="180" y1="58" x2="220" y2="58" stroke="#3a4150" stroke-width="3" stroke-linecap="round"/><line x1="180" y1="109" x2="220" y2="109" stroke="#3a4150" stroke-width="3" stroke-linecap="round"/><line x1="180" y1="160" x2="220" y2="160" stroke="#3a4150" stroke-width="3" stroke-linecap="round"/><line x1="180" y1="211" x2="220" y2="211" stroke="#3a4150" stroke-width="3" stroke-linecap="round"/><rect x="45" y="48" width="60" height="20" rx="3" fill="#0e131d"/><text x="75" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#98a2b3">STRIEK</text><rect x="45" y="99" width="60" height="20" rx="3" fill="#0e131d"/><text x="75" y="113" text-anchor="middle" font-size="9" font-weight="700" fill="#98a2b3">GÁZA</text><rect x="45" y="150" width="60" height="20" rx="3" fill="#0e131d"/><text x="75" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#98a2b3">RUKAV</text><rect x="45" y="201" width="60" height="20" rx="3" fill="#0e131d"/><text x="75" y="215" text-anchor="middle" font-size="9" font-weight="700" fill="#98a2b3">MASKY</text><rect x="295" y="58" width="30" height="5" fill="#fff" opacity="0.7"/><rect x="330" y="58" width="20" height="5" fill="#fff" opacity="0.7"/><rect x="295" y="109" width="50" height="5" fill="#fff" opacity="0.85"/><rect x="295" y="160" width="40" height="5" fill="#1f3148"/><rect x="295" y="211" width="40" height="5" fill="#e0c000"/></svg>`
 };
 // Reuse same illustrations
@@ -2230,31 +1914,6 @@ document.querySelectorAll('.hotspot').forEach(h=>{
 document.getElementById('eqModalClose').addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
-
-// Subtle parallax tilt for active scene based on mouse position
-sceneStage.addEventListener('mousemove', e=>{
-  const r = sceneStage.getBoundingClientRect();
-  const px = (e.clientX - r.left) / r.width - 0.5;
-  const py = (e.clientY - r.top) / r.height - 0.5;
-  const rx = px * 1.8;
-  const ry = -py * 1.2;
-  sceneStage.querySelectorAll('.scene.scene-active .scene-svg').forEach(svg=>{
-    svg.style.setProperty('--rx', rx + 'deg');
-    svg.style.setProperty('--ry', ry + 'deg');
-  });
-  sceneStage.querySelectorAll('.scene.scene-active .layer').forEach(layer=>{
-    const d = parseFloat(layer.dataset.depth || 0.5);
-    layer.style.transform = `translate(${px * d * 8}px, ${py * d * 5}px)`;
-  });
-});
-sceneStage.addEventListener('mouseleave', ()=>{
-  sceneStage.querySelectorAll('.scene-svg').forEach(svg=>{
-    svg.style.removeProperty('--rx'); svg.style.removeProperty('--ry');
-  });
-  sceneStage.querySelectorAll('.layer').forEach(layer=>{
-    layer.style.transform = '';
-  });
-});
 
 // Re-apply translations after extending dict
 setLang(document.documentElement.lang || 'sk');
